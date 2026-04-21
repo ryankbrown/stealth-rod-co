@@ -1,0 +1,73 @@
+---
+description: Stealth Rod Co project context and conventions
+alwaysApply: true
+---
+
+# Stealth Rod Co — Dev Workspace
+
+## What this project is
+This is a **build workspace**, not the production site. The production site is built in **Webflow**. This repo exists to:
+- Write and test custom JS and SCSS with proper tooling (modules, hot reload, etc.)
+- Use Astro pages as a dummy markup test harness
+- Output a compiled `bundle.js` and `bundle.css` that get manually pasted into Webflow when dev is complete
+- During development, Netlify hosts the built bundle so Webflow can pull the script remotely via a `<script src="...">` tag
+
+## Project structure
+```
+src/
+  pages/
+    index.astro        # Test harness — dummy markup mirroring Webflow DOM
+  scripts/
+    main.js            # JS entry point (what gets pasted into Webflow)
+  styles/
+    main.scss          # SCSS entry point (what gets pasted into Webflow)
+    _variables.scss    # SCSS variables
+build.js               # esbuild script — outputs public/bundle.js + public/bundle.css
+netlify.toml           # Build config for Netlify
+```
+
+## Build commands
+- `npm run dev` — Astro dev server with hot reload
+- `npm run build:webflow` — runs esbuild only, outputs public/bundle.js + public/bundle.css
+- `npm run build` — runs esbuild then Astro build (used by Netlify)
+
+## Netlify deploy
+- Git push to main triggers a Netlify deploy
+- Built bundle is served at: `https://[site].netlify.app/bundle.js` and `/bundle.css`
+- These URLs are stable across deploys (no hash in filename)
+- `public/bundle.js` and `public/bundle.css` are gitignored — they are always built fresh
+
+## JS conventions
+- `src/scripts/main.js` is the entry point — import all modules from here
+- Use ES modules (`import`/`export`) — esbuild bundles everything
+- No jQuery — vanilla JS only
+- Wrap init logic in `DOMContentLoaded` to account for Webflow's load timing
+- Modules live in `src/scripts/modules/`
+
+## SCSS conventions
+- `src/styles/main.scss` is the entry point — use `@use` to pull in partials
+- Partials live in `src/styles/` and are prefixed with `_`
+- Use BEM naming: `.block__element--modifier`
+- Use CSS custom properties for values that need to be overridable from Webflow (e.g. `var(--nav-btn-line-color, #222)`)
+- Avoid global resets or base styles — Webflow has its own, only write additive styles
+
+## Webflow context
+- The production site is in Webflow — this workspace produces assets for it
+- Webflow injects jQuery globally — do not conflict with it
+- Avoid `w-nav`, `w-nav-menu`, `w-nav-button` classes — these trigger Webflow's built-in navbar JS
+- Custom components use a plain `div` root wrapper (not a Webflow Navbar component) to avoid class conflict restrictions
+- The root element of a Webflow component cannot be freely classed — put a child `div` inside and style that instead
+
+## Accessibility conventions
+- SVG icons used as decorative elements: `aria-hidden="true" focusable="false"`
+- SVG icons that are the only label for a button: use `aria-label` on the `<button>`, not on the SVG
+- Headings that mix HTML text and SVG text art: use `aria-label` on the heading element with the full readable statement
+- Toggle buttons (e.g. menu open/close): use `aria-expanded` toggled between `"true"` / `"false"` via JS
+- `transform-box: fill-box` required on SVG elements using CSS `transform-origin: center center`
+
+## Nav component
+- Custom-built (not Webflow Navbar component)
+- Menu button is a `<button>` with `aria-label`, `aria-expanded`, and `aria-controls`
+- Open state is driven by a custom class toggled via JS (not `w--open`)
+- SVG menu icon uses two `<path>` elements animated with CSS `translate`, `rotate`, and `transform-box: fill-box`
+- CSS custom property `--nav-btn-line-color` controls stroke color with fallback `#222`
