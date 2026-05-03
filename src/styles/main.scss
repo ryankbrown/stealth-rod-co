@@ -1,6 +1,8 @@
 @use "variables";
-@use "main-nav";
-@use "utilities";
+
+
+
+
 
 // Stealth Rod Co — Webflow CSS entry
 
@@ -9,14 +11,73 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-
-.product-card__buy-button-holder {
-	outline: none;
-	max-width: unset !important;
+@view-transtion {
+	navigation: auto;
 }
 
-.product-card__buy-button-holder iframe {
-	flex: 1;
-	height: 100% !important;
+// - - - Main Nav - - - 
+.main-nav {
+	&__line {
+		translate: 0 var(--tY);
+		rotate: var(--r);
+		transform-box: fill-box;
+		transform-origin: center center;
+		
+		&--01 {
+			--tY: -10%;
+			--r: 0deg;
+			
+			.is-active & {
+				--r: 45deg;
+				--tY: 0;
+			}
+		}
+		&--02 {
+			--tY: 10%;
+			--r: 0deg;
+			
+			.is-active & {
+				--r: 45deg;
+				--tY: 0;
+			}
+		}
+	}
+	
+	&.is-active {
+		background: red;
+	}
+	
+	&__overlay {
+		display: block;
+		opacity: 0;
+		transition: 
+			opacity 0.3s ease-in-out, 
+			scale 0.3s ease-in-out;
+		pointer-events: none;
+		scale: 1.05;
+		
+		.is-active & {
+			opacity: 1;
+			transition: all 0.3s ease-in-out;
+			scale: 1;
+			pointer-events: auto;
+		}
+	}
+}
+
+
+
+
+
+// - - - Product Cards - - - 
+.product-card {
+	&__buy-button-holder {
+		outline: none;
+		max-width: unset !important;
+	}
+	&__buy-button-holder iframe {
+		flex: 1;
+		height: 100% !important;
+	}
 }
 

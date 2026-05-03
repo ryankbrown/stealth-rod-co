@@ -1,73 +1,73 @@
 /* Stealth Rod Co - Utopia Fluid Type
   https://utopia.fyi/type/calculator?c=360,16,1.2,2560,20,1.2,10,5,&s=0.75|0.5|0.25,1.5|2|3|4|6|8|10.5,s-l&g=s,l,xl,12 */
 
-:root {
-	--flsz--5: clamp(0.4019rem, 0.3854rem + 0.0731vw, 0.5023rem);
-	--flsz--4: clamp(0.4823rem, 0.4625rem + 0.0877vw, 0.6028rem);
-	--flsz--3: clamp(0.5787rem, 0.555rem + 0.1052vw, 0.7234rem);
-	--flsz--2: clamp(0.6944rem, 0.666rem + 0.1263vw, 0.8681rem);
-	--flsz--1: clamp(0.8333rem, 0.7992rem + 0.1515vw, 1.0417rem);
-	--flsz-0: clamp(1rem, 0.9591rem + 0.1818vw, 1.25rem);
-	--flsz-1: clamp(1.2rem, 1.1509rem + 0.2182vw, 1.5rem);
-	--flsz-2: clamp(1.44rem, 1.3811rem + 0.2618vw, 1.8rem);
-	--flsz-3: clamp(1.728rem, 1.6573rem + 0.3142vw, 2.16rem);
-	--flsz-4: clamp(2.0736rem, 1.9888rem + 0.377vw, 2.592rem);
-	--flsz-5: clamp(2.4883rem, 2.3865rem + 0.4524vw, 3.1104rem);
-	--flsz-6: clamp(2.986rem, 2.8638rem + 0.5429vw, 3.7325rem);
-	--flsz-7: clamp(3.5832rem, 3.4366rem + 0.6515vw, 4.479rem);
-	--flsz-8: clamp(4.2998rem, 4.1239rem + 0.7818vw, 5.3748rem);
-	--flsz-9: clamp(5.1598rem, 4.9487rem + 0.9381vw, 6.4497rem);
-	--flsz-10: clamp(6.1917rem, 5.9384rem + 1.1258vw, 7.7397rem);
+// :root {
+// 	--flsz--5: clamp(0.4019rem, 0.3854rem + 0.0731vw, 0.5023rem);
+// 	--flsz--4: clamp(0.4823rem, 0.4625rem + 0.0877vw, 0.6028rem);
+// 	--flsz--3: clamp(0.5787rem, 0.555rem + 0.1052vw, 0.7234rem);
+// 	--flsz--2: clamp(0.6944rem, 0.666rem + 0.1263vw, 0.8681rem);
+// 	--flsz--1: clamp(0.8333rem, 0.7992rem + 0.1515vw, 1.0417rem);
+// 	--flsz-0: clamp(1rem, 0.9591rem + 0.1818vw, 1.25rem);
+// 	--flsz-1: clamp(1.2rem, 1.1509rem + 0.2182vw, 1.5rem);
+// 	--flsz-2: clamp(1.44rem, 1.3811rem + 0.2618vw, 1.8rem);
+// 	--flsz-3: clamp(1.728rem, 1.6573rem + 0.3142vw, 2.16rem);
+// 	--flsz-4: clamp(2.0736rem, 1.9888rem + 0.377vw, 2.592rem);
+// 	--flsz-5: clamp(2.4883rem, 2.3865rem + 0.4524vw, 3.1104rem);
+// 	--flsz-6: clamp(2.986rem, 2.8638rem + 0.5429vw, 3.7325rem);
+// 	--flsz-7: clamp(3.5832rem, 3.4366rem + 0.6515vw, 4.479rem);
+// 	--flsz-8: clamp(4.2998rem, 4.1239rem + 0.7818vw, 5.3748rem);
+// 	--flsz-9: clamp(5.1598rem, 4.9487rem + 0.9381vw, 6.4497rem);
+// 	--flsz-10: clamp(6.1917rem, 5.9384rem + 1.1258vw, 7.7397rem);
 
-	/* Font Spaces */
-	--flspc-3xs: clamp(0.25rem, 0.2398rem + 0.0455vw, 0.3125rem);
-	--flspc-2xs: clamp(0.5rem, 0.4795rem + 0.0909vw, 0.625rem);
-	--flspc-xs: clamp(0.75rem, 0.7193rem + 0.1364vw, 0.9375rem);
-	--flspc-s: clamp(1rem, 0.9591rem + 0.1818vw, 1.25rem);
-	--flspc-m: clamp(1.5rem, 1.4386rem + 0.2727vw, 1.875rem);
-	--flspc-l: clamp(2rem, 1.9182rem + 0.3636vw, 2.5rem);
-	--flspc-xl: clamp(3rem, 2.8773rem + 0.5455vw, 3.75rem);
-	--flspc-2xl: clamp(4rem, 3.8364rem + 0.7273vw, 5rem);
-	--flspc-3xl: clamp(6rem, 5.7545rem + 1.0909vw, 7.5rem);
-	--flspc-4xl: clamp(8rem, 7.6727rem + 1.4545vw, 10rem);
-	--flspc-5xl: clamp(10.5rem, 10.0705rem + 1.9091vw, 13.125rem);
+// 	/* Font Spaces */
+// 	--flspc-3xs: clamp(0.25rem, 0.2398rem + 0.0455vw, 0.3125rem);
+// 	--flspc-2xs: clamp(0.5rem, 0.4795rem + 0.0909vw, 0.625rem);
+// 	--flspc-xs: clamp(0.75rem, 0.7193rem + 0.1364vw, 0.9375rem);
+// 	--flspc-s: clamp(1rem, 0.9591rem + 0.1818vw, 1.25rem);
+// 	--flspc-m: clamp(1.5rem, 1.4386rem + 0.2727vw, 1.875rem);
+// 	--flspc-l: clamp(2rem, 1.9182rem + 0.3636vw, 2.5rem);
+// 	--flspc-xl: clamp(3rem, 2.8773rem + 0.5455vw, 3.75rem);
+// 	--flspc-2xl: clamp(4rem, 3.8364rem + 0.7273vw, 5rem);
+// 	--flspc-3xl: clamp(6rem, 5.7545rem + 1.0909vw, 7.5rem);
+// 	--flspc-4xl: clamp(8rem, 7.6727rem + 1.4545vw, 10rem);
+// 	--flspc-5xl: clamp(10.5rem, 10.0705rem + 1.9091vw, 13.125rem);
 
-	/* One-up pairs */
-	--flspc-3xs-2xs: clamp(0.25rem, 0.1886rem + 0.2727vw, 0.625rem);
-	--flspc-2xs-xs: clamp(0.5rem, 0.4284rem + 0.3182vw, 0.9375rem);
-	--flspc-xs-s: clamp(0.75rem, 0.6682rem + 0.3636vw, 1.25rem);
-	--flspc-s-m: clamp(1rem, 0.8568rem + 0.6364vw, 1.875rem);
-	--flspc-m-l: clamp(1.5rem, 1.3364rem + 0.7273vw, 2.5rem);
-	--flspc-l-xl: clamp(2rem, 1.7136rem + 1.2727vw, 3.75rem);
-	--flspc-xl-2xl: clamp(3rem, 2.6727rem + 1.4545vw, 5rem);
-	--flspc-2xl-3xl: clamp(4rem, 3.4273rem + 2.5455vw, 7.5rem);
-	--flspc-3xl-4xl: clamp(6rem, 5.3455rem + 2.9091vw, 10rem);
-	--flspc-4xl-5xl: clamp(8rem, 7.1614rem + 3.7273vw, 13.125rem);
+// 	/* One-up pairs */
+// 	--flspc-3xs-2xs: clamp(0.25rem, 0.1886rem + 0.2727vw, 0.625rem);
+// 	--flspc-2xs-xs: clamp(0.5rem, 0.4284rem + 0.3182vw, 0.9375rem);
+// 	--flspc-xs-s: clamp(0.75rem, 0.6682rem + 0.3636vw, 1.25rem);
+// 	--flspc-s-m: clamp(1rem, 0.8568rem + 0.6364vw, 1.875rem);
+// 	--flspc-m-l: clamp(1.5rem, 1.3364rem + 0.7273vw, 2.5rem);
+// 	--flspc-l-xl: clamp(2rem, 1.7136rem + 1.2727vw, 3.75rem);
+// 	--flspc-xl-2xl: clamp(3rem, 2.6727rem + 1.4545vw, 5rem);
+// 	--flspc-2xl-3xl: clamp(4rem, 3.4273rem + 2.5455vw, 7.5rem);
+// 	--flspc-3xl-4xl: clamp(6rem, 5.3455rem + 2.9091vw, 10rem);
+// 	--flspc-4xl-5xl: clamp(8rem, 7.1614rem + 3.7273vw, 13.125rem);
 
-	/* Custom pairs */
-	--flspc-s-l: clamp(1rem, 0.7545rem + 1.0909vw, 2.5rem);
+// 	/* Custom pairs */
+// 	--flspc-s-l: clamp(1rem, 0.7545rem + 1.0909vw, 2.5rem);
 
-	/* Content Container Max Widths — Stealth Rod Co
-   Viewport: 360px–2560px */
-	--flcntmx-prose: clamp(30rem, 28.6364rem + 6.0606vw, 42.5rem);
-	--flcntmx-text: clamp(35rem, 33.2727rem + 7.6818vw, 52.5rem);
-	--flcntmx-narrow: clamp(40rem, 38.1818rem + 8.0909vw, 60rem);
-	--flcntmx-s: clamp(48rem, 45.8182rem + 9.697vw, 67.5rem);
-	--flcntmx-m: clamp(60rem, 57.2727rem + 12.1212vw, 80rem);
-	--flcntmx-l: clamp(68.75rem, 65.5682rem + 14.2045vw, 90rem);
-	--flcntmx-xl: clamp(80rem, 76.3636rem + 16.1616vw, 100rem);
-	--flcntmx-2xl: clamp(90rem, 85.9091rem + 18.1818vw, 120rem);
-	--flcntmx-full: clamp(100rem, 95.4545rem + 20.202vw, 150rem);
+// 	/* Content Container Max Widths — Stealth Rod Co
+//    Viewport: 360px–2560px */
+// 	--flcntmx-prose: clamp(30rem, 28.6364rem + 6.0606vw, 42.5rem);
+// 	--flcntmx-text: clamp(35rem, 33.2727rem + 7.6818vw, 52.5rem);
+// 	--flcntmx-narrow: clamp(40rem, 38.1818rem + 8.0909vw, 60rem);
+// 	--flcntmx-s: clamp(48rem, 45.8182rem + 9.697vw, 67.5rem);
+// 	--flcntmx-m: clamp(60rem, 57.2727rem + 12.1212vw, 80rem);
+// 	--flcntmx-l: clamp(68.75rem, 65.5682rem + 14.2045vw, 90rem);
+// 	--flcntmx-xl: clamp(80rem, 76.3636rem + 16.1616vw, 100rem);
+// 	--flcntmx-2xl: clamp(90rem, 85.9091rem + 18.1818vw, 120rem);
+// 	--flcntmx-full: clamp(100rem, 95.4545rem + 20.202vw, 150rem);
 
-	/* General Fluid Widths — Stealth Rod Co
-   Viewport: 360px–2560px */
-	--flw-3xs: clamp(5rem, 4.7727rem + 1.0101vw, 7.5rem);
-	--flw-2xs: clamp(7.5rem, 7.1591rem + 1.5152vw, 11.25rem);
-	--flw-xs: clamp(11.25rem, 10.7386rem + 2.2727vw, 16.25rem);
-	--flw-s: clamp(15rem, 14.3182rem + 3.0303vw, 22.5rem);
-	--flw-m: clamp(20rem, 19.0909rem + 4.0404vw, 30rem);
-	--flw-l: clamp(27.5rem, 26.25rem + 5.5556vw, 40rem);
-	--flw-xl: clamp(35rem, 33.4091rem + 7.0707vw, 50rem);
-	--flw-2xl: clamp(45rem, 42.9545rem + 9.0909vw, 65rem);
-	--flw-3xl: clamp(60rem, 57.2727rem + 12.1212vw, 80rem);
-}
+// 	/* General Fluid Widths — Stealth Rod Co
+//    Viewport: 360px–2560px */
+// 	--flw-3xs: clamp(5rem, 4.7727rem + 1.0101vw, 7.5rem);
+// 	--flw-2xs: clamp(7.5rem, 7.1591rem + 1.5152vw, 11.25rem);
+// 	--flw-xs: clamp(11.25rem, 10.7386rem + 2.2727vw, 16.25rem);
+// 	--flw-s: clamp(15rem, 14.3182rem + 3.0303vw, 22.5rem);
+// 	--flw-m: clamp(20rem, 19.0909rem + 4.0404vw, 30rem);
+// 	--flw-l: clamp(27.5rem, 26.25rem + 5.5556vw, 40rem);
+// 	--flw-xl: clamp(35rem, 33.4091rem + 7.0707vw, 50rem);
+// 	--flw-2xl: clamp(45rem, 42.9545rem + 9.0909vw, 65rem);
+// 	--flw-3xl: clamp(60rem, 57.2727rem + 12.1212vw, 80rem);
+// }
