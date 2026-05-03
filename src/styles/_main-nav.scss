@@ -1,28 +1,50 @@
 @use "variables" as *;
 
-/* Main Nav Styles */
-.main-nav__btn-line {
-	translate: 0 var(--tY);
-	rotate: var(--r);
-	transform-box: fill-box;
-	transform-origin: center center;
-}
-.main-nav__btn-line--01 {
-	--tY: -10%;
-	--r: 0deg;
-}
-.main-nav__btn-line--02 {
-	--tY: 10%;
-	--r: 0deg;
+
+
+.main-nav {
+	
+	&__line {
+		translate: 0 var(--tY);
+		rotate: var(--r);
+		transform-box: fill-box;
+		transform-origin: center center;
+		
+		&--01 {
+			--tY: -10%;
+			--r: 0deg;
+		}
+		&--02 {
+			--tY: 10%;
+			--r: 0deg;
+		}
+	}
 }
 
-.active {
-	& > .main-nav__btn-line--01 {
-		--tY: 0;
-		--r: 45deg;
-	}
-	& > .main-nav__btn-line--02 {
-		--tY: 0;
-		--r: -45deg;
-	}
-}
+
+/* Main Nav Styles */
+// .main-nav__btn-line {
+// 	translate: 0 var(--tY);
+// 	rotate: var(--r);
+// 	transform-box: fill-box;
+// 	transform-origin: center center;
+// }
+// .main-nav__btn-line--01 {
+// 	--tY: -10%;
+// 	--r: 0deg;
+// }
+// .main-nav__btn-line--02 {
+// 	--tY: 10%;
+// 	--r: 0deg;
+// }
+
+// .active {
+// 	& > .main-nav__btn-line--01 {
+// 		--tY: 0;
+// 		--r: 45deg;
+// 	}
+// 	& > .main-nav__btn-line--02 {
+// 		--tY: 0;
+// 		--r: -45deg;
+// 	}
+// }

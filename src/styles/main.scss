@@ -1,6 +1,6 @@
-@use "variables" as *;
-@use "main-nav" as *;
-@use "utilities" as *;
+@use "variables";
+@use "main-nav";
+@use "utilities";
 
 // Stealth Rod Co — Webflow CSS entry
 
@@ -19,3 +19,4 @@
 	flex: 1;
 	height: 100% !important;
 }
+
