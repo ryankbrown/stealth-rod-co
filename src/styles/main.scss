@@ -17,11 +17,12 @@
 
 // - - - Main Nav - - - 
 .main-nav {
-	&__line {
+	&__btn-line {
 		translate: 0 var(--tY);
 		rotate: var(--r);
 		transform-box: fill-box;
 		transform-origin: center center;
+		
 		
 		&--01 {
 			--tY: -10%;
@@ -42,6 +43,9 @@
 			}
 		}
 	}
+	
+	
+	
 	
 	&.is-active {
 		background: red;
