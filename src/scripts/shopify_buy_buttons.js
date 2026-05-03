@@ -57,7 +57,7 @@
 										"font-family":
 											"Bebas Neue, Droid Sans, sans-serif",
 										"font-size":
-											"clamp(1.44rem, 1.3811rem + .2618vw, 1.8rem)",
+											"clamp(1.728rem, 1.6573rem + 0.3142vw, 2.16rem)",
 										"padding-top": "15px",
 										"padding-bottom": "15px",
 										"margin-top": "0px",

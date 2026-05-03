@@ -13,3 +13,7 @@
 .product-card__buy-button-holder {
 	outline: none;
 }
+
+.product-card__buy-button-holder iframe {
+	height: 100% !important;
+}

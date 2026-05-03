@@ -78,22 +78,29 @@
 											// },
 											"buttonWrapper": {
 												"margin-top": "0px",
+												"height": "clamp(2.0736rem, 1.9888rem + 0.377vw, 2.592rem)"
 											},
 											"button": {
 												"font-family": "Bebas Neue, Helvetica, Arial, sans-serif",
-												"font-size": "clamp(1.44rem, 1.3811rem + .2618vw, 1.8rem)",
+												"font-size": "clamp(1.728rem, 1.6573rem + 0.3142vw, 2.16rem)",
 												"letter-spacing": "0.0625rem",
 												"line-height": "1",
-												"padding-top": "0px",
-												"padding-bottom": "0px",
-												"padding-left": "0px",
-												"padding-right": "0px",
+												// "padding": "clamp(1.2rem, 1.1509rem + 0.2182vw, 1.5rem)",
+												"padding": "0px",
 												"background-color": "transparent",
+												
+												"border-width": "1px",
+												"border-style": "solid",
+												"border-color": "#6d6e72",
+												
 												"color": "#6d6e72",
 												"transition": "all 0.3s ease-in-out",
 												"scale": "1",
 												"opacity": ".5",
+												
 												"width": "100%",
+												"height": "100%",
+												
 												"display": "flex",
 												"justify-content": "center",
 												"align-items": "center",
@@ -103,19 +110,22 @@
 													"background-color": "#D3242B",
 													"color": "#FFFFFF",
 													"scale": "1.05",
-													"opacity": "1"
+													"opacity": "1",
+													"border-color": "#D3242B",
 												},
 												
 												":focus": {
 													"background-color": "#D3242B",
 													"color": "#FFFFFF",
 													"scale": "1.05",
-													"opacity": "1"
+													"opacity": "1",
+													"border-color": "#D3242B",
 												},
 												// Disabled Styles
 												":disabled" : {
 													"background-color": "transparent",
-													"opacity": ".25"
+													"opacity": ".25",
+													"font-size": "clamp(1rem, 0.9591rem + 0.1818vw, 1.25rem)"
 												},
 												
 												"@media (min-width: 479px)": {
