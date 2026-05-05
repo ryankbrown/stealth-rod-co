@@ -5,7 +5,7 @@ import { writeFileSync, mkdirSync } from 'fs';
 mkdirSync('public', { recursive: true });
 
 await esbuild.build({
-  entryPoints: ['src/scripts/main.js'],
+  entryPoints: ['src/scripts/src_init.js'],
   bundle: true,
   minify: true,
   outfile: 'public/bundle.js',

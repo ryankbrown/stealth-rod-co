@@ -1,9 +1,4 @@
 @use "variables";
-
-
-
-
-
 // Stealth Rod Co — Webflow CSS entry
 
 * {
@@ -15,41 +10,39 @@
 	navigation: auto;
 }
 
+body[data-fixed-content-styles="light-on-dark"] {
+	--color--fixed-content--primary: white;
+}
+
+body[data-fixed-content-styles="dark-on-light"] {
+	--color--fixed-content--primary: black;
+}
+
+
 // - - - Main Nav - - - 
 .main-nav {
 	&__btn-line {
-		translate: 0 var(--tY);
-		rotate: var(--r);
-		transform-box: fill-box;
+		
+		rotate: 0deg;
 		transform-origin: center center;
-		
-		
+		transition: all 0.3s ease-in-out;
 		&--01 {
-			--tY: -10%;
-			--r: 0deg;
+			translate: 0 -12.5%;
 			
 			.is-active & {
-				--r: 45deg;
-				--tY: 0;
+				rotate: 45deg;
+				translate: 0 0;
 			}
 		}
 		&--02 {
-			--tY: 10%;
-			--r: 0deg;
-			
+			translate: 0 12.5%;
 			.is-active & {
-				--r: 45deg;
-				--tY: 0;
+				rotate: -45deg;
+				translate: 0 0;
 			}
 		}
 	}
 	
-	
-	
-	
-	&.is-active {
-		background: red;
-	}
 	
 	&__overlay {
 		display: block;

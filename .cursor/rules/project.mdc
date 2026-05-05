@@ -18,11 +18,14 @@ src/
   pages/
     index.astro        # Test harness — dummy markup mirroring Webflow DOM
   scripts/
-    main.js            # JS entry point (what gets pasted into Webflow)
+    src_init.js        # JS bundle entry — DOMContentLoaded bootstrap (paste target via bundle.js)
+    src_app.js         # SRC_App class — GSAP context, wires interaction modules
+    src_shopify_buybtn.js
+    interaction_*.js   # Feature modules (nav, smooth scroll, update loop, etc.)
   styles/
     main.scss          # SCSS entry point (what gets pasted into Webflow)
     _variables.scss    # SCSS variables
-build.js               # esbuild script — outputs public/bundle.js + public/bundle.css
+build.js               # esbuild entry: src/scripts/src_init.js → public/bundle.js + bundle.css
 netlify.toml           # Build config for Netlify
 ```
 
@@ -38,11 +41,12 @@ netlify.toml           # Build config for Netlify
 - `public/bundle.js` and `public/bundle.css` are gitignored — they are always built fresh
 
 ## JS conventions
-- `src/scripts/main.js` is the entry point — import all modules from here
+- `src/scripts/src_init.js` is the **only** esbuild entry (`build.js` `entryPoints`) — keep it thin: listeners, one-off setup, then construct `SRC_App` from `src_app.js`
+- App behavior and subsystems live in `src_app.js` and `interaction_*.js` / `src_*.js` co-located under `src/scripts/`
 - Use ES modules (`import`/`export`) — esbuild bundles everything
 - No jQuery — vanilla JS only
-- Wrap init logic in `DOMContentLoaded` to account for Webflow's load timing
-- Modules live in `src/scripts/modules/`
+- Wrap init logic in `DOMContentLoaded` in `src_init.js` to account for Webflow's load timing
+- Astro test pages that need the app should import `../scripts/src_init.js` (same graph the bundle uses)
 
 ## SCSS conventions
 - `src/styles/main.scss` is the entry point — use `@use` to pull in partials
