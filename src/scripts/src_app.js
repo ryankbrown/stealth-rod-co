@@ -2,11 +2,13 @@
 
 import { SRC_ShopifyBuyBtn } from './src_shopify_buybtn.js';
 
-import Interaction_UpdateLoop from './interaction_update-loop.js';
+// import Interaction_UpdateLoop from './interaction_update-loop.js';
+import Interaction_UpdateLoop_GSAP from './interaction_update-loop-gsap.js';
 import Interaction_NavController from './interaction_nav-controller.js';
 import Interaction_SmoothScroll from './interaction_smooth-scroll.js';
 import Interaction_ViewportObserver from './interaction_smooth-scroll.js'
 import Interaction_FixedContentStyler from './interaction_fixed-content-styler'
+import Interaction_RodHeaders_ScrollAnim from './interaction_rod-headers.js'
 
 
 // - - - SRC Site JS App Class - - - 
@@ -14,24 +16,25 @@ export default class SRC_App {
 	constructor() {
 		// Main GSAP Context
 		this.gsap_ctx = gsap.context(() => {});
-		this.update_loop = new Interaction_UpdateLoop();
+		this.update_loop = new Interaction_UpdateLoop_GSAP();
 		this.init();
 	}
 	init() {
 		// Global Interactions
-		this.src_smooth_scroll = new Interaction_SmoothScroll(this);
-		this.src_nav_controller = new Interaction_NavController(this);
-		this.src_viewport_observer = this.getViewportObserver();
-		this.src_fixed_content_styler = this.getFixedContentStyler();
+		this.smooth_scroll = new Interaction_SmoothScroll(this);
+		this.nav_controller = new Interaction_NavController(this);
+		this.viewport_observer = this.getViewportObserver();
+		this.fixed_content_styler = this.getFixedContentStyler();
 		
 		// Component Interactions
-		// this.src_background_video = this.getBackgroundVideo();
-		// this.src_floating_img_sections = this.getFloatingImgSections();
-		// this.src_sidescrollers = this.getSidescrollers();
-		// this.src_project_sidescrollers = this.getProjectSidescrollers();
-		// this.src_crossfaders = this.getCrossfaders();
-		// this.src_bio_overlays = this.getBioOverlays();
-		// this.src_craft_scrollsects = this.getCraftScrollSects();
+		// this.background_video = this.getBackgroundVideo();
+		// this.floating_img_sections = this.getFloatingImgSections();
+		// this.sidescrollers = this.getSidescrollers();
+		// this.project_sidescrollers = this.getProjectSidescrollers();
+		// this.crossfaders = this.getCrossfaders();
+		// this.bio_overlays = this.getBioOverlays();
+		// this.craft_scrollsects = this.getCraftScrollSects();
+		this.rod_headers_scroll = this.getRodHeadersScrollAnims();
 	}
 
 	getViewportObserver() {
@@ -44,6 +47,11 @@ export default class SRC_App {
 		if (!target_els.length) return null;
 		return new Interaction_FixedContentStyler(this, target_els, this.update_loop);
 	}
+	getRodHeadersScrollAnims() {
+		const target_els = document.querySelectorAll('.rod__header');
+		if (!target_els.length) return null;
+		return Array.from(target_els).map((el) => new Interaction_RodHeaders_ScrollAnim(this, el));
+	}
 	
 	// - - - Floating Img Section Interaction - - - 
 	// getFloatingImgSections() {
@@ -52,22 +60,22 @@ export default class SRC_App {
 	// }
 
 	destroyGlobalInteractions() {
-		if (this.src_viewport_observer) {
-			this.src_viewport_observer.destroy();
-			this.src_viewport_observer = null;
+		if (this.viewport_observer) {
+			this.viewport_observer.destroy();
+			this.viewport_observer = null;
 		}
-		if (this.src_fixed_content_styler) {
-			this.src_fixed_content_styler.destroy();
-			this.src_fixed_content_styler = null;
+		if (this.fixed_content_styler) {
+			this.fixed_content_styler.destroy();
+			this.fixed_content_styler = null;
 		}
-		if (this.src_nav_controller) {
+		if (this.nav_controller) {
 			// currently only partially cleans up, but call destroy for parity
-			this.src_nav_controller.destroy();
-			this.src_nav_controller = null;
+			this.nav_controller.destroy();
+			this.nav_controller = null;
 		}
 		// Smooth scroll is created inside the GSAP context; letting
 		// gsap_ctx.revert() handle its teardown keeps responsibilities clear.
-		this.fb_smooth_scroll = null;
+		this.smooth_scroll = null;
 	}
 
 	destroyComponentInteractions() {
@@ -99,6 +107,10 @@ export default class SRC_App {
 		// 	this.fb_craft_scrollsects.forEach(interaction => interaction.destroy());
 		// 	this.fb_craft_scrollsects = null;
 		// }
+		if (this.rod_headers_scroll) {
+			this.rod_headers_scroll.forEach((interaction) => interaction.destroy());
+			this.rod_headers_scroll = null;
+		}
 		this.gsap_ctx.revert();
 	}
 }

@@ -1,4 +1,4 @@
-class PointerTracker {
+export class Interacction_PointerTracker {
 	constructor() {
 		// Current position
 		this.pos = { x: 0, y: 0 };
@@ -135,5 +135,3 @@ class PointerTracker {
 		return this.pos.y;
 	}
 }
-
-export default PointerTracker;

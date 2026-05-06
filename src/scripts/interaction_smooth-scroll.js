@@ -36,13 +36,20 @@ export default class Interaction_SiteSmoothScroll {
 	// convert in-page anchor links to smooth scroll links
 	convertAnchorLinks() {
 		this.pg_anchor_links = document.querySelectorAll('a[href^="#"]');
-		this.pg_anchor_links.forEach(link => {
-			link.addEventListener('click', this.handleSmoothAnchorScroll.bind(this));
-		})
+		
+		if (!this.pg_anchor_links?.length) {
+			this.pg_anchor_links.forEach(link => {
+				link.addEventListener('click', this.handleSmoothAnchorScroll.bind(this));
+			});	
+		}
 	}
+	
 	destroy() {
-		this.pg_anchor_links.forEach(link => {
-			link.removeEventListener('click', this.handleSmoothAnchorScroll.bind(this));
-		})
+		
+		if (!this.pg_anchor_links?.length) {
+			this.pg_anchor_links.forEach(link => {
+				link.removeEventListener('click', this.handleSmoothAnchorScroll.bind(this));
+			});
+		}
 	}
 }

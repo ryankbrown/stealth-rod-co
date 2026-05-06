@@ -1,4 +1,5 @@
 @use "variables";
+
 // Stealth Rod Co — Webflow CSS entry
 
 * {
@@ -6,15 +7,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-@view-transtion {
+@view-transition {
 	navigation: auto;
 }
 
-body[data-fixed-content-styles="light-on-dark"] {
+[data-applied-fixed-content-styles="light-on-dark"] {
 	--color--fixed-content--primary: white;
 }
 
-body[data-fixed-content-styles="dark-on-light"] {
+[data-applied-fixed-content-styles="dark-on-light"] {
 	--color--fixed-content--primary: black;
 }
 
@@ -78,3 +79,59 @@ body[data-fixed-content-styles="dark-on-light"] {
 	}
 }
 
+
+
+:root {
+	view-transition-name: root;
+}
+
+
+$mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa0475d7a5558f9fe7915e_water-transtion-sprite.avif";
+// $mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa1744c92f745777961b70_water-transtion-sprite.svg";
+$water-trans-framecount: 71;
+$water-trans-duration: 1s;
+// $water-trans-duration: 0.043s;
+
+@media (prefers-reduced-motion: no-preference) {
+
+	::view-transition-old(root) {
+		animation-name: vt-water-hide;
+		animation-duration: $water-trans-duration;
+		animation-timing-function: ease-in-out;
+		animation-fill-mode: forwards;
+	}
+
+	::view-transition-new(root) {
+		animation-name: vt-water-reveal;
+		animation-duration: $water-trans-duration;
+		animation-timing-function: steps($water-trans-framecount - 1);
+		animation-fill-mode: forwards;
+		// -webkit-mask-image: url(#{$mask-url});
+		mask-image: url(#{$mask-url});
+		// -webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		// -webkit-mask-size: ($water-trans-framecount * 100%) 100%;
+		mask-size: ($water-trans-framecount * 100%) 100%;
+	}
+	
+	@keyframes vt-water-hide {
+		from {
+			filter: blur(0px) brightness(100%);
+		}
+		to {
+			filter: blur(10px) brightness(70%)
+		}
+	}
+
+	@keyframes vt-water-reveal {
+		from {
+			-webkit-mask-position: 100% 0;
+			mask-position: 100% 0;
+		}
+
+		to {
+			-webkit-mask-position: 0% 0;
+			mask-position: 0% 0;
+		}
+	}
+}

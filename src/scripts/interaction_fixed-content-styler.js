@@ -6,9 +6,10 @@ export default class Interaction_FixedContentStyler {
 		this.updateLoop = updateLoop;
 		this.updateFn = null;
 		// Cache the currently applied value to avoid unnecessary DOM writes.
-		this.currentStyleValue = document.body.getAttribute('data-fixed-content-styles');
+		this.currentStyleValue = document.body.getAttribute('data-applied-fixed-content-styles');
 
 		this.init();
+		
 	}
 
 	init() {
@@ -17,6 +18,7 @@ export default class Interaction_FixedContentStyler {
 		if (!this.updateLoop) return;
 
 		this.updateFn = () => {
+			console.log('fixedContentStyler updateFn');
 			const navRect = this.nav_el.getBoundingClientRect();
 			let best = null;
 			let maxOverlap = 0;
@@ -44,13 +46,16 @@ export default class Interaction_FixedContentStyler {
 	}
 
 	applyFixedContentStyles(el) {
+
 		const styleValue = el.dataset.fixedContentStyles;
+		
 		if (!styleValue) return;
 
 		if (this.currentStyleValue === styleValue) return;
 
 		this.currentStyleValue = styleValue;
-		document.body.setAttribute('data-fixed-content-styles', styleValue);
+		
+		document.body.setAttribute('data-applied-fixed-content-styles', styleValue);
 	}
 
 	destroy() {
