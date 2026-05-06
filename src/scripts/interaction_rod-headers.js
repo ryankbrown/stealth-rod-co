@@ -1,9 +1,10 @@
 
 
 export default class Interaction_RodHeaders_ScrollAnim {
-	constructor(app, rod_header_el) {
+	constructor(app, header_el, header_idx) {
 		this.app = app;
-		this.rod_header_el = rod_header_el;
+		this.rod_header_el = header_el;
+		this.header_idx = header_idx;
 		
 		this.heading = this.rod_header_el.querySelector('.rod__heading')
 		this.img = this.rod_header_el.querySelector('.rod__header-img')
@@ -44,9 +45,10 @@ export default class Interaction_RodHeaders_ScrollAnim {
 	createScrollTrigger(opts) {
 		this.scroll_trigger = ScrollTrigger.create({
 			trigger: this.rod_header_el,
-			start: "top top",
-			end: "bottom bottom",
-			scrub: true,
+			//<trigger> <scroller>
+			start: "top center+=25%",
+			end: "bottom center-=25%",
+			// scrub: true,
 			markers: true,
 			animation: opts.animation
 		});
@@ -59,31 +61,29 @@ export default class Interaction_RodHeaders_ScrollAnim {
 				this.img,
 				this.img_shadow
 			], {
-				xPercent: -50,
+				autoAlpha: 0,
+				xPercent: 5,
 				duration: 2,
 				ease: "expo.out"
 			})
-			.from(this.heading, {
+			.fromTo(this.heading, {
+				autoAlpha: 0,
 				yPercent: 100,
+			}, {
+				autoAlpha: 1,
+				yPercent: -10,
 				duration: 2,
 				ease: "expo.out"
-			}, '<+.25')
+			}, '<+.15')
+			// .from(this.heading, {
+			// 	letterSpacing: "0px",
+			// 	duration: 2,
+			// 	ease: "expo.out"
+			// }, '<')
 	}
+	
 	mobile_tl() {
 		return gsap.timeline({ paused:true })
-			.from([
-				this.img,
-				this.img_shadow
-			], {
-				xPercent: -50,
-				duration: 2,
-				ease: "expo.out"
-			})
-			.from(this.heading, {
-				yPercent: 100,
-				duration: 2,
-				ease: "expo.out"
-			}, '<+.25')
 	}
 	
 }

@@ -25,20 +25,68 @@ src/
   styles/
     main.scss          # SCSS entry point (what gets pasted into Webflow)
     _variables.scss    # SCSS variables
-build.js               # esbuild entry: src/scripts/src_init.js → public/bundle.js + bundle.css
+build.js               # esbuild + sass entry; supports --watch flag
+comet-local-overrides/ # Comet DevTools Local Overrides folder (should be gitignored)
+  stealthrodco-dev.netlify.app/
+    bundle.css         # symlink → ../../public/bundle.css
+    bundle.js          # symlink → ../../public/bundle.js
 netlify.toml           # Build config for Netlify
 ```
 
 ## Build commands
-- `npm run dev` — Astro dev server with hot reload
-- `npm run build:webflow` — runs esbuild only, outputs public/bundle.js + public/bundle.css
-- `npm run build` — runs esbuild then Astro build (used by Netlify)
+- `npm run dev` — Watch mode: rebuilds `public/bundle.js` and `bundle.css` on save (esbuild watch for JS, chokidar+sass for SCSS). Run this in a Terminal tab during active dev.
+- `npm run dev:astro` — Astro dev server (legacy, kept as fallback — rarely used)
+- `npm run build:webflow` — One-shot build, outputs `public/bundle.js` + `public/bundle.css` (no Astro)
+- `npm run build` — Runs esbuild then Astro build (used by Netlify)
 
 ## Netlify deploy
 - Git push to main triggers a Netlify deploy
-- Built bundle is served at: `https://[site].netlify.app/bundle.js` and `/bundle.css`
+- Built bundle is served at: `https://stealthrodco-dev.netlify.app/bundle.js` and `/bundle.css`
 - These URLs are stable across deploys (no hash in filename)
 - `public/bundle.js` and `public/bundle.css` are gitignored — they are always built fresh
+- During dev, Webflow custom code embeds these Netlify URLs via `<link>` and `<script>` tags
+- At launch, those tags get removed and bundle contents are pasted directly into Webflow custom code (see "Launch workflow" below)
+
+## Local dev workflow (Comet local overrides)
+Iterate on bundle changes without redeploying to Netlify by intercepting the Netlify URL with a local file via Comet DevTools.
+
+Setup (one-time):
+1. In Comet DevTools → Sources → Overrides, click "Select folder for overrides" and pick `comet-local-overrides/` from the project root
+2. Symlinks inside `comet-local-overrides/stealthrodco-dev.netlify.app/` already point at `public/bundle.{css,js}` — no manual file management needed
+3. Confirm "Enable Local Overrides" toggle is on
+
+Dev loop:
+1. `npm run dev` — leave running in a Terminal tab
+2. Edit `.scss` or `.js` → save → Terminal logs `✓ bundle.{css,js} rebuilt`
+3. Hard reload Comet (Cmd+Shift+R) on the Webflow page
+4. Purple dots in Network tab next to `bundle.css` / `bundle.js` confirm overrides are active
+
+Notes:
+- The Webflow Designer canvas does NOT execute custom code — test against the published `*.webflow.io` URL
+- Hard reload is required: Comet caches the override response between regular reloads
+- Symlinks use relative paths (`../../public/...`) so Dropbox sync doesn't resolve them into file copies
+- If overrides stop working after a Comet restart, re-grant the folder permission in DevTools
+
+## Launch workflow (handing off to client)
+At project completion the Netlify connection is dropped and bundle contents are pasted directly into Webflow custom code, so the client's site has zero external dependencies.
+
+Steps:
+1. `npm run build:webflow` to produce final minified bundles
+2. Copy contents of `public/bundle.css` → Webflow → Site Settings → Custom Code → Head Code, paste inside `<style>...</style>`
+3. Copy contents of `public/bundle.js` → Webflow → Site Settings → Custom Code → Footer Code, paste inside `<script>...</script>`
+4. Remove the existing dev embed lines from custom code:
+   - `<link rel="stylesheet" href="https://stealthrodco-dev.netlify.app/bundle.css" />`
+   - `<script src="https://stealthrodco-dev.netlify.app/bundle.js" defer></script>`
+5. Republish the Webflow site
+
+Capacity:
+- Webflow custom code limit: 50,000 chars per field (head, footer, page-level)
+- Reference bundle sizes: `bundle.css` ≈ 3.3KB, `bundle.js` ≈ 7.1KB — well under the limit
+- Fallbacks if `bundle.js` ever outgrows 50K: host via jsDelivr (public GitHub repo) or keep the Netlify deploy active as a CDN
+
+Future edits after launch:
+- Edit locally → `npm run build:webflow` → re-paste both bundles into Webflow → republish
+- For active iteration sessions, revive the local-overrides workflow against the dev Netlify URL instead of paste-cycling
 
 ## JS conventions
 - `src/scripts/src_init.js` is the **only** esbuild entry (`build.js` `entryPoints`) — keep it thin: listeners, one-off setup, then construct `SRC_App` from `src_app.js`

@@ -81,19 +81,20 @@
 
 
 
-:root {
-	view-transition-name: root;
-}
-
-
-$mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa0475d7a5558f9fe7915e_water-transtion-sprite.avif";
-// $mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa1744c92f745777961b70_water-transtion-sprite.svg";
-$water-trans-framecount: 71;
-$water-trans-duration: 1s;
-// $water-trans-duration: 0.043s;
-
 @media (prefers-reduced-motion: no-preference) {
+	
+	// Page Transition		
+	:root {
+		view-transition-name: root;
+	}
 
+	$mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa0475d7a5558f9fe7915e_water-transtion-sprite.avif";
+	// $mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa1744c92f745777961b70_water-transtion-sprite.svg";
+	$water-trans-framecount: 71;
+	$water-trans-duration: 1s;
+	// $water-trans-duration: 0.043s;
+	
+	
 	::view-transition-old(root) {
 		animation-name: vt-water-hide;
 		animation-duration: $water-trans-duration;
@@ -160,6 +161,46 @@ $water-trans-duration: 1s;
 		100% {
 			scale: 1;
 			filter: blur(0px) brightness(100%);
+		}
+	}
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+	.rod {
+		
+		&__heading {
+			color: red !important;
+			transition: 
+				translate var(--duration--slow) var(--ease--smooth),
+				opacity var(--duration--slow) var(--ease--smooth),
+				letter-spacing var(--duration--slow) var(--ease--smooth)
+				;
+			.not-in-view & {
+				translate: 0 100%;
+				opacity: 0;
+			}
+			.in-view & {
+				translate: 0 0;
+				opacity: 1;
+			}
+		}
+		&__header-img-rotate-scale-wrapper {
+			transition: 
+				translate var(--duration--slow) var(--ease--smooth),
+				opacity var(--duration--slow) var(--ease--smooth),
+				letter-spacing var(--duration--slow) var(--ease--smooth)
+				;
+			transition-delay: .25s, .25s, .25s;
+			
+			.not-in-view & {
+				translate: -5% 0%;
+				opacity: 0;
+			}
+			.in-view & {
+				translate: 0 0;
+				opacity: 1;
+			}
 		}
 	}
 }

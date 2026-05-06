@@ -1,7 +1,10 @@
-import { lerp, clamp } from "../utils/utils.js";
+// import { lerp, clamp } from "../utils/utils.js";
+
+const lerp = gsap.utils.lerp;
+const clamp = gsap.utils.clamp;
 
 /* ParallaxLayer - Individual layer within a parallax container */
-class ParallaxLayer {
+class Interaction_PointerParallax {
 	constructor(el, idx) {
 		this.idx = idx;
 		this.el = el;
@@ -18,10 +21,10 @@ class ParallaxLayer {
 
 		// Clamp lerp amount between 0 and 1, default to 0.1 for smooth motion
 		const lerpValue = parseFloat(this.el.getAttribute("data-parallax-lerp"));
-		this.lerpAmt = isNaN(lerpValue) ? 0.1 : clamp(lerpValue, 0, 1);
+		this.lerpAmt = isNaN(lerpValue) ? 0.1 : gsap.utils.clamp(lerpValue, 0, 1);
 	}
-	/* Move the layer based on input position */
 	
+	/* Move the layer based on input position */	
 	updateLayer(input) {
 		
 		let x_move = input.x * this.moveRateX;
@@ -29,14 +32,14 @@ class ParallaxLayer {
 
 		// Apply max offset limits if defined
 		if (!isNaN(this.maxOffsetX)) {
-			x_move = clamp(x_move, -this.maxOffsetX, this.maxOffsetX);
+			x_move = gsap.utils.clamp(x_move, -this.maxOffsetX, this.maxOffsetX);
 		}
 		if (!isNaN(this.maxOffsetY)) {
-			y_move = clamp(y_move, -this.maxOffsetY, this.maxOffsetY);
+			y_move = gsap.utils.clamp(y_move, -this.maxOffsetY, this.maxOffsetY);
 		}
 
-		this.tX = lerp(this.tX, x_move, 0.1);
-		this.tY = lerp(this.tY, y_move, 0.1);
+		this.tX = gsap.utils.lerp(this.tX, x_move, 0.1);
+		this.tY = gsap.utils.lerp(this.tY, y_move, 0.1);
 
 		this.el.style.setProperty("--tX", `${this.tX}px`);
 		this.el.style.setProperty("--tY", `${this.tY}px`);

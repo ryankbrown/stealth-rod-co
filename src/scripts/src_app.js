@@ -27,6 +27,8 @@ export default class SRC_App {
 		this.fixed_content_styler = this.getFixedContentStyler();
 		
 		// Component Interactions
+		// this.rod_headers_scroll = this.getRodHeadersScrollAnims();
+		
 		// this.background_video = this.getBackgroundVideo();
 		// this.floating_img_sections = this.getFloatingImgSections();
 		// this.sidescrollers = this.getSidescrollers();
@@ -34,11 +36,10 @@ export default class SRC_App {
 		// this.crossfaders = this.getCrossfaders();
 		// this.bio_overlays = this.getBioOverlays();
 		// this.craft_scrollsects = this.getCraftScrollSects();
-		this.rod_headers_scroll = this.getRodHeadersScrollAnims();
 	}
 
 	getViewportObserver() {
-		const target_els = document.querySelectorAll('[data-detect-in-view]');
+		const target_els = document.querySelectorAll('[data-detect-in-view=true]');
 		if (!target_els.length) return null;
 		return new Interaction_ViewportObserver(this, target_els);
 	}
@@ -47,11 +48,11 @@ export default class SRC_App {
 		if (!target_els.length) return null;
 		return new Interaction_FixedContentStyler(this, target_els, this.update_loop);
 	}
-	getRodHeadersScrollAnims() {
-		const target_els = document.querySelectorAll('.rod__header');
-		if (!target_els.length) return null;
-		return Array.from(target_els).map((el) => new Interaction_RodHeaders_ScrollAnim(this, el));
-	}
+	// getRodHeadersScrollAnims() {
+	// 	const target_els = document.querySelectorAll('.rod__header');
+	// 	if (!target_els.length) return null;
+	// 	return Array.from(target_els, (header_el, header_idx) => new Interaction_RodHeaders_ScrollAnim(this, header_el, header_idx));
+	// }
 	
 	// - - - Floating Img Section Interaction - - - 
 	// getFloatingImgSections() {

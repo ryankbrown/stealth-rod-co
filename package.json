@@ -2,7 +2,8 @@
   "name": "stealth-rod-co-dev",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node build.js --watch",
+    "dev:astro": "astro dev",
     "build": "node build.js && astro build",
     "build:webflow": "node build.js",
     "preview": "astro preview"
@@ -11,6 +12,7 @@
     "astro": "^6.1.8"
   },
   "devDependencies": {
+    "chokidar": "^3.6.0",
     "esbuild": "^0.24.0",
     "sass": "^1.80.0"
   }

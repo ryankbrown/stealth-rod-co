@@ -3,5 +3,6 @@ dist/
 .astro/
 public/bundle.js
 public/bundle.css
+comet-local-overrides/
 .env
 .DS_Store
