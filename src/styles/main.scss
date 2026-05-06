@@ -26,7 +26,7 @@
 		
 		rotate: 0deg;
 		transform-origin: center center;
-		transition: all 0.3s ease-in-out;
+		transition: all var(--duration--reg) var(--ease--smooth);
 		&--01 {
 			translate: 0 -12.5%;
 			
@@ -49,14 +49,14 @@
 		display: block;
 		opacity: 0;
 		transition: 
-			opacity 0.3s ease-in-out, 
-			scale 0.3s ease-in-out;
+			opacity var(--duration--slow) var(--ease--smooth), 
+			scale var(--duration--slow) var(--ease--smooth);
 		pointer-events: none;
 		scale: 1.05;
 		
 		.is-active & {
 			opacity: 1;
-			transition: all 0.3s ease-in-out;
+			// transition: all var(--duration--slow) var(--ease--smooth);
 			scale: 1;
 			pointer-events: auto;
 		}
@@ -97,15 +97,26 @@ $water-trans-duration: 1s;
 	::view-transition-old(root) {
 		animation-name: vt-water-hide;
 		animation-duration: $water-trans-duration;
-		animation-timing-function: ease-in-out;
+		animation-timing-function: ease-in;
 		animation-fill-mode: forwards;
 	}
 
 	::view-transition-new(root) {
-		animation-name: vt-water-reveal;
-		animation-duration: $water-trans-duration;
-		animation-timing-function: steps($water-trans-framecount - 1);
-		animation-fill-mode: forwards;
+		animation-name: 
+			vt-water-mask-reveal,
+			vt-water-reveal-scale;
+		animation-duration: 
+			$water-trans-duration,
+			$water-trans-duration;
+		animation-timing-function: 
+			steps($water-trans-framecount - 1),
+			ease-out;
+			
+		animation-fill-mode: 
+			forwards, 
+			forwards
+		;
+		
 		// -webkit-mask-image: url(#{$mask-url});
 		mask-image: url(#{$mask-url});
 		// -webkit-mask-repeat: no-repeat;
@@ -115,23 +126,40 @@ $water-trans-duration: 1s;
 	}
 	
 	@keyframes vt-water-hide {
-		from {
+		0% {
+			scale: 1;
 			filter: blur(0px) brightness(100%);
 		}
-		to {
-			filter: blur(10px) brightness(70%)
+		// 20% {
+		// 	filter: blur(0px) brightness(100%);
+		// }
+		100% {
+			scale: 1.15;
+			filter: blur(15px) brightness(40%)
 		}
 	}
 
-	@keyframes vt-water-reveal {
+	@keyframes vt-water-mask-reveal {
 		from {
-			-webkit-mask-position: 100% 0;
 			mask-position: 100% 0;
 		}
 
 		to {
-			-webkit-mask-position: 0% 0;
 			mask-position: 0% 0;
+		}
+	}
+		
+	@keyframes vt-water-reveal-scale {
+		0% {
+			scale: 1.15;
+			filter: blur(15px) brightness(115%);
+		}
+		40% {
+			filter: blur(15px) brightness(115%);
+		}
+		100% {
+			scale: 1;
+			filter: blur(0px) brightness(100%);
 		}
 	}
 }
