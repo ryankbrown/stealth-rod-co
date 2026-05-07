@@ -25,11 +25,11 @@ src/
   styles/
     main.scss          # SCSS entry point (what gets pasted into Webflow)
     _variables.scss    # SCSS variables
-build.js               # esbuild + sass entry; supports --watch flag
-comet-local-overrides/ # Comet DevTools Local Overrides folder (should be gitignored)
+build.js               # esbuild + sass entry; supports --watch flag, mirrors output to comet-local-overrides/
+comet-local-overrides/ # Comet DevTools Local Overrides folder (gitignored)
   stealthrodco-dev.netlify.app/
-    bundle.css         # symlink → ../../public/bundle.css
-    bundle.js          # symlink → ../../public/bundle.js
+    bundle.css         # written by build.js (NOT a symlink — Dropbox doesn't preserve them reliably)
+    bundle.js          # written by build.js
 netlify.toml           # Build config for Netlify
 ```
 
@@ -52,7 +52,7 @@ Iterate on bundle changes without redeploying to Netlify by intercepting the Net
 
 Setup (one-time):
 1. In Comet DevTools → Sources → Overrides, click "Select folder for overrides" and pick `comet-local-overrides/` from the project root
-2. Symlinks inside `comet-local-overrides/stealthrodco-dev.netlify.app/` already point at `public/bundle.{css,js}` — no manual file management needed
+2. `build.js` writes bundle output to BOTH `public/` and `comet-local-overrides/stealthrodco-dev.netlify.app/` — no manual file management needed
 3. Confirm "Enable Local Overrides" toggle is on
 
 Dev loop:
@@ -64,7 +64,7 @@ Dev loop:
 Notes:
 - The Webflow Designer canvas does NOT execute custom code — test against the published `*.webflow.io` URL
 - Hard reload is required: Comet caches the override response between regular reloads
-- Symlinks use relative paths (`../../public/...`) so Dropbox sync doesn't resolve them into file copies
+- Symlinks were tried initially but Dropbox sync resolves them into static file copies, breaking the dev loop. `build.js` does the mirror copy instead — Dropbox-safe
 - If overrides stop working after a Comet restart, re-grant the folder permission in DevTools
 
 ## Launch workflow (handing off to client)

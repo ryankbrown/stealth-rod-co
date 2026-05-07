@@ -18,7 +18,7 @@ export default class Interaction_FixedContentStyler {
 		if (!this.updateLoop) return;
 
 		this.updateFn = () => {
-			console.log('fixedContentStyler updateFn');
+			// console.log('fixedContentStyler updateFn');
 			const navRect = this.nav_el.getBoundingClientRect();
 			let best = null;
 			let maxOverlap = 0;

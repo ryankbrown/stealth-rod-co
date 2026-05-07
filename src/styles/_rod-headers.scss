@@ -1,0 +1,117 @@
+@use "variables";
+
+.rod {
+	
+	&__header-img-shadow {
+		--tX: 0;
+		--tY: 0;
+		translate: var(--tX) var(--tY);
+	}
+	
+	&__heading {
+		// background: blue !important;
+		transition: 
+			translate var(--duration--4x-slow) var(--ease--smooth),
+			opacity var(--duration--4x-slow) var(--ease--smooth),
+			letter-spacing var(--duration--4x-slow) var(--ease--smooth)
+		;	
+		// transition-delay: .15s;
+		
+		.not-in-view & {
+			translate: 0 100%;
+			opacity: 0;
+		}
+		.in-view & {
+			translate: 0 0;
+			opacity: 1;
+		}
+		.not-in-view:not(.in-view) & {
+			letter-spacing: 0.02em;
+			transition: none;
+		}
+	}
+	
+	&__heading-scroll-mover {
+		animation-name: rodHeadingScrollY;
+		animation-timeline: scroll(root);
+		animation-fill-mode: both;
+	}
+	
+	@keyframes rodHeadingScrollY {
+		from { translate: 0 40%; }
+		to { translate: 0 -40%; }
+	}
+	
+	&__header-img-rotate-scale-wrapper {
+		transition: 
+			translate var(--duration--2x-slow) var(--ease--smooth),
+			opacity var(--duration--2x-slow) var(--ease--smooth)
+		;
+		.not-in-view & {
+			translate: 7% 0%;
+			transition: none;
+			
+			@media (width < 480px) {
+				translate: 0% 10% ;
+			}
+		}
+		.in-view & {
+			translate: 0 0;
+		}
+		[data-wf--sr-comp__rod-header--variant="image-flipped"].not-in-view & {
+			translate: -7% 0%;
+			
+			@media (width < 480px) {
+				translate: 0% -10% ;
+			}
+		}
+	}
+	
+	&__header-img,
+	&__header-img-shadow {
+		transition: 
+			filter var(--duration--2x-slow) var(--ease--smooth);
+		.not-in-view & {
+			filter: brightness(10%);
+			transition: none;
+		}
+		.in-view & {
+			filter: brightness(100%);
+		}
+	}
+	
+	
+	
+	
+	
+	// &__header-img-positioner {
+	// 	--mask-direction: to right; 
+	// 	--mask-size: 200%;
+	// 	--mask-trans-dur: var(--duration--2x-slow);
+		
+		
+	// 	mask-repeat: no-repeat;
+	// 	mask-size: var(--mask-size) 100%;
+		
+	// 	mask-image: linear-gradient(var(--mask-direction), #000 87%, transparent 97%);
+	// 	transition: mask-position var(--duration--2x-slow) var(--ease--smooth);
+		
+	// 	.not-in-view & {
+	// 		mask-position: 200% 0;
+	// 		transition: none;
+	// 	}
+	// 	.in-view & {
+	// 		mask-position: 100% 0;
+	// 	}
+		
+	// 	[data-wf--sr-comp__rod-header--variant="image-flipped"] & {
+	// 		--mask-direction: to left;
+	// 	}
+	// 	[data-wf--sr-comp__rod-header--variant="image-flipped"].not-in-view & { 
+	// 		mask-position: -100% 0;
+	// 	}
+	// 	[data-wf--sr-comp__rod-header--variant="image-flipped"].in-view & { 
+	// 		mask-position: 0 0;
+	// 	} 
+	// }
+}

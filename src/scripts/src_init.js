@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	)
 	
 	// - - - Initialize SRC App - - -
-	console.log("SRC - Initializing SRC App");
+	
 	window.stealth_rod_co_app = new SRC_App();
+	console.log("SRC - End SRC Code")
 });

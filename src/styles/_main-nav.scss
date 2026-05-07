@@ -1,0 +1,248 @@
+@use "variables";
+
+// - - - Main Nav - - - 
+.main-nav {
+	
+	[data-pg="home"] .main-nav__wordmark-link {
+		opacity: 0;
+	}
+	
+	
+	&__btn-line {
+		
+		rotate: 0deg;
+		transform-origin: center center;
+		transition: all var(--duration--reg) var(--ease--smooth);
+		
+		.is-active & {
+			stroke: white;
+		}
+		
+		&--01 {
+			translate: 0 -12.5%;
+			
+			.is-active & {
+				rotate: 45deg;
+				translate: 0 0;
+			}
+		}
+		&--02 {
+			translate: 0 12.5%;
+			.is-active & {
+				rotate: -45deg;
+				translate: 0 0;
+				
+			}
+		}
+	}
+	
+	
+	
+	&__overlay {
+		display: block;
+		opacity: 0;
+		transition: 
+			opacity var(--duration--slow) var(--ease--smooth);
+		pointer-events: none;
+		
+		-webkit-backface-visibility: hidden;
+		
+		.is-active & {
+			opacity: 1;
+			pointer-events: auto;
+		}
+	}
+	
+	&__overlay-bg-img {
+		scale: 1.5;
+		filter: brightness(170%) blur(10px);
+		transition: 
+			scale var(--duration--2x-slow) var(--ease--smooth),
+			filter var(--duration--2x-slow) var(--ease--smooth)
+		;
+		transition-delay: 0s, .25s;
+		
+		.is-active & {
+			opacity: 1;
+			scale: 1.1;
+			filter: brightness(100%) blur(0px);
+		}
+	}
+	
+	$total-nav-items: 10;
+	$overlay-logo-dur: 1.5s;
+	$nav-item-start-delay: 0s;
+	$nav-line-start-delay: .15s;
+	$nav-social-start-delay: .35s;
+	
+	
+	&__link {
+		
+		.is-not-active & {
+			opacity: 0;	
+			
+			animation: navItemOut $overlay-logo-dur var(--ease--smooth);	
+			animation-fill-mode: both;
+		}
+		.is-active & {
+			translate: 0 0;
+			opacity: .6;
+			scale: 1;
+			transition: all var(--duration--reg) var(--ease--smooth);
+			transform-origin: left center;
+			
+			
+			animation: navItemIn $overlay-logo-dur var(--ease--smooth);
+			animation-fill-mode: both;
+			
+			&.w--current {
+				color: white;
+				opacity: 1;
+			}
+			
+			&:is(:hover, :focus-visible) {
+				opacity: 1;
+				scale: 1.15;
+				color: white;
+				translate: 2.5% 0;
+			}
+		}
+	}
+	
+	@keyframes navItemIn {
+		0% { translate: 0 125%; opacity: 0; }
+		50% { opacity: 1; }
+		100% { translate: 0 0; opacity: 1; }
+	}
+	@keyframes navItemOut {
+		0% { translate: 0 0; opacity: 1; }
+		50% { opacity: 1; }
+		100% { translate: 25% 0; opacity: 0; }
+	}
+	
+	&__item {
+		@for $i from 1 through $total-nav-items {
+			&:nth-child(#{$i}) .main-nav__link {
+				animation-delay: $nav-item-start-delay + ($i * .05s); 
+			}
+		}
+	}
+	
+	
+	&__overlay-logo {
+		
+		animation-duration: var(--duration--slow);
+		animation-timing-function: var(--ease--smooth);
+		animation-fill-mode: both;
+		
+		.is-not-active & {
+			animation-name: navLogoOut;
+		}
+		.is-active & {
+			animation-name: navLogoIn;
+		}
+	}
+	
+	@keyframes navLogoIn {
+		0% { translate: 0 400%; opacity: 0; }
+		25% { opacity: 1; }
+		100% { translate: 0 0; opacity: 1; }
+	}
+	@keyframes navLogoOut {
+		from { translate: 0 0; opacity: 1; }
+		to { translate: 0 -50%; opacity: 0; }
+	}
+	
+	
+	
+	@mixin navlinkDividerLine {
+		content: "";
+		
+		display: block;
+		width: 100%;
+		height: 0.0625rem;
+		background-color: color-mix(in srgb, white 50%, transparent);
+		
+		animation-duration: var(--duration--slow);
+		animation-timing-function: var(--ease--smooth);
+		animation-fill-mode: both;
+		
+		.is-not-active & {
+			animation-name: drawNavLineOut;
+			transform-origin: right center;
+		}
+		.is-active & {
+			animation-name: drawNavLineIn;
+			transform-origin: left center;
+		} 
+	}
+	
+	&__item:before,
+	&__item:last-child:after {
+		transform-origin: left center;
+		@include navlinkDividerLine;
+	}
+	
+	@keyframes drawNavLineIn {
+		from { scale: 0 1; }
+		to { scale: 1 1; }
+	}
+	@keyframes drawNavLineOut {
+		from { scale: 1 1; }
+		to { scale: 0 1; }
+	}
+	
+	@for $i from 1 through $total-nav-items {
+		
+		// $last-idx: $i + 1;
+		// $reverse-idx: $total-nav-items - $i + 1;
+		// $reverse-last-idx: $total-nav-items - $last-idx + 1;
+		// &__item:nth-child(#{$i}) {
+		// 	&:before {
+		// 		animation-delay: $nav-line-start-delay + ($reverse-idx * .05s);
+		// 	}
+		// 	&:last-child:after {
+		// 		animation-delay: $nav-line-start-delay + ($reverse-last-idx * .05s);
+		// 	}	
+		// }
+		
+		$last-idx: $i + 1;
+		&__item:nth-child(#{$i}) {
+			&:before {
+				animation-delay: $nav-line-start-delay + ($i * .05s);
+			}
+			&:last-child:after {
+				animation-delay: $nav-line-start-delay + ($last-idx * .05s);
+			}	
+		}
+	}
+	
+	
+	
+	
+	
+	// &__link-divider-line {
+	// 	pointer-events: none;
+		
+	// 	animation-name: navlinkDividerLine;
+	// 	animation-duration: var(--duration--reg);
+	// 	animation-timing-function: var(--ease--smooth);
+		
+	// 	@keyframes navlinkDividerLine {
+	// 		from { scale: 0 1;}
+	// 		to { scale: 1 1;}
+	// 	}
+	// 	.is-not-active & {
+	// 		transform-origin: left center;
+	// 	}
+	// 	.is-active & {
+	// 		transform-origin: right center;
+	// 	}
+		
+	// 	@for $i from 1 through 10 {
+	// 		&[data-idx="#{$i}"] {
+	// 			animation-delay: $nav-line-start-delay + ($i * .05s);
+	// 		}
+	// 	}
+	// }
+}

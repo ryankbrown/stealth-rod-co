@@ -1,4 +1,4 @@
-export class Interacction_PointerTracker {
+export default class Interaction_PointerTracker {
 	constructor() {
 		// Current position
 		this.pos = { x: 0, y: 0 };
@@ -18,8 +18,10 @@ export class Interacction_PointerTracker {
 		// Timestamp for velocity calculations
 		this.timestamp = performance.now();
 		
+		
 		// Store handler reference so it can be properly removed
 		this.handler = (e) => {
+			
 			// Store previous position
 			this.prevPos.x = this.pos.x;
 			this.prevPos.y = this.pos.y;
@@ -52,6 +54,7 @@ export class Interacction_PointerTracker {
 				this.velocity.x * this.velocity.x + 
 				this.velocity.y * this.velocity.y
 			);
+			
 		};
 
 		// Create event listener

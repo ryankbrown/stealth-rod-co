@@ -7,10 +7,7 @@ export default class Interaction_RodHeaders_ScrollAnim {
 		this.header_idx = header_idx;
 		
 		this.heading = this.rod_header_el.querySelector('.rod__heading')
-		this.img = this.rod_header_el.querySelector('.rod__header-img')
-		this.img_shadow = this.rod_header_el.querySelector('.rod__header-img-shadow')
-		this.img_positioner = this.rod_header_el.querySelector('.rod__header-img-positioner')
-		this.img_rotate_scale_wrapper = this.rod_header_el.querySelector('.rod__header-img-rotate-scale-wrapper')
+		this.heading_container = this.rod_header_el.querySelector('.rod__heading-container')
 		
 		this.app.gsap_ctx.add(() => {
 			
@@ -28,8 +25,25 @@ export default class Interaction_RodHeaders_ScrollAnim {
 			this.match_media_opts.add({
 				isDesktop: `(min-width: ${this.breakpoint + 1}px)`,
 			}, (context) => { 
-				this.createScrollTrigger({
-					animation: this.main_tl(),
+				
+				// create timeline
+				const dsk_tl = gsap.timeline({ paused:true })
+				.to(this.heading_container, {
+					yPercent: -15,
+					duration: 2,
+					ease: "none"
+				});
+				
+				ScrollTrigger.create({
+					trigger: this.rod_header_el,
+					//<trigger> <scroller>
+					start: "top bottom",
+					end: "top top",
+					
+					// end: "top bottom",
+					scrub: true,
+					markers: true,
+					animation: dsk_tl,
 				});
 			});
 			
@@ -39,53 +53,7 @@ export default class Interaction_RodHeaders_ScrollAnim {
 	destroy() {
 		this.match_media_opts?.revert();
 		this.match_media_opts = null;
-		this.scroll_trigger = null;
 	}
-	
-	createScrollTrigger(opts) {
-		this.scroll_trigger = ScrollTrigger.create({
-			trigger: this.rod_header_el,
-			//<trigger> <scroller>
-			start: "top center+=25%",
-			end: "bottom center-=25%",
-			// scrub: true,
-			markers: true,
-			animation: opts.animation
-		});
-	}
-	
-	main_tl() {
-		return gsap.timeline({ paused:true })
-			
-			.from([
-				this.img,
-				this.img_shadow
-			], {
-				autoAlpha: 0,
-				xPercent: 5,
-				duration: 2,
-				ease: "expo.out"
-			})
-			.fromTo(this.heading, {
-				autoAlpha: 0,
-				yPercent: 100,
-			}, {
-				autoAlpha: 1,
-				yPercent: -10,
-				duration: 2,
-				ease: "expo.out"
-			}, '<+.15')
-			// .from(this.heading, {
-			// 	letterSpacing: "0px",
-			// 	duration: 2,
-			// 	ease: "expo.out"
-			// }, '<')
-	}
-	
-	mobile_tl() {
-		return gsap.timeline({ paused:true })
-	}
-	
 }
 
 

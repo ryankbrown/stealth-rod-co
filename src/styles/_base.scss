@@ -1,0 +1,19 @@
+@use "variables";
+
+// Stealth Rod Co — Webflow CSS entry
+
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+
+[data-applied-fixed-content-styles="light-on-dark"] {
+	--color--fixed-content--primary: white;
+}
+
+[data-applied-fixed-content-styles="dark-on-light"] {
+	--color--fixed-content--primary: black;
+}
+
