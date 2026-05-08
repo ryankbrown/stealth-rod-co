@@ -5,19 +5,19 @@ export default class Interaction_SiteHeaders_Parallax {
 		this.app = app;
 		this.header_el = header_el;
 		this.header_idx = header_idx;
-		
+		console.log('header_el', header_el);
 
 		// BG Image Layer
 		const bg_img_layer = new Interaction_ParallaxLayer({
 			layer_el: '.global__hero-img',
 			options: {
 				lerp_amt: 0.1,
-				move_rate: { x: 0.05, y: 0.075 },
+				move_rate: { x: 0.01, y: 0.01 },
 				clamp_offset: {
-					min_x: -100,
-					max_x: 100,
-					min_y: -100,
-					max_y: 100,
+					min_x: -50,
+					max_x: 50,
+					min_y: -50,
+					max_y: 50,
 				}
 			},
 		});
@@ -27,12 +27,12 @@ export default class Interaction_SiteHeaders_Parallax {
 			layer_el: '.global__hero-content',
 			options: {
 				lerp_amt: 0.1,
-				move_rate: { x: 0.025, y: 0.055 },
+				move_rate: { x: 0.005, y: 0.005 },
 				clamp_offset: {
-					min_x: -100,
-					max_x: 100,
-					min_y: -100,
-					max_y: 100,
+					min_x: -50,
+					max_x: 50,
+					min_y: -50,
+					max_y: 50,
 				}
 			},
 		});

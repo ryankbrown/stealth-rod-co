@@ -70,9 +70,13 @@ export default class SRC_App {
 	}
 
 	setupSiteHeadersParallax() {
-		const target_els = document.querySelectorAll('.global__hero');
+		const target_els = document.querySelectorAll('.global__hero-section');
+		
+		console.log('target_els', target_els);
+		
 		if (!target_els.length) return null;
 
+		
 		return Array.from(target_els).map((el, idx)=> {
 			return new Interaction_SiteHeaders_Parallax(this, el, idx);
 		});

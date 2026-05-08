@@ -102,12 +102,17 @@
 		;
 		transition-delay: 0s, .25s;
 		
+		// for nav parallax
+		translate: var(--tX) var(--tY);
+		
 		.is-active & {
 			opacity: 1;
 			scale: 1.1;
 			filter: brightness(100%) blur(0px);
 		}
 	}
+	
+	
 	
 	$total-nav-items: 10;
 	$overlay-logo-dur: 4s;

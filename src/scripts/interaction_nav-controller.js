@@ -1,3 +1,5 @@
+import { Interaction_ParallaxLayer, Interaction_ParallaxContainer } from "./interaction_parallax-stack-gsap";
+
 export default class Interaction_NavController {
 	constructor(app) {
 		this.app = app;
@@ -31,6 +33,7 @@ export default class Interaction_NavController {
 		
 		this.setupEventListeners();
 		// this.setCurrentPg();
+		this.setupParallax();
 	}
 	
 	// setCurrentPg() {
@@ -53,10 +56,16 @@ export default class Interaction_NavController {
 		this.main_nav.classList.remove("is-not-active");
 		document.body.classList.add("no-scroll");
 		
+		
 		if (this.app.src_smooth_scroll) {
 			this.app.src_smooth_scroll.smooth_scroller.paused(true);
 		}
-		
+		if (this.parallax_container) {
+			this.parallax_container.resume();
+		}
+		if (this.app.site_headers_parallax) {
+			this.app.site_headers_parallax.forEach((parallax) => parallax.resume());
+		}
 	}
 	
 	deactivateNav() {
@@ -67,6 +76,12 @@ export default class Interaction_NavController {
 		
 		if (this.app.src_smooth_scroll) {
 			this.app.src_smooth_scroll.smooth_scroller.paused(false);
+		}
+		if (this.parallax_container) {
+			this.parallax_container.pause();
+		}
+		if (this.app.site_headers_parallax) {
+			this.app.site_headers_parallax.forEach((parallax) => parallax.pause());
 		}
 	}
 	
@@ -98,7 +113,35 @@ export default class Interaction_NavController {
 	// 	this.nav_bg_imgs.forEach((img) => img.classList.remove("is-active"));
 	// }
 	
+	setupParallax() {
+		// BG Image Layer
+		const bg_img_layer = new Interaction_ParallaxLayer({
+			layer_el: '.main-nav__overlay-bg-img',
+			options: {
+				lerp_amt: 0.1,
+				move_rate: { x: 0.01, y: 0.01 },
+				clamp_offset: {
+					min_x: -50,
+					max_x: 50,
+					min_y: -50,
+					max_y: 50,
+				}
+			},
+		});
+		
 
+		this.parallax_container = new Interaction_ParallaxContainer({
+			app: this.app,
+			layer_items: [ bg_img_layer ],
+			container_el: this.nav_overlay,
+			container_id: `main-nav--parallax-elements`,
+			update_loop: this.app.update_loop,
+			relative_el: this.nav_overlay.querySelector('.main-nav__overlay-wrapper')
+		});
+		
+		this.parallax_container.pause();
+	}
+	
 	handleNavExpand() {
 		if ( this.is_active ) {
 			this.deactivateNav();
@@ -119,6 +162,10 @@ export default class Interaction_NavController {
 			this.menu_btn.removeEventListener("click", this.handleNavExpand);
 		}
 		document.removeEventListener("keydown", this.handleKeydown);
+		if (this.parallax_container) {
+			this.parallax_container.destroy();
+			this.parallax_container = null;
+		}
 	}
 }
 
