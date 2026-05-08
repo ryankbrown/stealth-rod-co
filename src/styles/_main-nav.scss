@@ -47,6 +47,10 @@
 		
 		-webkit-backface-visibility: hidden;
 		
+		.is-not-active & {
+			transition-delay: .15s;
+		}
+		
 		.is-active & {
 			opacity: 1;
 			pointer-events: auto;
@@ -70,40 +74,41 @@
 	}
 	
 	$total-nav-items: 10;
-	$overlay-logo-dur: 1.5s;
-	$nav-item-start-delay: 0s;
-	$nav-line-start-delay: .15s;
-	$nav-social-start-delay: .35s;
+	$overlay-logo-dur: 4s;
+	$nav-item-start-delay: .1s;
+	$nav-line-start-delay: .35s;
+	$nav-social-start-delay: .5s;
 	
 	
 	&__link {
+		cursor: pointer;
+		color: color-mix(in srgb, white 50%, transparent);
 		
 		.is-not-active & {
 			opacity: 0;	
 			
-			animation: navItemOut $overlay-logo-dur var(--ease--smooth);	
+			animation: navItemOut var(--duration--slow) var(--ease--smooth);	
 			animation-fill-mode: both;
 		}
 		.is-active & {
 			translate: 0 0;
-			opacity: .6;
+			opacity: 1;
 			scale: 1;
 			transition: all var(--duration--reg) var(--ease--smooth);
 			transform-origin: left center;
 			
-			
-			animation: navItemIn $overlay-logo-dur var(--ease--smooth);
+			animation: navItemIn var(--duration--slow) var(--ease--smooth);
 			animation-fill-mode: both;
 			
 			&.w--current {
-				color: white;
+				color: color-mix(in srgb, white 100%, transparent);
 				opacity: 1;
 			}
 			
 			&:is(:hover, :focus-visible) {
-				opacity: 1;
+				// opacity: 1;
 				scale: 1.15;
-				color: white;
+				color: color-mix(in srgb, white 100%, transparent);
 				translate: 2.5% 0;
 			}
 		}
@@ -111,13 +116,11 @@
 	
 	@keyframes navItemIn {
 		0% { translate: 0 125%; opacity: 0; }
-		50% { opacity: 1; }
 		100% { translate: 0 0; opacity: 1; }
 	}
 	@keyframes navItemOut {
 		0% { translate: 0 0; opacity: 1; }
-		50% { opacity: 1; }
-		100% { translate: 25% 0; opacity: 0; }
+		100% { translate: 60% 0; opacity: 0; }
 	}
 	
 	&__item {
@@ -144,7 +147,7 @@
 	}
 	
 	@keyframes navLogoIn {
-		0% { translate: 0 400%; opacity: 0; }
+		0% { translate: 0 200%; opacity: 0; }
 		25% { opacity: 1; }
 		100% { translate: 0 0; opacity: 1; }
 	}
@@ -170,6 +173,7 @@
 		.is-not-active & {
 			animation-name: drawNavLineOut;
 			transform-origin: right center;
+			animation-delay: 0;
 		}
 		.is-active & {
 			animation-name: drawNavLineIn;
@@ -194,6 +198,7 @@
 	
 	@for $i from 1 through $total-nav-items {
 		
+		// Reverse the order of the animation
 		// $last-idx: $i + 1;
 		// $reverse-idx: $total-nav-items - $i + 1;
 		// $reverse-last-idx: $total-nav-items - $last-idx + 1;
@@ -207,7 +212,7 @@
 		// }
 		
 		$last-idx: $i + 1;
-		&__item:nth-child(#{$i}) {
+		.is-active &__item:nth-child(#{$i}) {
 			&:before {
 				animation-delay: $nav-line-start-delay + ($i * .05s);
 			}
@@ -215,10 +220,75 @@
 				animation-delay: $nav-line-start-delay + ($last-idx * .05s);
 			}	
 		}
+		
+		.is-not-active &__item:nth-child(#{$i}) {
+			&:before {
+				animation-delay: .1s + ($i * .05s);
+			}
+			&:last-child:after {
+				animation-delay: .1s + ($last-idx * .05s);
+			}	
+		}
 	}
 	
 	
 	
+	
+	&__social-items-wrapper {
+		animation-duration: var(--duration--slow);
+		animation-timing-function: var(--ease--smooth);
+		animation-fill-mode: both;
+		
+		.is-not-active & {
+			animation-name: navSocialWrapperOut;
+			animation-delay: 0s;
+		}
+		.is-active & {
+			animation-name: navSocialWrapperIn;
+			animation-delay: $nav-social-start-delay;
+		}
+	}
+	
+	@keyframes navSocialWrapperIn {
+		from { translate: -30% 0; opacity: 0; }
+		to { translate: 0 0; opacity: 1; }
+	}
+	@keyframes navSocialWrapperOut {
+		from { translate: 0 0; opacity: 1; }
+		to { translate: 30% 0; opacity: 0; }
+	}
+	
+	&__social-item:last-child {
+		position: relative;
+		&:before {
+			content: "";
+			position: absolute;
+			width: 1px;
+			background: #d9d9d9;
+			height: 65%;
+			top: 20%;
+			left: 0;
+			left: calc(var(--_fluid-spacings---flspc-l)  * -.5);
+			opacity: .65;
+		}
+	}
+	
+	&__social-link {
+		cursor: pointer;
+		color: color-mix(in srgb, white 80%, transparent);
+		opacity: .65;
+		scale: 1;
+		transition:
+			opacity var(--duration--reg) var(--ease--smooth),
+			scale var(--duration--reg) var(--ease--smooth),
+			color var(--duration--reg) var(--ease--smooth);
+			
+		&:is(:hover, :focus-visible) {
+			opacity: 1;
+			scale: 1.15;
+			color: color-mix(in srgb, white 100%, transparent);
+		}
+	}
 	
 	
 	// &__link-divider-line {
