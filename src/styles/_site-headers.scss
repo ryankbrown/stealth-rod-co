@@ -1,0 +1,10 @@
+@use "variables";
+
+
+.home__hero-img,
+.global__hero-img,
+.global__hero-content {
+	--tX: 0;
+	--tY: 0;
+	translate: var(--tX) var(--tY);
+}

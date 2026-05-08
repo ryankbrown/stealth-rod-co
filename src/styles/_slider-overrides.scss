@@ -1,0 +1,29 @@
+@use "variables";
+
+
+
+.w-slider-dot,
+.w-slider-nav-invert > .w-slider-dot {
+	--dot-alpha: 50%;
+	
+	width: var(--_fluid-spacings---flspc-s);
+	height: var(--_fluid-spacings---flspc-s);
+	
+	background-color: var(--_color-palette---gray-70);
+	// background-color: var(--_color-palette---primary-red);
+	opacity: var(--dot-alpha);
+	scale: .75;
+	transition-property: scale, background-color;
+	transition-duration: .25s;
+	transition-timing-function: ease-in-out;
+	
+	
+	&.w-active {
+		--dot-alpha: 100%;
+		scale: 1;
+		background-color: var(--_color-palette---primary-red);
+	}
+	&:is(:hover, :focus-visible) {
+		scale: 1;
+	}
+}

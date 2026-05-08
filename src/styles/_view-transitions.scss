@@ -11,6 +11,9 @@
 	:root {
 		view-transition-name: root;
 	}
+	
+	
+	
 
 	$mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa0475d7a5558f9fe7915e_water-transtion-sprite.avif";
 	// $mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa1744c92f745777961b70_water-transtion-sprite.svg";
@@ -18,12 +21,23 @@
 	$water-trans-duration: 1.4s;
 	// $water-trans-duration: 0.043s;
 	
+	// preload the mask-img
+	main:after {
+		background-image: url($mask-url) no-repeat -9999px -9999px;
+		background-size: 0;
+	}
+	
+	
 	
 	::view-transition-old(root) {
 		animation-name: vt-water-hide;
 		animation-duration: $water-trans-duration;
 		animation-timing-function: ease-in;
 		animation-fill-mode: forwards;
+		
+		// -webkit-backface-visibility: hidden;
+		// backface-visibility: hidden;
+		// transform: translateZ(0);
 	}
 
 	::view-transition-new(root) {
@@ -41,6 +55,10 @@
 			forwards, 
 			forwards
 		;
+		
+		// -webkit-backface-visibility: hidden;
+		// backface-visibility: hidden;
+		// transform: translateZ(0);
 		
 		// -webkit-mask-image: url(#{$mask-url});
 		mask-image: url(#{$mask-url});

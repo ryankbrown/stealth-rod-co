@@ -9,9 +9,10 @@ import Interaction_SmoothScroll from './interaction_smooth-scroll.js';
 import Interaction_ViewportObserver from './interaction_viewport-observer.js'
 import Interaction_FixedContentStyler from './interaction_fixed-content-styler.js'
 import Interaction_PointerTracker from './interaction_pointer-tracker.js'
-
 // import Interaction_RodHeaders_ScrollAnim from './interaction_rod-headers.js'
 import Interaction_RodHeaders_Parallax from './interaction_rod-headers-parallax.js'
+import Interaction_SiteHeaders_Parallax from './interaction_site-header-parallax.js';
+
 
 
 // - - - SRC Site JS App Class - - - 
@@ -34,13 +35,10 @@ export default class SRC_App {
 		this.fixed_content_styler = this.setupFixedContentStyler();
 		this.viewport_observer = this.setupViewportObserver();
 		this.rod_headers_parallax = this.setupRodHeadersParallax();
+		this.site_headers_parallax = this.setupSiteHeadersParallax();
 		
 		// Component Interactions
 		// this.rod_headers_scroll = this.getRodHeadersScrollAnims();
-		
-		
-		
-		
 		// this.background_video = this.getBackgroundVideo();
 		// this.floating_img_sections = this.getFloatingImgSections();
 		// this.sidescrollers = this.getSidescrollers();
@@ -71,6 +69,15 @@ export default class SRC_App {
 		});
 	}
 
+	setupSiteHeadersParallax() {
+		const target_els = document.querySelectorAll('.global__hero');
+		if (!target_els.length) return null;
+
+		return Array.from(target_els).map((el, idx)=> {
+			return new Interaction_SiteHeaders_Parallax(this, el, idx);
+		});
+	}
+
 	destroyGlobalInteractions() {
 		if (this.viewport_observer) {
 			this.viewport_observer.destroy();
@@ -86,8 +93,12 @@ export default class SRC_App {
 			this.nav_controller = null;
 		}
 		if (this.rod_headers_parallax) {
-			this.rod_headers_parallax.destroy();
+			this.rod_headers_parallax.forEach((interaction) => interaction.destroy());
 			this.rod_headers_parallax = null;
+		}
+		if (this.site_headers_parallax) {
+			this.site_headers_parallax.forEach((interaction) => interaction.destroy());
+			this.site_headers_parallax = null;
 		}
 		
 		// Smooth scroll is created inside the GSAP context; letting
