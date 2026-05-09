@@ -37,15 +37,13 @@ export class Interaction_ParallaxLayer {
 	
 	updateLayer(input) {
 		
-		
 		let x_move = input.x * this.move_rate.x * this.dir_mod.x;
 		let y_move = input.y * this.move_rate.y * this.dir_mod.y;
-
+		
 		// Apply max offset limits if defined
 		x_move = gsap.utils.clamp( this.clamp_offset.min_x, this.clamp_offset.max_x, x_move);
 		y_move = gsap.utils.clamp( this.clamp_offset.min_y, this.clamp_offset.max_y, y_move);
 		
-
 		this.trans_pos.x = gsap.utils.interpolate(this.trans_pos.x, x_move, this.lerp_amt);
 		this.trans_pos.y = gsap.utils.interpolate(this.trans_pos.y, y_move, this.lerp_amt);
 

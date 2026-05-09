@@ -64,6 +64,7 @@ export default class Interaction_NavController {
 			this.parallax_container.resume();
 		}
 		if (this.app.site_headers_parallax) {
+			console.log('site_headers_parallax', this.app.site_headers_parallax);
 			this.app.site_headers_parallax.forEach((parallax) => parallax.resume());
 		}
 	}
@@ -115,24 +116,25 @@ export default class Interaction_NavController {
 	
 	setupParallax() {
 		// BG Image Layer
-		const bg_img_layer = new Interaction_ParallaxLayer({
+		this.bg_img_layer = new Interaction_ParallaxLayer({
 			layer_el: '.main-nav__overlay-bg-img',
 			options: {
-				lerp_amt: 0.1,
-				move_rate: { x: 0.01, y: 0.01 },
+				lerp_amt: 0.01,
+				move_rate: { x: 0.035, y: 0.035 },
 				clamp_offset: {
 					min_x: -50,
 					max_x: 50,
 					min_y: -50,
 					max_y: 50,
-				}
+				},
+				dir_mod: { x: -1, y: -1 }
 			},
 		});
 		
 
 		this.parallax_container = new Interaction_ParallaxContainer({
 			app: this.app,
-			layer_items: [ bg_img_layer ],
+			layer_items: [ this.bg_img_layer ],
 			container_el: this.nav_overlay,
 			container_id: `main-nav--parallax-elements`,
 			update_loop: this.app.update_loop,

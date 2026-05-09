@@ -2,6 +2,7 @@
 
 
 .home__hero-img,
+.home__hero-content,
 .global__hero-img,
 .global__hero-content {
 	--tX: 0;
@@ -9,7 +10,8 @@
 	translate: var(--tX) var(--tY);
 }
 
-
+.home__hero-img,
 .global__hero-img {
 	scale: 1.1;
 }
+

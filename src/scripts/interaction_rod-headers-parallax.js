@@ -13,7 +13,7 @@ export default class Interaction_RodHeaders_Parallax {
 		const shadow_layer = new Interaction_ParallaxLayer({
 			layer_el: this.img_shadow,
 			options: {
-				lerp_amt: 0.1,
+				lerp_amt: 0.05,
 				move_rate: { x: 0.05, y: 0.075 },
 				clamp_offset: {
 					min_x: -100,
@@ -22,10 +22,7 @@ export default class Interaction_RodHeaders_Parallax {
 					max_y: 100,
 				},
 				// Opposite-to-pointer by default, with X flipped for mirrored variant.
-				dir_mod: {
-					x: this.flipped ? 1 : -1,
-					y: -1,
-				},
+				dir_mod: { x: this.flipped ? 1 : -1, y: -1 },
 			},
 		});
 
