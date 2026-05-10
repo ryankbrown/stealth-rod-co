@@ -12,6 +12,9 @@ import Interaction_PointerTracker from './interaction_pointer-tracker.js'
 import Interaction_RodHeaders_Parallax from './interaction_rod-headers-parallax.js'
 import Interaction_SiteHeroHeaders_Parallax from './interaction_site-hero-headers-parallax.js';
 import Interaction_HomeHero_Parallax from './interaction_home-hero-parallax.js';
+// import Interaction_TaglineScrollParallax from './interaction_tagline-scroll-parallax.js';
+import Interaction_FooterScrollAnim from './interaction_footer.js';
+import Interaction_FloatingImgSection from './interaction_floating-imgs-section.js';
 
 
 // - - - SRC Site JS App Class - - - 
@@ -30,23 +33,15 @@ export default class SRC_App {
 		this.pointer_tracker = new Interaction_PointerTracker(this);
 		
 		this.fixed_content_styler = this.setupFixedContentStyler();
-		
 		this.viewport_observer = this.setupViewportObserver();
+		this.footer_scroll_anim = new Interaction_FooterScrollAnim(this);
 		
 		// Component Interactions
 		this.rod_headers_parallax = this.setupRodHeadersParallax();
 		this.site_hero_headers_parallax = this.setupSiteHeroHeadersParallax();	
-		this.home_hero_parallax = new Interaction_HomeHero_Parallax(this);
+		this.home_hero_parallax = this.setupHomeHeroArea();
+		this.floating_img_section = this.setupFloatingImgsSection();
 		
-		
-		// this.rod_headers_scroll = this.getRodHeadersScrollAnims();
-		// this.background_video = this.getBackgroundVideo();
-		// this.floating_img_sections = this.getFloatingImgSections();
-		// this.sidescrollers = this.getSidescrollers();
-		// this.project_sidescrollers = this.getProjectSidescrollers();
-		// this.crossfaders = this.getCrossfaders();
-		// this.bio_overlays = this.getBioOverlays();
-		// this.craft_scrollsects = this.getCraftScrollSects();
 	}
 	
 
@@ -64,7 +59,6 @@ export default class SRC_App {
 	setupRodHeadersParallax() {
 		const target_els = document.querySelectorAll('.rod__header');
 		if (!target_els.length) return null;
-		
 		return Array.from(target_els).map((el, idx)=> {
 			return new Interaction_RodHeaders_Parallax(this, el, idx);
 		});
@@ -72,14 +66,20 @@ export default class SRC_App {
 
 	setupSiteHeroHeadersParallax() {
 		const target_els = document.querySelectorAll('.global__hero-section');
-		
-		console.log('target_els', target_els);
-		
 		if (!target_els.length) return null;
-				
 		return Array.from(target_els).map((el, idx)=> {
 			return new Interaction_SiteHeroHeaders_Parallax(this, el, idx);
 		});
+	}
+	
+	setupHomeHeroArea() {
+		if ( !document.querySelector('.home__hero-section') ) return null;
+		return new Interaction_HomeHero_Parallax(this);
+	}
+	
+	setupFloatingImgsSection() {
+		if ( !document.querySelector('.about__intro-section') ) return null;
+		return new Interaction_FloatingImgSection(this, '.about__intro-section');
 	}
 
 	destroyGlobalInteractions() {
@@ -99,8 +99,10 @@ export default class SRC_App {
 			this.pointer_tracker.destroy();
 			this.pointer_tracker = null;
 		}
-		
-		
+		if (this.footer_scroll_anim) {
+			this.footer_scroll_anim.destroy();
+			this.footer_scroll_anim = null;
+		}
 		// Smooth scroll is created inside the GSAP context; letting
 		// gsap_ctx.revert() handle its teardown keeps responsibilities clear.
 		this.smooth_scroll = null;
@@ -116,10 +118,6 @@ export default class SRC_App {
 			this.site_headers_parallax = null;
 		}
 		
-		if (this.home_hero_parallax) {
-			this.home_hero_parallax.destroy();
-			this.home_hero_parallax = null;
-		}
 		this.gsap_ctx.revert();
 	}
 }

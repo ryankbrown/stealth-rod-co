@@ -1,0 +1,23 @@
+@use "variables";
+
+
+$debug: false;
+
+// .about__intro {
+	
+// 	@if $debug { outline: 2px solid color-mix(in srgb, red 10%, transparent); }
+	
+// 	&__text-content {
+		
+// 		@if $debug { outline: 2px solid color-mix(in srgb, blue 10%, transparent); }
+// 	}
+	
+// 	// the wrapper for all the floating images
+// 	&__floating-imgs {
+// 		@if $debug { outline: 10px solid color-mix(in srgb, limegreen 10%, transparent); }
+		
+// 		padding-top: 200vh;
+// 		padding-bottom: 125vh;
+// 		isolation: isolate;
+// 	}
+// }

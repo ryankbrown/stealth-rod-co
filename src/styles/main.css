@@ -57,6 +57,10 @@
   --color--fixed-content--primary: black;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 @view-transition {
   navigation: auto;
 }
@@ -189,6 +193,7 @@
   filter: brightness(170%) blur(10px);
   transition: scale var(--duration--2x-slow) var(--ease--smooth), filter var(--duration--2x-slow) var(--ease--smooth);
   transition-delay: 0s, 0.25s;
+  translate: var(--tX) var(--tY);
 }
 .is-active .main-nav__overlay-bg-img {
   opacity: 1;
@@ -523,11 +528,17 @@
 }
 
 .home__hero-img,
+.home__hero-content,
 .global__hero-img,
 .global__hero-content {
   --tX: 0;
   --tY: 0;
   translate: var(--tX) var(--tY);
+}
+
+.home__hero-img,
+.global__hero-img {
+  scale: 1.1;
 }
 
 .rod__header-img-shadow {
