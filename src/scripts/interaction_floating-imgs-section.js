@@ -31,7 +31,6 @@ export default class Interaction_FloatingImgSection {
 		
 		this.createMainOverlayTimeline();
 		this.createOverlaidContentScrollTrigger();
-		// this.createImagesTimeline();
 		this.createBgImgTimelineTrigger()
 	}
 
@@ -48,64 +47,23 @@ export default class Interaction_FloatingImgSection {
 		.addLabel('scroll-started')
 		
 		.from(this.intro_text_content, { duration: .25 }) // wait
-		
-		// - - - - - TWEEN IN - - - - -	
-		.from('.about__intro-heading--40', {
-			scale: 0.8,
-			alpha: 0,
-			transformOrigin: "center center",
-			duration: 4,
-			ease: "expo.out"
-		})
-		.from([
-			'.about__intro-heading--years',
-			'.about__intro-heading--lake',
-		], {
-			scale: 0.8,
-			alpha: 0,
-			transformOrigin: "center center",
-			duration: 4,
-			ease: "expo.out",
-			stagger: .5
-		})
 		.from(paragraph.lines, {
 			autoAlpha: 0,
-			duration: 1,
-			stagger: 0.05,
+			duration: 1.25,
+			stagger: 0.15,
 			ease: "power1.out"
 		}, '<')
 		
 		// - - - - - TWEEN MIDPOINT - - - - -	
 		.addLabel('scroll-midpoint')
 		.from(this.intro_text_content, { duration: 8 }) // wait
-		
-		// - - - - - TWEEN OUT - - - - -	
-		.to('.about__intro-heading--40', {
-			scale: 1.1,
-			alpha: 0,
-			transformOrigin: "center center",
-			duration: 1,
-			ease: "expo.in"
-		})
-		.from([
-			'.about__intro-heading--years',
-			'.about__intro-heading--lake',
-		], {
-			scale: 1.1,
-			alpha: 0,
-			transformOrigin: "center center",
-			duration: 1,
-			ease: "expo.in",
-			stagger: .5
-		}, '<')
-		.to(paragraph.lines, {
+		.to('.about__intro-text-content', {
 			yPercent: -10,
 			alpha: 0,
 			duration: 1,
-			stagger: 0.15,
-			ease: "power1.in"
-		}, '<')
-		.from(this.intro_text_content, { duration: .5 })
+			ease: "expo.out"
+		})
+		.from(this.intro_text_content, { duration: .15 })
 		
 		.addLabel('scroll-finished')
 	}
@@ -123,13 +81,16 @@ export default class Interaction_FloatingImgSection {
 			paused: true,
 			scrollTrigger: {
 				...this.shared_scroll_opts,
+				start: "top top",
+				end: "bottom center+=15%",
+				endTrigger: this.end_trigger,
 				pin: this.bg_img,
 				pinReparent: true,
 			}
 		})
 		.from(this.bg_img, {
 			scale: 1.2,
-			autoAlpha: 0,
+			autoAlpha: .25,
 			duration: 1,
 			ease: "power1.out"
 		}, 0)

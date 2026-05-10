@@ -1,7 +1,5 @@
 @use "variables";
 
-
-
 .w-slider-dot,
 .w-slider-nav-invert > .w-slider-dot {
 	--dot-alpha: 50%;
@@ -16,7 +14,6 @@
 	transition-property: scale, background-color;
 	transition-duration: .25s;
 	transition-timing-function: ease-in-out;
-	
 	
 	&.w-active {
 		--dot-alpha: 100%;

@@ -18,7 +18,7 @@ export default class Interaction_FooterScrollAnim {
 					end: 'top center-=25%',
 
 					scrub: true,
-					markers: true,
+					// markers: true,
 				},
 			})
 			.from(this.footer_stealth_svg, {
