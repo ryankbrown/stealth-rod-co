@@ -31,16 +31,16 @@
 		}
 	}
 	
-	&__heading-scroll-mover {
-		animation-name: rodHeadingScrollY;
-		animation-timeline: scroll(root);
-		animation-fill-mode: both;
-	}
+	// &__heading-scroll-mover {
+	// 	animation-name: rodHeadingScrollY;
+	// 	animation-timeline: scroll(root);
+	// 	animation-fill-mode: both;
+	// }
 	
-	@keyframes rodHeadingScrollY {
-		from { translate: 0 40%; }
-		to { translate: 0 -40%; }
-	}
+	// @keyframes rodHeadingScrollY {
+	// 	from { translate: 0 40%; }
+	// 	to { translate: 0 -40%; }
+	// }
 	
 	&__header-img-rotate-scale-wrapper {
 		transition: 
