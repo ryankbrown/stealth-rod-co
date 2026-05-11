@@ -13,7 +13,7 @@ import Interaction_RodHeaders_Parallax from './interaction_rod-headers-parallax.
 import Interaction_SiteHeroHeaders_Parallax from './interaction_site-hero-headers-parallax.js';
 import Interaction_HomeHero_Parallax from './interaction_home-hero-parallax.js';
 // import Interaction_TaglineScrollParallax from './interaction_tagline-scroll-parallax.js';
-import Interaction_FooterScrollAnim from './interaction_footer.js';
+// import Interaction_FooterScrollAnim from './interaction_footer.js';
 import Interaction_FloatingImgSection from './interaction_floating-imgs-section.js';
 import Interaction_FeatureParallaxImgs from './interaction_feature-parallax-imgs.js';
 
@@ -37,7 +37,7 @@ export default class SRC_App {
 		
 		this.fixed_content_styler = this.setupFixedContentStyler();
 		this.viewport_observer = this.setupViewportObserver();
-		this.footer_scroll_anim = new Interaction_FooterScrollAnim(this);
+		// this.footer_scroll_anim = new Interaction_FooterScrollAnim(this);
 		
 		// Component Interactions
 		this.rod_headers_parallax = this.setupRodHeadersParallax();
@@ -125,10 +125,10 @@ export default class SRC_App {
 			this.pointer_tracker.destroy();
 			this.pointer_tracker = null;
 		}
-		if (this.footer_scroll_anim) {
-			this.footer_scroll_anim.destroy();
-			this.footer_scroll_anim = null;
-		}
+		// if (this.footer_scroll_anim) {
+		// 	this.footer_scroll_anim.destroy();
+		// 	this.footer_scroll_anim = null;
+		// }
 		// Smooth scroll is created inside the GSAP context; letting
 		// gsap_ctx.revert() handle its teardown keeps responsibilities clear.
 		this.smooth_scroll = null;

@@ -84,7 +84,7 @@ export default class Interaction_FloatingImgSection {
 				endTrigger: this.end_trigger,
 				pin: this.bg_img,
 				pinReparent: true,
-				markers: true
+				// markers: true
 			}
 		})
 		.from(this.bg_img, { duration: this.main_scroll_tl.totalDuration() })

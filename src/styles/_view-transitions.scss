@@ -5,108 +5,108 @@
 }
 
 
-@media (prefers-reduced-motion: no-preference) {
+// @media (prefers-reduced-motion: no-preference) {
 	
-	// Page Transition		
-	:root {
-		view-transition-name: root;
-	}
+// 	// Page Transition		
+// 	:root {
+// 		view-transition-name: root;
+// 	}
 	
 	
 	
 
-	$mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa0475d7a5558f9fe7915e_water-transtion-sprite.avif";
-	// $mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa1744c92f745777961b70_water-transtion-sprite.svg";
-	$water-trans-framecount: 71;
-	$water-trans-duration: 1.4s;
-	// $water-trans-duration: 0.043s;
+// 	$mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa0475d7a5558f9fe7915e_water-transtion-sprite.avif";
+// 	// $mask-url: "https://cdn.prod.website-files.com/69e4eb3f116928f363d5b2bc/69fa1744c92f745777961b70_water-transtion-sprite.svg";
+// 	$water-trans-framecount: 71;
+// 	$water-trans-duration: 1.4s;
+// 	// $water-trans-duration: 0.043s;
 	
-	// preload the mask-img
-	main:after {
-		background-image: url($mask-url) no-repeat -9999px -9999px;
-		background-size: 0;
-	}
+// 	// preload the mask-img
+// 	main:after {
+// 		background-image: url($mask-url) no-repeat -9999px -9999px;
+// 		background-size: 0;
+// 	}
 	
 	
 	
-	::view-transition-old(root) {
-		animation-name: vt-water-hide;
-		animation-duration: $water-trans-duration;
-		animation-timing-function: ease-in;
-		animation-fill-mode: forwards;
+// 	::view-transition-old(root) {
+// 		animation-name: vt-water-hide;
+// 		animation-duration: $water-trans-duration;
+// 		animation-timing-function: ease-in;
+// 		animation-fill-mode: forwards;
 		
-		// -webkit-backface-visibility: hidden;
-		// backface-visibility: hidden;
-		// transform: translateZ(0);
-	}
+// 		// -webkit-backface-visibility: hidden;
+// 		// backface-visibility: hidden;
+// 		// transform: translateZ(0);
+// 	}
 
-	::view-transition-new(root) {
-		animation-name: 
-			vt-water-mask-reveal,
-			vt-water-reveal-scale;
-		animation-duration: 
-			$water-trans-duration,
-			$water-trans-duration;
-		animation-timing-function: 
-			steps($water-trans-framecount - 1),
-			ease-out;
+// 	::view-transition-new(root) {
+// 		animation-name: 
+// 			vt-water-mask-reveal,
+// 			vt-water-reveal-scale;
+// 		animation-duration: 
+// 			$water-trans-duration,
+// 			$water-trans-duration;
+// 		animation-timing-function: 
+// 			steps($water-trans-framecount - 1),
+// 			ease-out;
 			
-		animation-fill-mode: 
-			forwards, 
-			forwards
-		;
+// 		animation-fill-mode: 
+// 			forwards, 
+// 			forwards
+// 		;
 		
-		// -webkit-backface-visibility: hidden;
-		// backface-visibility: hidden;
-		// transform: translateZ(0);
+// 		// -webkit-backface-visibility: hidden;
+// 		// backface-visibility: hidden;
+// 		// transform: translateZ(0);
 		
-		// -webkit-mask-image: url(#{$mask-url});
-		mask-image: url(#{$mask-url});
-		// -webkit-mask-repeat: no-repeat;
-		mask-repeat: no-repeat;
-		// -webkit-mask-size: ($water-trans-framecount * 100%) 100%;
-		mask-size: ($water-trans-framecount * 100%) 100%;
-	}
+// 		// -webkit-mask-image: url(#{$mask-url});
+// 		mask-image: url(#{$mask-url});
+// 		// -webkit-mask-repeat: no-repeat;
+// 		mask-repeat: no-repeat;
+// 		// -webkit-mask-size: ($water-trans-framecount * 100%) 100%;
+// 		mask-size: ($water-trans-framecount * 100%) 100%;
+// 	}
 	
 	
 	
-	@keyframes vt-water-hide {
-		0% {
-			scale: 1;
-			filter: blur(0px) brightness(100%);
-		}
-		20% {
-			filter: blur(0px) brightness(100%);
-		}
-		100% {
-			scale: 1.15;
-			filter: blur(5px) brightness(20%)
-		}
-	}
+// 	@keyframes vt-water-hide {
+// 		0% {
+// 			scale: 1;
+// 			filter: blur(0px) brightness(100%);
+// 		}
+// 		20% {
+// 			filter: blur(0px) brightness(100%);
+// 		}
+// 		100% {
+// 			scale: 1.15;
+// 			filter: blur(5px) brightness(20%)
+// 		}
+// 	}
 
-	@keyframes vt-water-mask-reveal {
-		from {
-			mask-position: 100% 0;
-		}
-		to {
-			mask-position: 0% 0;
-		}
-	} 
+// 	@keyframes vt-water-mask-reveal {
+// 		from {
+// 			mask-position: 100% 0;
+// 		}
+// 		to {
+// 			mask-position: 0% 0;
+// 		}
+// 	} 
 		
-	@keyframes vt-water-reveal-scale {
-		0% {
-			scale: 1.15;
-			// filter: blur(15px) brightness(115%);
-			opacity: 0;
-		}
-		40% {
-			// filter: blur(15px) brightness(115%);
-			opacity: 0;
-		}
-		100% {
-			scale: 1;
-			// filter: blur(0px) brightness(100%);
-			opacity: 1;
-		}
-	}
-}
+// 	@keyframes vt-water-reveal-scale {
+// 		0% {
+// 			scale: 1.15;
+// 			// filter: blur(15px) brightness(115%);
+// 			opacity: 0;
+// 		}
+// 		40% {
+// 			// filter: blur(15px) brightness(115%);
+// 			opacity: 0;
+// 		}
+// 		100% {
+// 			scale: 1;
+// 			// filter: blur(0px) brightness(100%);
+// 			opacity: 1;
+// 		}
+// 	}
+// }

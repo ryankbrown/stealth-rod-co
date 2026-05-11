@@ -164,7 +164,7 @@
 		&--to,
 		&--your,
 		&--cast {
-			animation-name: ourRodsTextMoveIn;
+			animation-name: svgHeaderTextMoveIn;
 			animation-duration: var(--duration--2x-slow);
 			animation-timing-function: var(--ease--smooth);
 			animation-fill-mode: both;
@@ -177,7 +177,7 @@
 			animation-delay: $start-delay + .3s;
 		}
 		&--underline {
-			animation-name: ourRodsUnderlineMoveIn;
+			animation-name: svgHeaderUnderlineMoveIn;
 			animation-duration: var(--duration--2x-slow);
 			animation-timing-function: var(--ease--smooth);
 			animation-fill-mode: both;
@@ -194,7 +194,54 @@
 	}
 }
 
-@keyframes ourRodsTextMoveIn {
+
+
+
+
+
+
+.about__header-text {
+	
+	$start-delay: 1.25s;
+	&--forged,
+	&--for,
+	&--the,
+	&--underline,
+	&--fight {
+		animation-name: svgHeaderTextMoveIn;
+		animation-duration: var(--duration--2x-slow);
+		animation-timing-function: var(--ease--smooth);
+		animation-fill-mode: both;
+		animation-delay: 1s;	
+	}
+	
+	&--underline {
+		animation-name: svgHeaderUnderlineMoveIn;
+		animation-duration: var(--duration--2x-slow);
+		animation-timing-function: var(--ease--smooth);
+		animation-fill-mode: both;
+		animation-delay: $start-delay + .65s;
+		transform-origin: left center;
+		transform-box: fill-box;
+	}
+	
+	
+	&--forged {
+		animation-delay: $start-delay + .1s;
+	}
+	&--for {
+		animation-delay: $start-delay + .3s;
+	}
+	&--the {
+		animation-delay: $start-delay + .5s;
+	}
+	&--fight {
+		animation-delay: $start-delay + .8s;
+	}	
+}
+
+
+@keyframes svgHeaderTextMoveIn {
 	0% {
 		opacity: 0;
 		translate: 0 20%;
@@ -208,7 +255,7 @@
 	}
 }
 
-@keyframes ourRodsUnderlineMoveIn {
+@keyframes svgHeaderUnderlineMoveIn {
 	0% {
 		opacity: 0;
 		scale: 0 1;
@@ -225,3 +272,25 @@
 }
 
 
+.contact__hero-text {
+	animation-name: contactHeroTextIn;
+	animation-duration: var(--duration--2x-slow);
+	animation-timing-function: var(--ease--smooth);
+	animation-fill-mode: both;
+	animation-delay: 1s;
+	letter-spacing: 0;
+}
+
+@keyframes contactHeroTextIn {
+	0% {
+		letter-spacing: 0.01em;
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		letter-spacing: 0.05em;
+		opacity: 1;
+	}
+}
