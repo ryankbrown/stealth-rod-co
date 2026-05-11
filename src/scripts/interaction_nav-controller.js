@@ -62,7 +62,7 @@ export default class Interaction_NavController {
 		if (this.parallax_container) {
 			this.parallax_container.resume();
 		}
-		for (const p of this.app.parallax_for_nav_pause) {
+		for (const p of this.app.parallax_for_nav_pause ?? []) {
 			p.pause();
 		}
 	}
@@ -78,7 +78,7 @@ export default class Interaction_NavController {
 		if (this.parallax_container) {
 			this.parallax_container.pause();
 		}
-		for (const p of this.app.parallax_for_nav_pause) {
+		for (const p of this.app.parallax_for_nav_pause ?? []) {
 			p.resume();
 		}
 	}

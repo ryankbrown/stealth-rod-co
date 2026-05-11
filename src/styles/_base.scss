@@ -21,3 +21,8 @@
 body.no-scroll {
 	overflow: hidden;
 }
+
+
+svg:not(:root) {
+	overflow: visible;
+}

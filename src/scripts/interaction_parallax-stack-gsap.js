@@ -153,14 +153,21 @@ export class Interaction_ParallaxContainer {
 	}
 	
 	setupIntersectionObserver() {
-		// Only run parallax when container is visible in viewport
+		if (!this.container_el) {
+			console.warn(`[Parallax] No container_el for ${this.container_id}; intersection observer skipped.`);
+			return;
+		}
+		// Only run parallax when container is visible in viewport (root = viewport)
 		const observer = new IntersectionObserver(
-			([entry]) => {
+			(entries) => {
+				if (this._destroyed) return;
+				const entry = entries[0];
+				if (!entry) return;
 				this.is_in_view = entry.isIntersecting;
 			},
 			{
-				threshold: 0, // Trigger as soon as any part is visible
-				rootMargin: "50px", // Start slightly before entering viewport
+				threshold: 0, // any pixel counts
+				rootMargin: "50px", // begin slightly before entering viewport
 			},
 		);
 		observer.observe(this.container_el);

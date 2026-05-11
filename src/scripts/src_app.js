@@ -24,7 +24,7 @@ export default class SRC_App {
 		// Main GSAP Context
 		this.gsap_ctx = gsap.context(() => {});
 		this.update_loop = new Interaction_UpdateLoop_GSAP();
-		/** Parallax wrappers paused while the main nav is open (nav reads this list only). */
+		// Must exist before Interaction_NavController runs (nav loops this on first deactivateNav).
 		this.parallax_for_nav_pause = [];
 		this.init();
 	}
@@ -50,6 +50,7 @@ export default class SRC_App {
 
 	/** Refill from current interaction fields so the nav can pause/resume in one loop. */
 	syncNavParallaxPauseList() {
+		if (!this.parallax_for_nav_pause) this.parallax_for_nav_pause = [];
 		const list = this.parallax_for_nav_pause;
 		list.length = 0;
 		const addMany = (arr) => {
@@ -134,7 +135,7 @@ export default class SRC_App {
 	}
 
 	destroyComponentInteractions() {
-		this.parallax_for_nav_pause.length = 0;
+		if (this.parallax_for_nav_pause) this.parallax_for_nav_pause.length = 0;
 		if (this.rod_headers_parallax) {
 			this.rod_headers_parallax.forEach((interaction) => interaction.destroy());
 			this.rod_headers_parallax = null;
