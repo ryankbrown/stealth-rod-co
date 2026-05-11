@@ -12,7 +12,7 @@ export default class Interaction_FloatingImgSection {
 		this.shared_scroll_opts = {
 			trigger: this.floating_section_el,
 			start: "top top",
-			end: "bottom center+=15%",
+			end: "bottom bottom",
 			endTrigger: this.end_trigger,
 			scrub: 1,
 			anticipatePin: true,
@@ -60,10 +60,10 @@ export default class Interaction_FloatingImgSection {
 		.to('.about__intro-text-content', {
 			yPercent: -10,
 			alpha: 0,
-			duration: 1,
-			ease: "expo.out"
+			duration: 3,
+			ease: "power4.in"
 		})
-		.from(this.intro_text_content, { duration: .15 })
+		.from(this.intro_text_content, { duration: .25 })
 		
 		.addLabel('scroll-finished')
 	}
@@ -81,25 +81,25 @@ export default class Interaction_FloatingImgSection {
 			paused: true,
 			scrollTrigger: {
 				...this.shared_scroll_opts,
-				start: "top top",
-				end: "bottom center+=15%",
 				endTrigger: this.end_trigger,
 				pin: this.bg_img,
 				pinReparent: true,
+				markers: true
 			}
 		})
-		.from(this.bg_img, {
-			scale: 1.2,
-			autoAlpha: .25,
-			duration: 1,
-			ease: "power1.out"
-		}, 0)
-		.to(this.bg_img, {
-			scale: 1.2,
-			autoAlpha: 0,
-			duration: 1,
-			ease: "power1.in"
-		})
+		.from(this.bg_img, { duration: this.main_scroll_tl.totalDuration() })
+		// .from(this.bg_img, {
+		// 	scale: 1.4,
+		// 	duration: 1,
+		// 	transformOrigin: "center top",
+		// 	ease: "power1.out"
+		// }, 0)
+		// .to(this.bg_img, {
+		// 	scale: 1.4,
+		// 	transformOrigin: "center top",
+		// 	duration: 1,
+		// 	ease: "power1.in"
+		// })
 	}
 	
 	destroy() {

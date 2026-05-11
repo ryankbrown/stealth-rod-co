@@ -21,29 +21,30 @@ $debug: false;
 		@if $debug {
 			outline: 10px solid color-mix(in srgb, limegreen 10%, transparent);
 		}
-
 		padding-top: 100vh;
-		padding-bottom: 125vh;
+		padding-bottom: 100vh;
 		isolation: isolate;
 	}
 
 	&-heading {
-		
+		$heading-start-delay: .5s;
 		&--40,
 		&--years,
 		&--lake {
 			transition: 
-				transform var(--duration--2x-slow) var(--ease--smooth),
+				translate var(--duration--2x-slow) var(--ease--smooth),
 				opacity var(--duration--2x-slow) var(--ease--smooth),
 				scale var(--duration--2x-slow) var(--ease--smooth);
 			
 		}
 		
 		&--40 {
+			transition-delay: $heading-start-delay + .1s;
 			.not-in-view & {
-				translate: 0 100%;
+				translate: 0 10%;
 				opacity: 0;
 				scale: .8;
+				transition: none;
 			}
 			.in-view & {
 				translate: 0 0;
@@ -53,11 +54,13 @@ $debug: false;
 		}
 		&--years,
 		&--lake {
-			transition-delay: .15s;
+			
+			transition-delay: $heading-start-delay + .35s;
 			.not-in-view & {
 				translate: 0 100%;
 				opacity: 0;
 				scale: .8;
+				transition: none;
 			}
 			.in-view & {
 				translate: 0 0;
@@ -66,13 +69,49 @@ $debug: false;
 			}
 		}
 		&--lake {
-			transition-delay: .25s;
-			// .not-in-view & {
-				
-			// }
+			transition-delay: $heading-start-delay + .45s;
+		}
+	}
+	
+	
+	&-bg-img-container {
+		
+		transition: 
+			opacity var(--duration--reg) ease-in-out;
+		transition-delay: .5s;
+		
+		.not-in-view & {
+			opacity: .2;
+			transition: none;
+		}
+		.in-view & {
+			opacity: 1;
+		}
+	}
+	&-bg-img {
+		animation-name: waterImgScale;
+		animation-duration: 10s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+		transform-origin: left top;
+		.not-in-view & {
+			animation-play-state: paused;
+		}
+		.in-view & {
+			animation-play-state: running;
 		}
 	}
 }
 
 
 
+
+
+@keyframes waterImgScale {
+	0%, 100% 
+	{
+		scale: 1;
+	}
+	50% { scale: 1.2 }
+}

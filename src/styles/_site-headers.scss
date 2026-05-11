@@ -15,3 +15,113 @@
 	scale: 1.1;
 }
 
+
+
+
+.global__hero-svg-text-wrapper {
+	overflow: visible;
+}
+
+
+
+.global__hero-subtext {
+	animation-name: globalHeroSubText;
+	animation-duration: var(--duration--2x-slow);
+	animation-timing-function: var(--ease--smooth);
+	animation-fill-mode: both;
+	animation-delay: 1s;
+}
+
+
+@keyframes globalHeroSubText {
+	0% {
+		opacity: 0;
+		translate: 0 30%;
+		letter-spacing: 0.1em;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		letter-spacing: 0.18em;
+	}
+}
+
+
+
+
+
+
+
+.our-rods {
+	
+	&__header-text {
+		
+		&-svg {
+			overflow: visible !important;
+		}
+		$start-delay: 1.25s;
+		
+		&--crafted,
+		&--to,
+		&--your,
+		&--cast {
+			animation-name: ourRodsTextMoveIn;
+			animation-duration: var(--duration--2x-slow);
+			animation-timing-function: var(--ease--smooth);
+			animation-fill-mode: both;
+			animation-delay: 1s;
+		}
+		&--crafted {
+			animation-delay: $start-delay + .1s;
+		}
+		&--to {
+			animation-delay: $start-delay + .3s;
+		}
+		&--underline {
+			animation-name: ourRodsUnderlineMoveIn;
+			animation-duration: var(--duration--2x-slow);
+			animation-timing-function: var(--ease--smooth);
+			animation-fill-mode: both;
+			animation-delay: $start-delay + .35s;
+			transform-origin: left center;
+			transform-box: fill-box;
+		}
+		&--your {
+			animation-delay: $start-delay + .5s;
+		}
+		&--cast {
+			animation-delay: $start-delay + .8s;
+		}
+	}
+}
+
+@keyframes ourRodsTextMoveIn {
+	0% {
+		opacity: 0;
+		translate: 0 20%;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+@keyframes ourRodsUnderlineMoveIn {
+	0% {
+		opacity: 0;
+		scale: 0 1;
+		translate: 0 500%;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+		scale: 1 1;
+		translate: 0 0;
+	}
+}

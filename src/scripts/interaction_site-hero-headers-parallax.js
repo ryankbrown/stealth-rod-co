@@ -31,6 +31,18 @@ export default class Interaction_SiteHeroHeaders_Parallax {
 			relative_el: this.header_el.querySelector('.global__hero-element-stack')
 		});
 	}
+
+	/** Called when nav opens — delegate to inner container */
+	pause() {
+		if (this.parallax_container) this.parallax_container.pause();
+		return this;
+	}
+
+	/** Called when nav closes — delegate to inner container */
+	resume() {
+		if (this.parallax_container) this.parallax_container.resume();
+		return this;
+	}
 	
 	destroy() {
 		if (this.parallax_container) {

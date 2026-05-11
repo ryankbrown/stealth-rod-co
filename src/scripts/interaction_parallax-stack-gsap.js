@@ -96,7 +96,8 @@ export class Interaction_ParallaxContainer {
 		this.hover_timeout = null; // property for hover delay setTimeout function
 		this.move_input = move_input;
 		this.relative_el = relative_el;
-		
+		this._destroyed = false;
+
 		// Exit gracefully if no layer items are provided
 		if (!Array.isArray(layer_items) || layer_items.length === 0) {
 			console.warn(`[Parallax] No layers provided for container: ${container_id}. Parallax will be disabled for this container.`);
@@ -200,12 +201,14 @@ export class Interaction_ParallaxContainer {
 
 	// Pause
 	pause() {
+		if (this._destroyed) return this;
 		this.is_paused = true;
 		return this;
 	}
 
 	// Resume
 	resume() {
+		if (this._destroyed) return this;
 		this.is_paused = false;
 		return this;
 	}
@@ -219,6 +222,9 @@ export class Interaction_ParallaxContainer {
 
 	// Destroy
 	destroy() {
+		this._destroyed = true;
+		this.is_paused = true;
+
 		// Remove update callback from shared app loop
 		if (this.update_loop && this.updateFunction) {
 			const index = this.update_loop.loop_functions.indexOf(this.updateFunction);
@@ -257,7 +263,6 @@ export class Interaction_ParallaxContainer {
 		this.layer_items = [];
 		this.is_hovered = false;
 		this.is_in_view = false;
-		this.is_paused = true;
 		return this;
 	}
 }

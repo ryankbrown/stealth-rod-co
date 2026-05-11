@@ -57,15 +57,13 @@ export default class Interaction_NavController {
 		document.body.classList.add("no-scroll");
 		
 		
-		if (this.app.src_smooth_scroll) {
-			this.app.src_smooth_scroll.smooth_scroller.paused(true);
-		}
+		const smoother = this.app.smooth_scroll?.smooth_scroller;
+		if (smoother) smoother.paused(true);
 		if (this.parallax_container) {
 			this.parallax_container.resume();
 		}
-		if (this.app.site_headers_parallax) {
-			console.log('site_headers_parallax', this.app.site_headers_parallax);
-			this.app.site_headers_parallax.forEach((parallax) => parallax.resume());
+		for (const p of this.app.parallax_for_nav_pause) {
+			p.pause();
 		}
 	}
 	
@@ -75,14 +73,13 @@ export default class Interaction_NavController {
 		this.main_nav.classList.add("is-not-active");
 		document.body.classList.remove("no-scroll");
 		
-		if (this.app.src_smooth_scroll) {
-			this.app.src_smooth_scroll.smooth_scroller.paused(false);
-		}
+		const smoother = this.app.smooth_scroll?.smooth_scroller;
+		if (smoother) smoother.paused(false);
 		if (this.parallax_container) {
 			this.parallax_container.pause();
 		}
-		if (this.app.site_headers_parallax) {
-			this.app.site_headers_parallax.forEach((parallax) => parallax.pause());
+		for (const p of this.app.parallax_for_nav_pause) {
+			p.resume();
 		}
 	}
 	
@@ -154,7 +151,7 @@ export default class Interaction_NavController {
 
 	handleKeydown(e) {
 		if (e.key !== "Escape") return;
-		if (!this.nav_overlay.classList.contains("active")) return;
+		if (!this.is_active) return;
 		this.handleNavExpand();
 	}
 
