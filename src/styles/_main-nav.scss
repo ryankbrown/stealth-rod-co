@@ -3,9 +3,6 @@
 // - - - Main Nav - - - 
 .main-nav {
 	
-	
-	
-	
 	&__btn {
 		transform-origin: center;
 		transition: scale var(--duration--reg) var(--ease--smooth);
@@ -22,7 +19,6 @@
 			scale var(--duration--reg) var(--ease--smooth),
 			opacity var(--duration--reg) var(--ease--smooth),
 			translate var(--duration--reg) var(--ease--smooth);
-			
 		scale: 1;
 		
 		&:hover, 
@@ -30,15 +26,39 @@
 			scale: 1.025;
 		} 
 		// hide the wordmark on the home page
-		[data-pg="home"] & {
+		[data-applied-fixed-content-styles="hp-hero--dark-on-light"] & {
 			opacity: 0;
 			translate: -10% 0;
 		}
-		[data-pg="home"] &:is(:hover, :focus-visible) {
+		[data-applied-fixed-content-styles="hp-hero--dark-on-light"] &:is(:hover, :focus-visible) {
 			opacity: 1;
 			translate: 0 0;
 		}
 	}
+	
+	
+	
+	// &__wordmark {
+	// 	&--s,
+	// 	&--t,
+	// 	&--e,
+	// 	&--a,
+	// 	&--l,
+	// 	&--t2,
+	// 	&--h {
+	// 		--tX: -10%;
+	// 		translate: var(--tX) 0;
+	// 		transition: 
+	// 			translate var(--duration--reg) var(--ease--smooth);
+				
+	// 		.main-nav__wordmark-link:is(:hover, :focus-visible) & {
+	// 			translate: 0 0;
+	// 		}
+	// 	}
+	// }
+	
+	
+	
 	
 	
 	&__btn-line {

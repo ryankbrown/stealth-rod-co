@@ -17,6 +17,10 @@
 	--color--fixed-content--primary: black;
 }
 
+[data-applied-fixed-content-styles="hp-hero--dark-on-light"] {
+	--color--fixed-content--primary: black;
+}
+
 
 body.no-scroll {
 	overflow: hidden;
