@@ -11,9 +11,9 @@
 	&__heading {
 		// background: blue !important;
 		transition: 
-			translate var(--duration--4x-slow) var(--ease--smooth),
-			opacity var(--duration--4x-slow) var(--ease--smooth),
-			letter-spacing var(--duration--4x-slow) var(--ease--smooth)
+			translate 3s var(--ease--smooth),
+			opacity 3s var(--ease--smooth),
+			letter-spacing 3s var(--ease--smooth)
 		;	
 		// transition-delay: .15s;
 		

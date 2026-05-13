@@ -1,0 +1,22 @@
+@use "variables";
+
+.global__quote-text {
+	--mask-direction: to bottom; 
+	--mask-size: 200%;
+	--mask-trans-dur: var(--duration--2x-slow);
+	
+	
+	mask-repeat: no-repeat;
+	mask-size: var(--mask-size) 100%;
+	
+	mask-image: linear-gradient(var(--mask-direction), #000 87%, transparent 97%);
+	transition: mask-position var(--duration--2x-slow) var(--ease--smooth);
+	
+	.not-in-view & {
+		mask-position: 200% 0;
+		transition: none;
+	}
+	.in-view & {
+		mask-position: 100% 0;
+	}
+}
