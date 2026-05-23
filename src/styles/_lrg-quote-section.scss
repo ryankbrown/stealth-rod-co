@@ -1,22 +1,92 @@
 @use "variables";
 
-.global__quote-text {
-	--mask-direction: to bottom; 
-	--mask-size: 200%;
-	--mask-trans-dur: var(--duration--2x-slow);
+
+.global {
 	
-	
-	mask-repeat: no-repeat;
-	mask-size: var(--mask-size) 100%;
-	
-	mask-image: linear-gradient(var(--mask-direction), #000 87%, transparent 97%);
-	transition: mask-position var(--duration--2x-slow) var(--ease--smooth);
-	
-	.not-in-view & {
-		mask-position: 200% 0;
-		transition: none;
+	&__quote-text {
+		// --mask-size: 400%;
+		// --mask-fade-amount: 30%;
+		// --mask-angle: 0deg;
+		// --mask-trans-dur: 8s;
+
+		// mask-image: linear-gradient(
+		// 	var(--mask-angle),
+		// 	transparent 0%,
+		// 	transparent calc(50% - (var(--mask-fade-amount) * .5) ),
+		// 	black calc(50% + (var(--mask-fade-amount) * .5) ),
+		// 	black 100%
+		// );
+		// mask-size: 100% var(--mask-size);
+		// mask-repeat: no-repeat;
+		// mask-position: 0% 0%;
+		
+		// transition:
+		// 	mask-position var(--mask-trans-dur) var(--ease--smooth);
+		// transition-delay: .25s;
+			
+		// .is-closed &,
+		// .is-closing & {
+		// 	mask-position: 0% 100%;
+		// }
+		// .is-open & {
+		// 	mask-position: 0% 0%;
+		// }
+		
+		--mask-direction: to bottom; 
+		--mask-size: 400%;
+		
+		mask-repeat: no-repeat;
+		mask-size: 100% var(--mask-size);
+		
+		mask-image: linear-gradient(var(--mask-direction), #000 50%, transparent 100%);
+		transition: mask-position 6s var(--ease--smooth);
+		
+		.not-in-view & {
+			mask-position: 0 200%;
+			transition: none;
+		}
+		.in-view & {
+			mask-position: 0 0;
+		}
 	}
-	.in-view & {
-		mask-position: 100% 0;
+	&__quote-icon {
+		
+		transition: 
+			scale var(--duration--2x-slow) var(--ease--smooth), 
+			opacity var(--duration--reg) var(--ease--smooth);
+			
+		transition-delay: 2s;
+		
+		.not-in-view & { 
+			transition: none;
+			opacity: 0;
+			scale: 0;
+		}
+		
+		.in-view & {
+			opacity: 1;
+			scale: 1;
+		}
+	}
+	
+	&__quote-author,
+	&__quote-author-title {
+		transition: 
+			translate var(--duration--2x-slow) var(--ease--smooth), 
+			opacity var(--duration--reg) var(--ease--smooth);
+		transition-delay: 1s;
+		
+		.not-in-view & {
+			transition: none;
+			translate: 0 120%;
+			opacity: 0;
+		}
+		.in-view & {
+			translate: 0 0;
+			opacity: 1;
+		}
+	}
+	&__quote-author-title {
+		transition-delay: 1.15s;
 	}
 }

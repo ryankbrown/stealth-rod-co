@@ -1,0 +1,95 @@
+@use "variables";
+
+.home {
+	&__intro-section {
+		background: black;
+	}
+	&__intro-section-bg-img {
+		.not-in-view & {
+			transition: none;
+			translate: 0 10%;
+			opacity: 0;
+		}
+		.in-view & {
+			opacity: 1;
+			translate: 0 0;
+			transition: 
+				opacity var(--duration--3x-slow) var(--ease--smooth);
+		}
+	}
+	
+	&__intro-text {
+		transition:
+			opacity var(--duration--3x-slow) var(--ease--smooth)
+			translate var(--duration--3x-slow) var(--ease--smooth);
+		.not-in-view & {
+			// transition: none;
+			opacity: 0;
+			translate: 0 100%;
+		}
+		.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+	&__flag-icon {
+		transition: scale var(--duration--slow) var(--ease--smooth);
+		transition-delay: 1s;
+		.not-in-view & {
+			scale: 0 1;
+			transition: none;
+		}
+		.in-view & {
+			scale: 1 1;
+		}	
+	}
+	
+	
+// 	&__flag-icon {
+		
+// 		&--box,
+// 		&--stripe {
+// 			transition: scale var(--duration--slow) var(--ease--smooth);
+// 			transition-delay: 1s;
+// 			.not-in-view & {
+// 				scale: 0 1;
+// 				transition: none;
+// 			}
+// 			.in-view & {
+// 				scale: 1 1;
+// 			}	
+// 		}
+		
+// 		&--stripe-01 {
+// 			transition-delay: 1.085s;
+// 		}
+// 		&--stripe-02 {
+// 			transition-delay: 1.06s;
+// 		}
+// 		&--stripe-03 {
+// 			transition-delay: 1.03s;
+// 		}
+// 		&--stripe-04 {
+// 			transition-delay: 1.015s;
+// 		}
+		
+		
+// 		// @for $i from 1 through 4 {
+// 		// 	&--stripe-0#{$i} {
+// 		// 		.not-in-view & {
+// 		// 			opacity: 0;
+// 		// 			translate: 0 100%;
+// 		// 		}
+// 		// 	}
+// 		// }
+// 	}
+// }
+
+
+// <svg class="home__flag-icon" xmlns="http://www.w3.org/2000/svg" width="71" height="37" fill="none" viewBox="0 0 71 37" style="width: 100%; height: auto;" aria-hidden="true" >
+// 	<path class="home__flag-icon--box" fill="#D2232A" d="M26.33 0H0v15.69h26.33V0Z" />
+// 	<path class="home__flag-icon--stripe-01" fill="#D2232A" d="M70.81 0H31.56v5.06h39.25V0Z" />
+// 	<path class="home__flag-icon--stripe-02" fill="#D2232A" d="M70.81 10.63H31.56v5.06h39.25v-5.06Z" />
+// 	<path class="home__flag-icon--stripe-03" fill="#D2232A" d="M70.8 21.26H0v5.06h70.8v-5.06Z" />
+// 	<path class="home__flag-icon--stripe-04" fill="#D2232A" d="M70.8 31.89H0v5.06h70.8v-5.06Z" />
+// </svg>
