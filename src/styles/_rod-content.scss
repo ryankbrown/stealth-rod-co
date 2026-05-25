@@ -114,4 +114,39 @@
 	// 		mask-position: 0 0;
 	// 	} 
 	// }
+	
+	
+	
+	&__paragraph {
+		
+		--mask-direction: to bottom; 
+		--mask-size: 400%;
+		
+		mask-repeat: no-repeat;
+		mask-size: 100% var(--mask-size);
+		
+		mask-image: linear-gradient(var(--mask-direction), #000 50%, transparent 100%);
+		transition: mask-position 5s var(--ease--smooth);
+		
+		.not-in-view & {
+			transition: none;
+			mask-position: 0 200%;
+		}
+		.in-view & {
+			mask-position: 0 0;
+		}
+	}
+	
+	
+	&__btn {
+		transition: opacity var(--duration--2x-slow) var(--ease--smooth);
+		transition-delay: .5s;
+		.not-in-view & {
+			transition: none;
+			opacity: 0;
+		}
+		.in-view & {
+			opacity: 1;
+		}
+	}
 }

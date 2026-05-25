@@ -59,4 +59,3 @@ export default class Interaction_ViewportObserver {
 		this.observed_els = [];
 	}
 }
- 

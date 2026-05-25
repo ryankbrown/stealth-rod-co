@@ -13,9 +13,9 @@ import Interaction_RodHeaders_Parallax from './interaction_rod-headers-parallax.
 import Interaction_SiteHeroHeaders_Parallax from './interaction_site-hero-headers-parallax.js';
 import Interaction_HomeHero_Parallax from './interaction_home-hero-parallax.js';
 // import Interaction_TaglineScrollParallax from './interaction_tagline-scroll-parallax.js';
-// import Interaction_FooterScrollAnim from './interaction_footer.js';
 import Interaction_FloatingImgSection from './interaction_floating-imgs-section.js';
 import Interaction_FeatureParallaxImgs from './interaction_feature-parallax-imgs.js';
+import Interaction_HighlightCircle from './interaction_highlight-circle.js';
 
 
 // - - - SRC Site JS App Class - - - 
@@ -37,7 +37,6 @@ export default class SRC_App {
 		
 		this.fixed_content_styler = this.setupFixedContentStyler();
 		this.viewport_observer = this.setupViewportObserver();
-		// this.footer_scroll_anim = new Interaction_FooterScrollAnim(this);
 		
 		// Component Interactions
 		this.rod_headers_parallax = this.setupRodHeadersParallax();
@@ -45,22 +44,27 @@ export default class SRC_App {
 		this.home_hero_parallax = this.setupHomeHeroArea();
 		this.floating_img_section = this.setupFloatingImgsSection();
 		this.feature_parallax_imgs = this.setupFeatureParallaxImgs();
-		this.syncNavParallaxPauseList();
+		this.highlight_circles = this.setupHighlightCircle();
+		this.syncNavParallaxPauseList();	
 	}
 
 	/** Refill from current interaction fields so the nav can pause/resume in one loop. */
 	syncNavParallaxPauseList() {
 		if (!this.parallax_for_nav_pause) this.parallax_for_nav_pause = [];
+		
 		const list = this.parallax_for_nav_pause;
+		
 		list.length = 0;
 		const addMany = (arr) => {
 			if (!arr) return;
 			for (let i = 0; i < arr.length; i++) list.push(arr[i]);
 		};
+		if (this.home_hero_parallax) list.push(this.home_hero_parallax);
 		addMany(this.rod_headers_parallax);
 		addMany(this.site_hero_headers_parallax);
-		if (this.home_hero_parallax) list.push(this.home_hero_parallax);
 		addMany(this.feature_parallax_imgs);
+		addMany(this.highlight_circles);
+		
 	}
 
 	setupViewportObserver() {
@@ -108,6 +112,15 @@ export default class SRC_App {
 		return new Interaction_FloatingImgSection(this, '.about__intro-section');
 	}
 
+	setupHighlightCircle() {
+		const target_els = document.querySelectorAll('.global__highlight-circle');
+		if (!target_els.length) return null;
+		return Array.from(target_els).map((el, idx)=> {
+			const highlight_container = el.closest('[data-highlight-circle-container]');
+			return new Interaction_HighlightCircle(this, el, highlight_container, idx);
+		});
+	}
+
 	destroyGlobalInteractions() {
 		if (this.viewport_observer) {
 			this.viewport_observer.destroy();
@@ -125,10 +138,7 @@ export default class SRC_App {
 			this.pointer_tracker.destroy();
 			this.pointer_tracker = null;
 		}
-		// if (this.footer_scroll_anim) {
-		// 	this.footer_scroll_anim.destroy();
-		// 	this.footer_scroll_anim = null;
-		// }
+		
 		// Smooth scroll is created inside the GSAP context; letting
 		// gsap_ctx.revert() handle its teardown keeps responsibilities clear.
 		this.smooth_scroll = null;
@@ -151,6 +161,10 @@ export default class SRC_App {
 		if (this.feature_parallax_imgs) {
 			this.feature_parallax_imgs.forEach((interaction) => interaction.destroy());
 			this.feature_parallax_imgs = null;
+		}
+		if (this.highlight_circles) {
+			this.highlight_circles.forEach((interaction) => interaction.destroy());
+			this.highlight_circles = null;
 		}
 		
 		this.gsap_ctx.revert();

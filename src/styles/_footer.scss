@@ -1,0 +1,141 @@
+@use "variables";
+
+.footer {
+	
+	&__sr-lockup {
+		
+		&-el {
+			transition: 
+				translate var(--duration--2x-slow) var(--ease--smooth),
+				opacity var(--duration--slow) var(--ease--smooth),
+				scale var(--duration--2x-slow) var(--ease--smooth);
+
+			transform-box: fill-box;
+			
+			.not-in-view & {
+				transition: none;
+				translate: var(--tX) var(--tY);
+				opacity: 0;
+				scale: 0.8;
+			}
+			.in-view & {
+				scale: 1;
+				translate: 0 0;
+				opacity: 1;
+				translate: 0 0;
+			}
+		}
+		
+		&--s {
+			--tX: 15%;
+			--tY: 0;
+			transform-origin: right;
+		}
+		&--dot {
+			transform-origin: center;
+			transition-delay: .5s;
+			.not-in-view & {
+				scale: 0;
+			}
+		}
+		&--r {
+			--tX: -15%;
+			--tY: 0;
+			transform-origin: left;
+		}
+		&--co {
+			--tX: 0;
+			--tY: 30%;
+			transform-origin: center;
+			transition-delay: .5s;
+			transition-duration: 2.85s;
+			.not-in-view & {
+				scale: 1;
+			}
+		}
+	}
+	
+	&__line {
+		transition: 
+			scale var(--duration--2x-slow) var(--ease--smooth);
+		transition-delay: .15s;
+		.not-in-view & {
+			scale: 0 1;
+			transition: none;
+		}
+		.in-view & {
+			scale: 1 1;
+		}
+	}
+	
+	&__nav-list {
+		transition: 
+			translate var(--duration--2x-slow) var(--ease--smooth),
+			opacity var(--duration--2x-slow) var(--ease--smooth);
+		transition-delay: .25s;
+		
+		.not-in-view & {
+			transition: none;
+			translate: 0 200%;
+			opacity: 0;
+		}
+		.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+	
+	&__stealth-svg {	
+		transition: 
+			translate var(--duration--2x-slow) var(--ease--smooth),
+			opacity var(--duration--2x-slow) var(--ease--smooth);
+		
+		.footer__stealth-wrapper.not-in-view & {
+			transition: none;
+			translate: 0 100%;
+			opacity: 0;
+		}
+		.footer__stealth-wrapper.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+	} 
+	
+	&__stealth-letter {
+		transition: 
+			translate var(--duration--2x-slow) var(--ease--smooth),
+			opacity var(--duration--2x-slow) var(--ease--smooth);
+		transition-delay: .25s;
+			
+		.footer__stealth-wrapper.not-in-view & {
+			transition: none;
+			translate: var(--tX) 0;
+			opacity: 0;
+		}
+		.footer__stealth-wrapper.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+		&--s {
+			--tX: 10%;
+		}
+		&--t {
+			--tX: 5%;
+		}
+		&--e {
+			--tX: 1.5%;
+		}
+		&--a {	
+			--tX: 0;
+		}
+		&--l {
+			--tX: -1.5%;
+		}
+		&--t2 {
+			--tX: -5%;
+		}
+		&--h {
+			--tX: -10%;
+		}
+	}
+}	

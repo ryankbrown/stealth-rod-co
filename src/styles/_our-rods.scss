@@ -1,0 +1,100 @@
+@use "variables";
+
+.our-rods {
+	&__chbt-section {
+		--text-blur: 20px;
+		--text-shadow: rgba(0, 0, 0, 0.8);
+	}
+	
+	// &__chbt-text-underlay {
+	// 	opacity: 1;
+	// 	backdrop-filter: blur(10px);
+	// }
+	
+	
+	&__chbt-ad-eyebrow,
+	&__chbt-text-link {
+		transition:
+			opacity var(--duration--2x-slow) var(--ease--smooth),
+			translate var(--duration--2x-slow) var(--ease--smooth);
+		
+		--tX: 0;
+		--tY: 100%;	
+		
+		.not-in-view & {
+			transition: none;
+			opacity: 0;
+			translate: var(--tX) var(--tY);
+		}
+		.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+	
+	
+	&__chbt-ad-divider-line {
+		transition: scale var(--duration--2x-slow) var(--ease--smooth);
+		transform-origin: left;
+		transition-delay: 1s;
+		.not-in-view & {
+			transition: none;
+			scale: 0 1;
+		}
+		.in-view & {
+			scale: 1 1;
+		}
+	}
+	
+	&__chbt-ad-eyebrow {
+		text-shadow: 0 0 var(--text-blur) var(--text-shadow);
+		
+		--tX: 5%;
+		--tY: 0;
+		transition-delay: 1s;
+	}
+	// &__chbt-ad-heading {
+	// 	text-shadow: 0 0 var(--text-blur) var(--text-shadow);
+	// 	--tY: 20%;
+	// }
+	
+	
+	&__chbt-ad-heading,
+	&__chbt-ad-paragraph {
+		text-shadow: 0 0 var(--text-blur) var(--text-shadow);
+		
+		--mask-direction: to bottom; 
+		--mask-size: 400%;
+		
+		mask-repeat: no-repeat;
+		mask-size: 100% var(--mask-size);
+		
+		mask-image: linear-gradient(var(--mask-direction), #000 50%, transparent 100%);
+		
+		transition: 
+			mask-position 6s var(--ease--smooth),
+			translate var(--duration--2x-slow) var(--ease--smooth);
+			
+		--tX: 20%;
+		--tY: 0;
+		
+		.not-in-view & {
+			mask-position: 0 200%;
+			transition: none;
+			translate: var(--tX) var(--tY);
+		}
+		.in-view & {
+			mask-position: 0 0;
+			translate: 0 0;
+		}
+	}
+	&__chbt-ad-paragraph {
+		transition-delay: .35s;
+	}
+	&__chbt-text-link {
+		text-shadow: 0 0 var(--text-blur) var(--text-shadow);
+		transition-delay: 1.75s;
+	}
+}
+
+

@@ -1,0 +1,8 @@
+@use "variables";
+
+.global__highlight-circle {
+	// --tX: 0;
+	// --tY: 0;
+	translate: var(--tX) var(--tY);
+	display: block;
+}

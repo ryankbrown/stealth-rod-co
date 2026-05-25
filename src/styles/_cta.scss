@@ -1,0 +1,87 @@
+@use "variables";
+
+.cta {
+	
+	&__heading {
+		transition: 
+			opacity var(--duration--2x-slow) var(--ease--smooth),
+			translate var(--duration--2x-slow) var(--ease--smooth);
+		transition-delay: .5s;
+		
+		.not-in-view & {
+			translate: 0 50%;
+			transition: none;
+			opacity: 0;
+		}
+		.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+	
+	&__paragraph {
+		text-shadow: 0 0 var(--text-blur) var(--text-shadow);
+		
+		--mask-direction: to bottom; 
+		--mask-size: 400%;
+		
+		mask-repeat: no-repeat;
+		mask-size: 100% var(--mask-size);
+		
+		mask-image: linear-gradient(var(--mask-direction), #000 50%, transparent 100%);
+		
+		transition: 
+			mask-position 6s var(--ease--smooth),
+			translate var(--duration--2x-slow) var(--ease--smooth);
+		transition-delay: .6s;
+			
+		--tX: 0%;
+		--tY: 20;
+		
+		.not-in-view & {
+			mask-position: 0 200%;
+			transition: none;
+			translate: var(--tX) var(--tY);
+		}
+		.in-view & {
+			mask-position: 0 0;
+			translate: 0 0;
+		}
+	}
+	
+	&__content {
+		
+		.global__short-divider-line {
+			transition: scale var(--duration--2x-slow) var(--ease--smooth);
+			transition-delay: 1s;
+			transform-origin: center;
+			
+			.not-in-view & {
+				transition: none;
+				scale: 0 1;
+			}
+			.in-view & {
+				scale: 1 1;
+			}
+		}
+		
+		.global__button  {
+			transition: 
+				opacity var(--duration--2x-slow) var(--ease--smooth),
+				translate var(--duration--2x-slow) var(--ease--smooth);
+			transition-delay: 1s;
+			
+			.not-in-view & {
+				translate: 0 50%;
+				transition: none;
+				opacity: 0;
+			}
+			.in-view & {
+				opacity: 1;
+				translate: 0 0;
+			}
+		}
+	}
+}
+
+
