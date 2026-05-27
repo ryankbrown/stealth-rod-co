@@ -6,9 +6,9 @@
 	$text-in: 1.75s;
 	$flag-in: 1.9s;
 	
-	&__intro-section {
-		background: black;
-	}
+	// &__intro-section {
+	// 	background: black;
+	// }
 	&__intro-section-bg-img {
 		.not-in-view & {
 			transition: none;

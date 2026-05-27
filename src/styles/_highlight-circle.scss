@@ -6,3 +6,65 @@
 	translate: var(--tX) var(--tY);
 	display: block;
 }
+
+
+.home__section-content .global__highlight-circle {
+		
+	transition: opacity 3s ease-in-out;
+	transition-delay: 1.25s;
+	position: relative;
+	mix-blend-mode: overlay;
+	
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(circle, white 0%, transparent 60%);
+		transition: opacity 3s ease-in-out;
+		transition-delay: 1.25s;
+	}
+	.home__intro-section.not-in-view &,
+	.home__intro-section.not-in-view &::after {
+		transition: none;
+		opacity: 0;
+	}
+	.home__intro-section.in-view &,
+	.home__intro-section.in-view &::after {
+		opacity: 1;	
+	}
+}
+
+.our-rods__features-bg-img-container .global__highlight-circle {
+	transition: opacity 3s ease-in-out;
+	transition-delay: 1.25s;
+	position: relative;
+	mix-blend-mode: overlay;
+	// background: red;
+	
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: radial-gradient(circle, red 0%, transparent 60%);
+		transition: opacity 3s ease-in-out;
+		transition-delay: 1.25s;
+		background: red;
+	}
+	.our-rods__features-section.not-in-view &,
+	.our-rods__features-section.not-in-view &::after {
+		transition: none;
+		opacity: 0;
+	}
+	.our-rods__features-section.in-view &,
+	.our-rods__features-section.in-view &::after {
+		opacity: 1;	
+	}
+}
+
+

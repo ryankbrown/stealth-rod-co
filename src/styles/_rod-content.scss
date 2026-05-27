@@ -138,7 +138,7 @@
 	}
 	
 	
-	&__btn {
+	&__button-wrapper {
 		transition: opacity var(--duration--2x-slow) var(--ease--smooth);
 		transition-delay: .5s;
 		.not-in-view & {

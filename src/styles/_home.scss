@@ -9,7 +9,9 @@
 	&__intro-section {
 		background: black;
 	}
+	
 	&__intro-section-bg-img {
+		// display: none !important;
 		.not-in-view & {
 			transition: none;
 			translate: 0 10%;
