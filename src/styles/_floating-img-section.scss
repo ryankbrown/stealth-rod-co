@@ -44,7 +44,6 @@ $debug: false;
 				translate: 0 10%;
 				opacity: 0;
 				scale: .8;
-				transition: none;
 			}
 			.in-view & {
 				translate: 0 0;
@@ -60,7 +59,6 @@ $debug: false;
 				translate: 0 100%;
 				opacity: 0;
 				scale: .8;
-				transition: none;
 			}
 			.in-view & {
 				translate: 0 0;
@@ -81,8 +79,7 @@ $debug: false;
 		transition-delay: .5s;
 		
 		.not-in-view & {
-			opacity: .2;
-			transition: none;
+			opacity: .5;
 		}
 		.in-view & {
 			opacity: 1;

@@ -42,7 +42,6 @@
 	transition-delay: 1.25s;
 	position: relative;
 	mix-blend-mode: overlay;
-	// background: red;
 	
 	&::after {
 		content: '';
@@ -51,10 +50,9 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: radial-gradient(circle, red 0%, transparent 60%);
+		background: radial-gradient(circle, white 0%, transparent 100%);
 		transition: opacity 3s ease-in-out;
 		transition-delay: 1.25s;
-		background: red;
 	}
 	.our-rods__features-section.not-in-view &,
 	.our-rods__features-section.not-in-view &::after {

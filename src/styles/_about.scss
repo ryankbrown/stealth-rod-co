@@ -10,6 +10,7 @@
 	// 	background: black;
 	// }
 	&__intro-section-bg-img {
+		display: block;
 		.not-in-view & {
 			transition: none;
 			translate: 0 10%;
@@ -64,50 +65,6 @@
 		}
 	}
 	
-	&__flag-icon {
-		
-		$stripes-in: $flag-in + .027s;
-		
-		display: block;
-		transition: translate var(--duration--2x-slow) var(--ease--smooth);
-		transition-delay: $flag-in;
-		
-		.not-in-view & {
-			transition: none;
-			translate: 0 100%;
-		}
-		.in-view & {
-			translate: 0 0;
-		}
-		
-		&--box,
-		&--stripe {
-			--flag-timing: calc(var(--duration--slow) * 1.1);
-			transition: scale var(--flag-timing) var(--ease--smooth);
-			transition-delay: $flag-in;
-			transform-box: fill-box;
-			.not-in-view & {
-				scale: 0 1;
-				transition: none;
-			}
-			.in-view & {
-				scale: 1 1;
-			}	
-		}
-		
-		@for $i from 1 through 4 {
-			&--stripe-0#{$i} {
-				transition-delay: $stripes-in + $i * 0.05s;
-			}
-		}
-		
-		&--stripe-01,
-		&--stripe-02 {
-			transition-duration: calc(var(--flag-timing) * .7);
-		}
-	}
-	
-	
 	
 	&__rods-group-divider-line {
 		transition: scale var(--duration--2x-slow) var(--ease--smooth);
@@ -122,4 +79,107 @@
 			scale: 1 1;
 		}
 	}
+	
+	
+	&__team-heading {
+		
+		--mask-direction: to bottom; 
+		--mask-size: 200%;
+		
+		mask-repeat: no-repeat;
+		mask-size: 100% var(--mask-size);
+		
+		mask-image: linear-gradient(var(--mask-direction), #000 50%, transparent 100%);
+		transition: mask-position 8s var(--ease--smooth);
+		
+		.not-in-view & {
+			mask-position: 0 200%;
+			transition: none;
+		}
+		.in-view & {
+			mask-position: 0 0;
+		}
+	}
+	&__team-heading-line {
+		transition: scale var(--duration--2x-slow) var(--ease--smooth);
+		transform-origin: left;
+		transition-delay: 1s;
+		
+		&:last-of-type {
+			transition-delay: 1.5s;
+		}
+		.not-in-view & {
+			scale: 0 1;
+			transition: none;
+		}
+		.in-view & {
+			scale: 1 1;
+		}
+	}	
 }
+
+
+.about__team-list-item {
+	--idx: 0;
+	--item-stagger: .75s;
+	--base-delay: calc(var(--idx) * var(--item-stagger) + .5s);
+	
+	color: var(--idx);
+	@for $i from 0 through 10 {
+		&:nth-child(#{$i}) {
+			--idx: #{$i};
+		}
+	}
+}
+
+
+.team-member {
+	
+	&__name-title-wrapper,
+	&__email {
+		transition:
+			opacity var(--duration--2x-slow) var(--ease--smooth),
+			translate var(--duration--2x-slow) var(--ease--smooth);
+			
+		transition-delay: var(--base-delay);
+		
+		.not-in-view & {
+			transition: none;
+			opacity: 0;
+			translate: 0 15%;
+		}
+		.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+	
+	&__email {
+		transition-delay: calc(var(--base-delay) + .15s);
+	}
+	
+	
+	&__paragraph {
+		--mask-direction: to bottom; 
+		--mask-size: 200%;
+		
+		mask-repeat: no-repeat;
+		mask-size: 100% var(--mask-size);
+		
+		mask-image: linear-gradient(var(--mask-direction), #000 50%, transparent 100%);
+		transition: mask-position 6s var(--ease--smooth);
+		
+		transition-delay: calc(var(--base-delay) + .25s);
+		
+		
+		.not-in-view & {
+			mask-position: 0 200%;
+			transition: none;
+		}
+		.in-view & {
+			mask-position: 0 0;
+		}
+	}
+}
+
+
