@@ -22,30 +22,30 @@
 }
 
 
-html, body {
-	height: 100%;
-	height: -webkit-fill-available;
-	margin: 0;
-	padding: 0;
-	// overflow: hidden !important; 
-}
+// html, body {
+// 	height: 100%;
+// 	height: -webkit-fill-available;
+// 	margin: 0;
+// 	padding: 0;
+// 	// overflow: hidden !important; 
+// }
 
-#smooth-wrapper {
-	overflow: hidden;
-	position: fixed;
-	height: 100%;
-	width: 100%;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
+// #smooth-wrapper {
+// 	overflow: hidden;
+// 	position: fixed;
+// 	height: 100%;
+// 	width: 100%;
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
+// 	bottom: 0;
+// }
 
-#smooth-content {
-	width: 100%;
-	height: auto; 
-	position: relative;
-}
+// #smooth-content {
+// 	width: 100%;
+// 	height: auto; 
+// 	position: relative;
+// }
 
 body.no-scroll {
 	overflow: hidden;
