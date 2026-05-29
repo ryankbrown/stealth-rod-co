@@ -6,6 +6,13 @@
 		--tX: 0;
 		--tY: 0;
 		translate: var(--tX) var(--tY);
+		
+		@media (width < 480px) {
+			translate: 
+				calc(var(--tY) * -1) 
+				calc(var(--tX) * 1)
+			;
+		}
 	}
 	
 	&__heading {

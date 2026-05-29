@@ -3,6 +3,143 @@
 .our-rods {
 	
 	
+	
+	&__ftr-img-hover-scale {
+		scale: 1;
+		transition: scale var(--duration--slow) var(--ease--smooth);
+		
+		.our-rods__ftr-img-holder:hover &  {
+			scale: 1.1;
+		}
+	}
+	
+	&__ftr-img {
+		--tX: 0;
+		--tY: 0;
+		
+		translate: var(--tX) var(--tY);
+		scale: 1.1;
+	}
+	
+	
+	// &__features-eyebrow {
+	// 	transition:
+	// 		translate var(--duration--2x-slow) var(--ease--smooth),
+	// 		opacity var(--duration--2x-slow) var(--ease--smooth);
+			
+	// 	.not-in-view & {
+	// 		translate: 0 20%;
+	// 		opacity: 0;
+	// 		transition: none;
+	// 	}
+	// 	.in-view & {
+	// 		translate: 0 0;
+	// 		opacity: 1;
+	// 	}
+	// }
+	
+	
+	
+	&__features-eyebrow,
+	&__features-heading-gradient-text {
+		
+		transition:
+			letter-spacing var(--duration--2x-slow) var(--ease--smooth),
+			translate var(--duration--2x-slow) var(--ease--smooth),
+			opacity var(--duration--slow) var(--ease--smooth);
+		
+		.not-in-view & {
+			letter-spacing: 0;
+			translate: 0 var(--tY);
+			opacity: 0;
+			transition: none;
+		}
+		
+		.in-view & {
+			translate: 0 0;
+			opacity: 1;
+		}
+	}
+	
+	&__features-eyebrow {
+		--tY: 200%;
+	}
+	&__features-heading-gradient-text {
+		--tY: 20%;
+		transition-delay: .25s;
+	}
+	
+	
+	
+	// &__ftr-block {
+	// 	// transition: 
+	// 	// 	filter var(--duration--reg) ease-out,
+	// 	// 	opacity var(--duration--reg) ease-out;
+			
+	// 	// &.not-in-view {
+	// 	// 	translate: 0 20%;
+	// 	// 	transition: none;
+	// 	// 	filter: brightness(10%);
+	// 	// }
+	// 	// &.in-view {
+	// 	// 	translate: 0 0;
+	// 	// 	filter: brightness(100%);
+	// 	// }
+		
+	// 	// &:nth-child(2n) {
+	// 	// 	transition-delay: .5s;
+	// 	// }
+		
+		
+	// }
+	
+	
+	&__ftr-img-holder {
+		transition: 
+			scale
+				
+		// .not-in-view & {
+		// 	// transition: none;
+		// 	clip-path: inset(0 0 100% 0);
+		// }
+		// .in-view & {
+		// 	clip-path: inset(0 0 0 0);
+		// }	
+	}
+	
+	&__ftr-item-paragraph,
+	&__ftr-item-heading-wrapper {
+		transition:
+			translate var(--duration--2x-slow) var(--ease--smooth),
+			opacity var(--duration--slow) var(--ease--smooth);
+		transition-delay: .5s;
+		
+		.not-in-view & {
+			letter-spacing: 0;
+			translate: 0 var(--tY);
+			opacity: 0;
+			transition: none;
+		}
+		.in-view & {
+			translate: 0 0;
+			opacity: 1;
+		}
+	}
+	
+	
+	&__ftr-item-heading-wrapper {
+		--tY: 100%;
+	}
+	&__ftr-item-paragraph {
+		--tY: 10%;
+		transition-delay: .75s;
+	}
+	
+	
+	
+	
+	
+	
 	&__chbt-section {
 		--text-blur: 20px;
 		--text-shadow: rgba(0, 0, 0, 0.8);

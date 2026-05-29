@@ -1,6 +1,5 @@
 // src_app.js - Stealth Rod Co - Application Class
 
-import { SRC_ShopifyBuyBtn } from './src_shopify_buybtn.js';
 
 import Interaction_UpdateLoop_GSAP from './interaction_update-loop-gsap.js';
 import Interaction_NavController from './interaction_nav-controller.js';

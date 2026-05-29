@@ -32,6 +32,20 @@ svg:not(:root) {
 }
 
 
+.global__section-divider-line {
+	transition: scale var(--duration--2x-slow) var(--ease--smooth);
+	transition-delay: .5s;
+	transform-origin: center;
+	
+	&.not-in-view {
+		transition: none;
+		scale: 0 1;
+	}
+	&.in-view {
+		scale: 1 1;
+	}
+}
+
 .global__button {
 	position: relative;
 	// background-color: transparent;

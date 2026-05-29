@@ -108,20 +108,4 @@
 			transition-duration: calc(var(--flag-timing) * .7);
 		}
 	}
-	
-	
-	
-	&__rods-group-divider-line {
-		transition: scale var(--duration--2x-slow) var(--ease--smooth);
-		transform-origin: center center;
-		transition-delay: 1s;
-		
-		.not-in-view & {
-			scale: 0 1;
-			transition: none;
-		}
-		.in-view & {
-			scale: 1 1;
-		}
-	}
 }
