@@ -85,20 +85,20 @@ $debug: false;
 			opacity: 1;
 		}
 	}
-	&-bg-img {
-		animation-name: waterImgScale;
-		animation-duration: 10s;
-		animation-timing-function: ease-in-out;
-		animation-iteration-count: infinite;
-		animation-direction: alternate;
-		transform-origin: left top;
-		.not-in-view & {
-			animation-play-state: paused;
-		}
-		.in-view & {
-			animation-play-state: running;
-		}
-	}
+	// &-bg-img {
+	// 	animation-name: waterImgScale;
+	// 	animation-duration: 10s;
+	// 	animation-timing-function: ease-in-out;
+	// 	animation-iteration-count: infinite;
+	// 	animation-direction: alternate;
+	// 	transform-origin: left top;
+	// 	.not-in-view & {
+	// 		animation-play-state: paused;
+	// 	}
+	// 	.in-view & {
+	// 		animation-play-state: running;
+	// 	}
+	// }
 }
 
 
