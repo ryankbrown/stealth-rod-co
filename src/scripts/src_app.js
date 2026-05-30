@@ -40,7 +40,7 @@ export default class SRC_App {
 		// Component Interactions
 		this.rod_headers_parallax = this.setupRodHeadersParallax();
 		
-		// this.site_hero_headers_parallax = this.setupSiteHeroHeadersParallax();	
+		this.site_hero_headers_parallax = this.setupSiteHeroHxeadersParallax();	
 		
 		this.home_hero_parallax = this.setupHomeHeroArea();
 		this.floating_img_section = this.setupFloatingImgsSection();
