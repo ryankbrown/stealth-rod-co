@@ -41,6 +41,8 @@ export default class Interaction_FloatingImgSection {
 			{ type: "lines"}
 		);
 		
+		
+		
 		this.main_scroll_tl = gsap.timeline({paused: true})
 
 		// - - - - - TWEENS - - - - -				
