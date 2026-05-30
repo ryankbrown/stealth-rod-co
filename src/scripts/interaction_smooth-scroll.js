@@ -11,9 +11,8 @@ export default class Interaction_SiteSmoothScroll {
 		this.app = app;
 		this.opts = opts;
 		this.app.gsap_ctx.add(()=> {
-			ScrollTrigger.normalizeScroll(true);
+			// ScrollTrigger.normalizeScroll(true);
 			this.smooth_scroller = ScrollSmoother.create(opts, gsap); 	
-			
 		})
 	}
 	
