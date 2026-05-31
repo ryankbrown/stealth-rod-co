@@ -76,6 +76,7 @@ export class Interaction_ParallaxContainer {
 		relative_el = null,
 		hover_el = false,
 		hover_delay = 250,
+		parallax_min_width_mq = "(min-width: 768px)",
 	}) {
 		this.app = app;
 		this.update_loop = update_loop;
@@ -83,6 +84,7 @@ export class Interaction_ParallaxContainer {
 		this.container_id = container_id;
 		this.container_el = container_el;
 		this.layer_items = layer_items;
+		this.parallax_min_width_mq = parallax_min_width_mq;
 		
 		// State Opts
 		this.is_in_view = false;
@@ -104,20 +106,26 @@ export class Interaction_ParallaxContainer {
 			return;
 		}
 		
-		// Setup
-		this.setup();
+		this.setupMatchMedia();
 	}
 
-	setup() {
-		
-		// Intersection Observer - Setup the intersection observer to detect if the container is in view
+	setupMatchMedia() {
+		this.mm = gsap.matchMedia();
+		this.mm.add(this.parallax_min_width_mq, () => {
+			if (this._destroyed) return;
+			this.activate();
+			return () => this.deactivate();
+		});
+	}
+
+	activate() {
 		this.setupIntersectionObserver();
 
-		// Hover Target Listeners - Setup the hover listeners to detect if the container is hovered
-		if (this.hover_mode_enabled) { 
-			this.setupHoverListeners(); 
+		if (this.hover_mode_enabled) {
+			this.setupHoverListeners();
 		}
-		this.parallaxMovement();	
+
+		this.parallaxMovement();
 	}
 	
 	parallaxMovement() {
@@ -227,12 +235,9 @@ export class Interaction_ParallaxContainer {
 		}
 	}
 
-	// Destroy
-	destroy() {
-		this._destroyed = true;
-		this.is_paused = true;
+	deactivate() {
+		const was_paused = this.is_paused;
 
-		// Remove update callback from shared app loop
 		if (this.update_loop && this.updateFunction) {
 			const index = this.update_loop.loop_functions.indexOf(this.updateFunction);
 			if (index > -1) {
@@ -240,19 +245,16 @@ export class Interaction_ParallaxContainer {
 			}
 		}
 
-		// Disconnect IntersectionObserver
 		if (this.observer) {
 			this.observer.disconnect();
 			this.observer = null;
 		}
 
-		// Clear pending hover activation timer
 		if (this.hover_timeout) {
 			clearTimeout(this.hover_timeout);
 			this.hover_timeout = null;
 		}
 
-		// Remove hover listeners when hover mode is enabled
 		if (
 			this.hover_mode_enabled &&
 			this.hover_el &&
@@ -263,13 +265,29 @@ export class Interaction_ParallaxContainer {
 			this.hover_el.removeEventListener("pointerleave", this.handlePointerLeave);
 		}
 
-		// Reset state/references to avoid stale reuse
 		this.handlePointerEnter = null;
 		this.handlePointerLeave = null;
 		this.updateFunction = null;
-		this.layer_items = [];
 		this.is_hovered = false;
 		this.is_in_view = false;
+		this.is_paused = was_paused;
+
+		this.resetLayers();
+	}
+
+	// Destroy
+	destroy() {
+		if (this._destroyed) return this;
+		this._destroyed = true;
+
+		if (this.mm) {
+			this.mm.revert();
+			this.mm = null;
+		} else {
+			this.deactivate();
+		}
+
+		this.layer_items = [];
 		return this;
 	}
 }
