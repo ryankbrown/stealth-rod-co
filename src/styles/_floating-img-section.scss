@@ -1,7 +1,7 @@
 @use "variables";
 
 
-$debug: true;
+$debug: false;
 
 .about__intro {
 
@@ -12,14 +12,14 @@ $debug: true;
 	&-text-content {
 
 		@if $debug {
-			outline: 2px solid color-mix(in srgb, blue 10%, transparent);
+			outline: 3px solid color-mix(in srgb, blue 10%, transparent);
 		}
 	}
 
 	// the wrapper for all the floating images
 	&-floating-imgs {
 		@if $debug {
-			outline: 10px solid color-mix(in srgb, limegreen 10%, transparent);
+			outline: 2px solid color-mix(in srgb, limegreen 10%, transparent);
 		}
 		// padding-top: 100vh;
 		// padding-bottom: 100vh;
