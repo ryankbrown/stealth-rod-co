@@ -10,8 +10,6 @@ export default class Interaction_FloatingImgSection {
 		this.bg_img = this.floating_section_el.querySelector(".about__intro-bg-img-container");
 		
 		
-		
-		
 		// return;
 		this.gsap_ctx = gsap.context(() => {
 			
