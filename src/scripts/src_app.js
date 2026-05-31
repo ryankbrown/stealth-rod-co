@@ -94,6 +94,7 @@ export default class SRC_App {
 	}
 
 	setupSiteHeroHeadersParallax() {
+		// return;
 		const target_els = document.querySelectorAll('.global__hero-section');
 		if (!target_els.length) return null;
 		return Array.from(target_els).map((el, idx)=> {
