@@ -59,8 +59,8 @@ export default class Interaction_FloatingImgSection {
 					trigger: this.floating_section_el,
 					// <trigger> <scroller>
 					start: "top top",
-					end: "bottom bottom+=600%",
-					// endTrigger: ".about__intro-content",
+					// end: "bottom bottom+=600%",
+					endTrigger: ".about__intro-content",
 					markers: true,
 					scrub: 1,
 					pin: true,
