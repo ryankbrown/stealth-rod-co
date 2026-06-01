@@ -11,18 +11,19 @@ export default class Interaction_SiteSmoothScroll {
 		this.opts = opts;
 		this.app.gsap_ctx.add(()=> {
 			
-			// // Detect iPadOS or iOS Safari and add normalizeScroll for those
-			// const ua = navigator.userAgent;
-			// const isiOS = /iP(ad|hone|od)/.test(ua);
-			// const isIPadOS = /\bMacintosh\b/.test(ua) && 'ontouchend' in document;
-			// const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+			// Detect iPadOS or iOS Safari and add normalizeScroll for those
+			const ua = navigator.userAgent;
+			const isiOS = /iP(ad|hone|od)/.test(ua);
+			const isIPadOS = /\bMacintosh\b/.test(ua) && 'ontouchend' in document;
+			const isSafari = /^((?!chrome|android).)*safari/i.test(ua);			
+			const isAboutPage = document.body.getAttribute('data-pg') === 'about';
 
-			// if ((isiOS || isIPadOS) && isSafari) {
-			// 	// ScrollTrigger.normalizeScroll(true);
-			// 	ScrollTrigger.config({ ignoreMobileResize: true });
-			// }
-			
-			ScrollTrigger.config({ ignoreMobileResize: true });
+			if (isAboutPage) {
+				if ((isiOS || isIPadOS) && isSafari) {
+					// ScrollTrigger.normalizeScroll(true);
+					ScrollTrigger.config({ ignoreMobileResize: true });
+				}
+			}
 			
 			this.smooth_scroller = ScrollSmoother.create(opts, gsap); 	
 		})
