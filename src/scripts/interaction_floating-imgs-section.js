@@ -9,7 +9,7 @@ export default class Interaction_FloatingImgSection {
 		this.end_trigger = this.floating_section_el.querySelector(".about__intro-floating-imgs");
 		
 		
-		 
+		
 		// Same trigger for both so they share one scroll range; snap then keeps both in sync
 		this.shared_scroll_opts = {
 			trigger: this.floating_section_el,
@@ -58,7 +58,7 @@ export default class Interaction_FloatingImgSection {
 		.addLabel('scroll-midpoint')
 		.from(this.intro_text_content, { duration: 8 }) // wait
 		.to('.about__intro-text-content', {
-			yPercent: -10,
+			// yPercent: -10,
 			alpha: 0,
 			duration: 3,
 			ease: "power4.in"
@@ -71,7 +71,7 @@ export default class Interaction_FloatingImgSection {
 	createOverlaidContentScrollTrigger() {
 		this.overlaid_content_scrolltrigger = ScrollTrigger.create({
 			...this.shared_scroll_opts,
-			pin: this.intro_text_content,
+			// pin: this.intro_text_content,
 			animation: this.main_scroll_tl,
 		});
 	}
@@ -81,7 +81,7 @@ export default class Interaction_FloatingImgSection {
 			paused: true,
 			scrollTrigger: {
 				...this.shared_scroll_opts,
-				pin: this.bg_img
+				// pin: this.bg_img
 			}
 		})
 		.from(this.bg_img, { duration: this.main_scroll_tl.totalDuration() })
