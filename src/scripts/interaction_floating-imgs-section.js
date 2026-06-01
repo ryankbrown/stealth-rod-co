@@ -15,6 +15,7 @@ export default class Interaction_FloatingImgSection {
 			start: "top top",
 			end: "bottom bottom",
 			endTrigger: this.end_trigger,
+			normalizeScroll: true,
 			scrub: 1,
 			markers: true
 		}
