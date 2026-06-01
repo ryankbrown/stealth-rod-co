@@ -8,6 +8,9 @@ export default class Interaction_FloatingImgSection {
 		this.bg_img = this.floating_section_el.querySelector(".about__intro-bg-img-container");
 		this.end_trigger = this.floating_section_el.querySelector(".about__intro-floating-imgs");
 		
+		// ScrollTrigger.normalizeScroll(true);
+		ScrollTrigger.config({ ignoreMobileResize: true });
+		
 		
 		// Same trigger for both so they share one scroll range; snap then keeps both in sync
 		this.shared_scroll_opts = {
@@ -15,7 +18,6 @@ export default class Interaction_FloatingImgSection {
 			start: "top top",
 			end: "bottom bottom",
 			endTrigger: this.end_trigger,
-			normalizeScroll: true,
 			scrub: 1,
 			markers: true
 		}
