@@ -15,21 +15,21 @@ export default class Interaction_FloatingImgSection {
 			trigger: this.floating_section_el,
 			start: "top top",
 			// end: "bottom bottom", // src original setting but may be causing bug
-			end: "bottom center+=15%",
+			end: "bottom center+=25%",
 			endTrigger: this.end_trigger,
 			scrub: 1,
 			anticipatePin: true,
 			pinSpacing: false,
 			// markers: true
 		}
-		// Only 
+		
+		// Only apply this effect on devices above 767px
 		this.match_media = gsap.matchMedia();
 		this.match_media.add(
 			{
 				isDesktop: "(min-width: 767px)",
 			},
 			(context) => {
-				// const { isDesktop, isTablet, reduceMotion } = context.conditions;
 				this.createMainOverlayTimeline();
 				this.createOverlaidContentScrollTrigger();
 				this.createBgImgTimelineTrigger()
@@ -50,17 +50,17 @@ export default class Interaction_FloatingImgSection {
 		.addLabel('scroll-started')
 		
 		.from(this.intro_text_content, { duration: .25 }) // wait
-		// .from(paragraph.lines, {
-		// 	autoAlpha: 0,
-		// 	duration: 1.25,
-		// 	stagger: 0.15,
-		// 	ease: "power1.out"
-		// }, '<')
-		.from(".about__intro-paragraph", {
+		.from(paragraph.lines, {
 			autoAlpha: 0,
 			duration: 1.25,
+			stagger: 0.15,
 			ease: "power1.out"
-		})
+		}, '<')
+		// .from(".about__intro-paragraph", {
+		// 	autoAlpha: 0,
+		// 	duration: 1.25,
+		// 	ease: "power1.out"
+		// })
 		
 		// - - - - - TWEEN MIDPOINT - - - - -	
 		.addLabel('scroll-midpoint')
