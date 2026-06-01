@@ -11,8 +11,18 @@ export default class Interaction_SiteSmoothScroll {
 		this.opts = opts;
 		this.app.gsap_ctx.add(()=> {
 			
-			ScrollTrigger.normalizeScroll(true); 
-			// ScrollTrigger.config({ ignoreMobileResize: true });
+			// // Detect iPadOS or iOS Safari and add normalizeScroll for those
+			// const ua = navigator.userAgent;
+			// const isiOS = /iP(ad|hone|od)/.test(ua);
+			// const isIPadOS = /\bMacintosh\b/.test(ua) && 'ontouchend' in document;
+			// const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+
+			// if ((isiOS || isIPadOS) && isSafari) {
+			// 	// ScrollTrigger.normalizeScroll(true);
+			// 	ScrollTrigger.config({ ignoreMobileResize: true });
+			// }
+			
+			ScrollTrigger.config({ ignoreMobileResize: true });
 			
 			this.smooth_scroller = ScrollSmoother.create(opts, gsap); 	
 		})
