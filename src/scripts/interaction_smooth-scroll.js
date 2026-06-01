@@ -20,8 +20,8 @@ export default class Interaction_SiteSmoothScroll {
 
 			if (isAboutPage) {
 				if ((isiOS || isIPadOS) && isSafari) {
-					// ScrollTrigger.normalizeScroll(true);
-					ScrollTrigger.config({ ignoreMobileResize: true });
+					ScrollTrigger.normalizeScroll(true);
+					// ScrollTrigger.config({ ignoreMobileResize: true });
 				}
 			}
 			
