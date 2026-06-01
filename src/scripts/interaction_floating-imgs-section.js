@@ -47,12 +47,17 @@ export default class Interaction_FloatingImgSection {
 		.addLabel('scroll-started')
 		
 		.from(this.intro_text_content, { duration: .25 }) // wait
-		.from(paragraph.lines, {
+		// .from(paragraph.lines, {
+		// 	autoAlpha: 0,
+		// 	duration: 1.25,
+		// 	stagger: 0.15,
+		// 	ease: "power1.out"
+		// }, '<')
+		.from(".about__intro-paragraph", {
 			autoAlpha: 0,
 			duration: 1.25,
-			stagger: 0.15,
 			ease: "power1.out"
-		}, '<')
+		})
 		
 		// - - - - - TWEEN MIDPOINT - - - - -	
 		.addLabel('scroll-midpoint')
