@@ -10,7 +10,7 @@ export default class Interaction_FloatingImgSection {
 		
 		// ScrollTrigger.normalizeScroll(true);
 		ScrollTrigger.config({ ignoreMobileResize: true });
-		
+		ScrollTrigger.normalizeScroll(true); 
 		
 		// Same trigger for both so they share one scroll range; snap then keeps both in sync
 		this.shared_scroll_opts = {
