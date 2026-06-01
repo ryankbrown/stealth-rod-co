@@ -110,19 +110,30 @@ export class Interaction_ParallaxContainer {
 	}
 
 	setupMatchMedia() {
-		this.mm = gsap.matchMedia();
-		this.mm.add(this.parallax_min_width_mq, () => {
+		if (this.parallax_min_width_mq === false) {
+			this.activate();
+			return;
+		}
+
+		this.match_media = gsap.matchMedia();
+		this.match_media.add(this.parallax_min_width_mq, () => {
 			if (this._destroyed) return;
 			this.activate();
 			return () => this.deactivate();
 		});
 	}
 
+	/**
+	 * Turn parallax on — called when the viewport matches parallax_min_width_mq
+	 * (or immediately on init when parallax_min_width_mq is false).
+	 * Wires up the intersection observer, hover listeners, and update-loop callback.
+	 */
 	activate() {
 		this.setupIntersectionObserver();
 
-		if (this.hover_mode_enabled) {
-			this.setupHoverListeners();
+		// Hover Target Listeners - Setup the hover listeners to detect if the container is hovered
+		if (this.hover_mode_enabled) { 
+			this.setupHoverListeners(); 
 		}
 
 		this.parallaxMovement();
@@ -206,7 +217,7 @@ export class Interaction_ParallaxContainer {
 				clearTimeout(this.hover_timeout);
 				this.hover_timeout = null;
 			}
-			// Immediately deactivate parallax
+			// Imatch_mediaediately deactivate parallax
 			this.is_hovered = false;
 		};
 
@@ -235,9 +246,15 @@ export class Interaction_ParallaxContainer {
 		}
 	}
 
+	/**
+	 * Turn parallax off — called when the viewport drops below parallax_min_width_mq,
+	 * or during final destroy. Removes all runtime wiring and resets layers to center
+	 * so a later resize back above the breakpoint can call activate() cleanly again.
+	 */
 	deactivate() {
 		const was_paused = this.is_paused;
 
+		// Remove update callback from shared app loop
 		if (this.update_loop && this.updateFunction) {
 			const index = this.update_loop.loop_functions.indexOf(this.updateFunction);
 			if (index > -1) {
@@ -245,16 +262,19 @@ export class Interaction_ParallaxContainer {
 			}
 		}
 
+		// Disconnect IntersectionObserver
 		if (this.observer) {
 			this.observer.disconnect();
 			this.observer = null;
 		}
 
+		// Clear pending hover activation timer
 		if (this.hover_timeout) {
 			clearTimeout(this.hover_timeout);
 			this.hover_timeout = null;
 		}
 
+		// Remove hover listeners when hover mode is enabled
 		if (
 			this.hover_mode_enabled &&
 			this.hover_el &&
@@ -265,9 +285,11 @@ export class Interaction_ParallaxContainer {
 			this.hover_el.removeEventListener("pointerleave", this.handlePointerLeave);
 		}
 
+		// Reset state/references to avoid stale reuse
 		this.handlePointerEnter = null;
 		this.handlePointerLeave = null;
 		this.updateFunction = null;
+		this.layer_items = [];
 		this.is_hovered = false;
 		this.is_in_view = false;
 		this.is_paused = was_paused;
@@ -275,14 +297,20 @@ export class Interaction_ParallaxContainer {
 		this.resetLayers();
 	}
 
-	// Destroy
+	/**
+	 * Permanently remove this container — call when the parent interaction is torn down
+	 * (e.g. nav close). Unlike deactivate(), which is temporary and reversible on resize,
+	 * destroy() marks the instance as dead, reverts matchMedia so it cannot re-activate,
+	 * and clears layer references. deactivate() only stops the runtime wiring; destroy()
+	 * ends the container's lifecycle entirely.
+	 */
 	destroy() {
 		if (this._destroyed) return this;
 		this._destroyed = true;
 
-		if (this.mm) {
-			this.mm.revert();
-			this.mm = null;
+		if (this.match_media) {
+			this.match_media.revert();
+			this.match_media = null;
 		} else {
 			this.deactivate();
 		}

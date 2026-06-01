@@ -35,6 +35,7 @@ export default class Interaction_RodHeaders_Parallax {
 			container_id: `rod-header-${this.header_idx}`,
 			update_loop: this.app.update_loop,
 			relative_el: this.rod_header_el,
+			parallax_min_width_mq: false, // dont disable parallax on mobile
 		});
 	}
 
