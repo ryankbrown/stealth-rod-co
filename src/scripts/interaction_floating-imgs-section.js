@@ -14,9 +14,12 @@ export default class Interaction_FloatingImgSection {
 		this.shared_scroll_opts = {
 			trigger: this.floating_section_el,
 			start: "top top",
-			end: "bottom bottom",
+			// end: "bottom bottom", // src original setting but may be causing bug
+			end: "bottom center+=15%",
 			endTrigger: this.end_trigger,
 			scrub: 1,
+			anticipatePin: true,
+			pinSpacing: false,
 			// markers: true
 		}
 		// Only 
@@ -86,7 +89,8 @@ export default class Interaction_FloatingImgSection {
 			paused: true,
 			scrollTrigger: {
 				...this.shared_scroll_opts,
-				pin: this.bg_img
+				pin: this.bg_img,
+				pinReparent: true,
 			}
 		})
 		.from(this.bg_img, { duration: this.main_scroll_tl.totalDuration() })

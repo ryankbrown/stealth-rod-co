@@ -12,8 +12,8 @@ export default class Interaction_SiteSmoothScroll {
 		this.app.gsap_ctx.add(()=> {
 			// ScrollTrigger.normalizeScroll(true);
 			
-			// ScrollTrigger.normalizeScroll(true);
-			ScrollTrigger.config({ ignoreMobileResize: true });
+			ScrollTrigger.normalizeScroll(true);
+			// ScrollTrigger.config({ ignoreMobileResize: true });
 			
 			this.smooth_scroller = ScrollSmoother.create(opts, gsap); 	
 		})
