@@ -10,10 +10,9 @@ export default class Interaction_SiteSmoothScroll {
 		this.app.gsap_ctx.add(()=> {
 			
 			// - - - About Page Smooth Tablet Patch - - - 
-			const isAboutPage = document.body.getAttribute('data-pg') === 'about';
-			const isIPadSafari = document.documentElement.classList.contains('browser-attr--ipad-safari');
+			const isAboutPage = this.app.site_page === 'about';
 
-			if (isAboutPage && isIPadSafari) {
+			if (isAboutPage && this.app.browser_attr.is_ipad_safari) {
 				ScrollTrigger.normalizeScroll(true);
 				// ScrollTrigger.config({ ignoreMobileResize: true });
 			}

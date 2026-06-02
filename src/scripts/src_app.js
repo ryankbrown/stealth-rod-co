@@ -32,6 +32,7 @@ export default class SRC_App {
 		console.log("SRC - Initializing SRC App");
 		
 		this.detectBrowserAttr();
+		this.detectSitePage();
 		
 		// Global Interactions
 		this.smooth_scroll = new Interaction_SiteSmoothScroll(this);
@@ -51,20 +52,35 @@ export default class SRC_App {
 		this.syncNavParallaxPauseList();	
 	}
 	
+	detectSitePage() {
+		this.site_page = document.body.getAttribute('data-pg');
+	}
+	
 	detectBrowserAttr() {
 		const ua = navigator.userAgent;
-		const isIPad = /iPad/.test(ua) || (/\bMacintosh\b/.test(ua) && 'ontouchend' in document);
-		const isIOS = isIPad || /iPhone|iPod/.test(ua);
-		const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-		const isTouch = 'ontouchend' in document;
-		const hoverCapable = window.matchMedia('(hover: hover)').matches;
+		const is_ipad = /iPad/.test(ua) || (/\bMacintosh\b/.test(ua) && 'ontouchend' in document);
+		const is_ios = is_ipad || /iPhone|iPod/.test(ua);
+		const is_safari = /^((?!chrome|android).)*safari/i.test(ua);
+		const is_touch = 'ontouchend' in document;
+		// const is_hover_capable = window.matchMedia('(hover: hover)').matches;
+
+		// - - - Browser Attribute Object - - - 
+		this.browser_attr = {
+			is_ipad,
+			is_ios,
+			is_safari,
+			is_touch,
+			is_ipad_safari: is_ipad && is_safari,
+			// is_hover_capable,
+		};
 		
+		// - - - Apply Browser Attribute Classes - - - 
 		const root = document.documentElement;
-		
-		root.classList.toggle('browser-attr--ios', isIOS);
-		root.classList.toggle('browser-attr--ipad-safari', isIPad && isSafari);
-		root.classList.toggle('browser-attr--touch-capable', isTouch);
-		root.classList.toggle('browser-attr--hover-capable', hoverCapable);
+
+		root.classList.toggle('browser-attr--ios', is_ios);
+		root.classList.toggle('browser-attr--ipad-safari', this.browser_attr.is_ipad_safari);
+		root.classList.toggle('browser-attr--touch-capable', is_touch);
+		// root.classList.toggle('browser-attr--hover-capable', is_hover_capable);
 	}
 
 	/** Refill from current interaction fields so the nav can pause/resume in one loop. */

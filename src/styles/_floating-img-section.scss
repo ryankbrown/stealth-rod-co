@@ -135,6 +135,9 @@ $debug: false;
 			.in-view & {
 				animation-play-state: running;
 			}
+		}	
+		.browser-attr--ipad-safari & {
+			animation: none !important;
 		}
 	}
 }
