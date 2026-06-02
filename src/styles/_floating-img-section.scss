@@ -81,6 +81,26 @@ $debug: false;
 		}
 	}
 	
+	&-paragraph { 
+		@media (width <= 767px) {
+			--mask-direction: to bottom; 
+			--mask-size: 400%;
+			
+			mask-repeat: no-repeat;
+			mask-size: 100% var(--mask-size);
+			
+			mask-image: linear-gradient(var(--mask-direction), #000 50%, transparent 100%);
+			transition: mask-position 6s var(--ease--smooth);
+			
+			.not-in-view & {
+				mask-position: 0 200%;
+				transition: none;
+			}
+			.in-view & {
+				mask-position: 0 0;
+			}
+		}
+	}
 	
 	&-floating-img-container {
 		overflow: clip;
