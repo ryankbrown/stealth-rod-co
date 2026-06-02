@@ -33,17 +33,17 @@ export default class Interaction_FloatingImgSection {
 			(context) => {
 				this.createMainOverlayTimeline();
 				this.createOverlaidContentScrollTrigger();
-				// this.createBgImgTimelineTrigger() 
+				this.createBgImgTimelineTrigger() 
 			}
 		);
 	}
 
 	createMainOverlayTimeline() {
 		
-		// const paragraph = new SplitText(
-		// 	this.floating_section_el.querySelector(".about__intro-paragraph"), 
-		// 	{ type: "lines"}
-		// );
+		const paragraph = new SplitText(
+			this.floating_section_el.querySelector(".about__intro-paragraph"), 
+			{ type: "lines"}
+		);
 		
 		this.main_scroll_tl = gsap.timeline({paused: true})
 
@@ -51,27 +51,27 @@ export default class Interaction_FloatingImgSection {
 		.addLabel('scroll-started')
 		
 		.from(this.floating_section_el, { duration: .25 }) // wait
-		// .from(paragraph.lines, {
-		// 	autoAlpha: 0,
-		// 	duration: 1.25,
-		// 	stagger: 0.15,
-		// 	ease: "power1.out"
-		// }, '<')
-		.from(".about__intro-paragraph", {
+		.from(paragraph.lines, {
 			autoAlpha: 0,
 			duration: 1.25,
+			stagger: 0.15,
 			ease: "power1.out"
-		})
+		}, '<')
+		// .from(".about__intro-paragraph", {
+		// 	autoAlpha: 0,
+		// 	duration: 1.25,
+		// 	ease: "power1.out"
+		// })
 		
 		// - - - - - TWEEN MIDPOINT - - - - -	
 		.addLabel('scroll-midpoint')
 		.from(this.floating_section_el, { duration: 8 }) // wait
-		// .to('.about__intro-text-content', {
-		// 	yPercent: -10,
-		// 	alpha: 0,
-		// 	duration: 3,
-		// 	ease: "power4.in"
-		// })
+		.to('.about__intro-text-content', {
+			yPercent: -10,
+			alpha: 0,
+			duration: 3,
+			ease: "power4.in"
+		})
 		.from(this.floating_section_el, { duration: .25 })
 		
 		.addLabel('scroll-finished')

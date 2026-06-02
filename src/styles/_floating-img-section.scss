@@ -36,29 +36,6 @@ $debug: false;
 		-webkit-backface-visibility: hidden;
 	}
 	
-	&-text-content {
-		border: 30px solid color-mix(in srgb, orange 10%, transparent);
-	}
-	
-	// &-text-content {
-	// 	anchor-name: --text-content-anchor;
-	// }
-	
-	// &-bg-img-container {
-	// 	// Fallback — works everywhere
-	// 	position: absolute;
-	// 	inset: 0; // or whatever your fallback sizing is
-		
-	// 	@supports (anchor-name: --a) {
-	// 		position-anchor: --text-content-anchor;
-	// 		inset: unset;
-	// 		top: anchor(top);
-	// 		left: anchor(left);
-	// 		width: anchor-size(width);
-	// 		height: anchor-size(height);
-	// 	}
-	// }
-
 	&-heading {
 		$heading-start-delay: .5s;
 		&--40,
