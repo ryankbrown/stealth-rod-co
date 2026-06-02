@@ -158,7 +158,7 @@ export default class SRC_App {
 	
 	setupFloatingImgsSection() {
 		if ( !document.querySelector('.about__intro-section') ) return null;
-		return new Interaction_FloatingImgSection(this, '.about__intro-section');
+		return new Interaction_FloatingImgSection(this, '.about__intro-content');
 	}
 
 	setupHighlightCircle() {
