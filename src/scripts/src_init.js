@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	gsap.registerPlugin(
 		ScrollTrigger,
 		ScrollSmoother,
-		ScrollToPlugin,
+		// ScrollToPlugin,
 		SplitText
 	)
 	
