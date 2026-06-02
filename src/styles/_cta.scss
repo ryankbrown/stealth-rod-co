@@ -84,6 +84,28 @@
 			translate: 0 0;
 		}
 	}
+	
+	&__section-divider-line {
+		transform-origin: left;
+	}
+	
+	&__contact-info-label,
+	&__contact-info-link {
+		transition: 
+			opacity var(--duration--2x-slow) var(--ease--smooth),
+			translate var(--duration--2x-slow) var(--ease--smooth);
+		transition-delay: .5s;
+		
+		.not-in-view & {
+			translate: 0 50%;
+			transition: none;
+			opacity: 0;
+		}
+		.in-view & {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}	
 }
 
 

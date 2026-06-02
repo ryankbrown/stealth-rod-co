@@ -22,17 +22,17 @@
 }
 
 
-html, body {
-	// height: 100%;
-	// overflow: hidden;
-}
+// html, body {
+// 	// height: 100%;
+// 	// overflow: hidden;
+// }
 
-#smooth-wrapper {
-	height: 100% !important;
-	/* or if you need viewport-filling behavior: */
-	height: 100dvh !important; /* dvh = dynamic viewport height, better Safari support */
-	overflow: hidden !important;
-}
+// #smooth-wrapper {
+// 	height: 100% !important;
+// 	/* or if you need viewport-filling behavior: */
+// 	height: 100dvh !important; /* dvh = dynamic viewport height, better Safari support */
+// 	overflow: hidden !important;
+// }
 
 body.no-scroll {
 	overflow: hidden;

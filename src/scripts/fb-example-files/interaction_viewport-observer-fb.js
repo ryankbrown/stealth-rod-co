@@ -12,7 +12,6 @@ export default class Interaction_ViewportObserver {
 		if (!this.observed_els.length) return;
 
 		// - - - Primary Intersection Observer - - - 
-		// Intersection Observer is a native web API that allows you to observe the intersection of a target element with the viewport. You create an observer element, here called "main_intersection_observer", 
 
 		this.main_intersection_observer = new IntersectionObserver(
 			// The first parameter in a Intersection Observer defines what should happen with each element that is observed.
