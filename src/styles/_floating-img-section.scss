@@ -57,50 +57,50 @@ $debug: false;
 		}
 	}
 
-	&-heading {
-		$heading-start-delay: .5s;
-		&--40,
-		&--years,
-		&--lake {
-			transition: 
-				translate var(--duration--2x-slow) var(--ease--smooth),
-				opacity var(--duration--2x-slow) var(--ease--smooth),
-				scale var(--duration--2x-slow) var(--ease--smooth);
-		}
+	// &-heading {
+	// 	$heading-start-delay: .5s;
+	// 	&--40,
+	// 	&--years,
+	// 	&--lake {
+	// 		transition: 
+	// 			translate var(--duration--2x-slow) var(--ease--smooth),
+	// 			opacity var(--duration--2x-slow) var(--ease--smooth),
+	// 			scale var(--duration--2x-slow) var(--ease--smooth);
+	// 	}
 		
-		&--40 {
-			transition-delay: $heading-start-delay + .1s;
-			.not-in-view & {
-				translate: 0 10%;
-				opacity: 0;
-				scale: .8;
+	// 	&--40 {
+	// 		transition-delay: $heading-start-delay + .1s;
+	// 		.not-in-view & {
+	// 			translate: 0 10%;
+	// 			opacity: 0;
+	// 			scale: .8;
 		
-			}
-			.in-view & {
-				translate: 0 0;
-				opacity: 1;
-				scale: 1;
-			}
-		}
-		&--years,
-		&--lake {
+	// 		}
+	// 		.in-view & {
+	// 			translate: 0 0;
+	// 			opacity: 1;
+	// 			scale: 1;
+	// 		}
+	// 	}
+	// 	&--years,
+	// 	&--lake {
 			
-			transition-delay: $heading-start-delay + .35s;
-			.not-in-view & {
-				translate: 0 100%;
-				opacity: 0;
-				scale: .8;
-			}
-			.in-view & {
-				translate: 0 0;
-				opacity: 1;
-				scale: 1;
-			}
-		}
-		&--lake {
-			transition-delay: $heading-start-delay + .45s;
-		}
-	}
+	// 		transition-delay: $heading-start-delay + .35s;
+	// 		.not-in-view & {
+	// 			translate: 0 100%;
+	// 			opacity: 0;
+	// 			scale: .8;
+	// 		}
+	// 		.in-view & {
+	// 			translate: 0 0;
+	// 			opacity: 1;
+	// 			scale: 1;
+	// 		}
+	// 	}
+	// 	&--lake {
+	// 		transition-delay: $heading-start-delay + .45s;
+	// 	}
+	// }
 	
 	
 	&-floating-img-container {
