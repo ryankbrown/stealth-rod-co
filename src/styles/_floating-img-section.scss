@@ -8,9 +8,11 @@ $debug: false;
 	@if $debug {
 		outline: 2px solid color-mix(in srgb, red 10%, transparent);
 	}
+	
 
 	&-text-content {
-
+		
+		
 		@if $debug {
 			outline: 3px solid color-mix(in srgb, blue 10%, transparent);
 		}
@@ -28,23 +30,31 @@ $debug: false;
 		}
 	}
 	
-	// &-text-content,
-	// &-bg-img-container {
-	// 	will-change: transform;
-	// 	transform: translateZ(0); 
-	// }
+	&-text-content,
+	&-bg-img-container {
+		transition: none !important;
+		will-change: transform;
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+	}
 	
 	&-text-content {
-		anchor-name: --text-content-anchor; 
+		anchor-name: --text-content-anchor;
 	}
 	
 	&-bg-img-container {
+		// Fallback — works everywhere
 		position: absolute;
-		position-anchor: --text-content-anchor;
-		top: anchor(--text-content-anchor top);
-		left: anchor(--text-content-anchor left);
-		width: anchor-size(--text-content-anchor width);
-		height: anchor-size(--text-content-anchor height);
+		inset: 0; // or whatever your fallback sizing is
+		
+		@supports (anchor-name: --a) {
+			position-anchor: --text-content-anchor;
+			inset: unset;
+			top: anchor(top);
+			left: anchor(left);
+			width: anchor-size(width);
+			height: anchor-size(height);
+		}
 	}
 
 	&-heading {
