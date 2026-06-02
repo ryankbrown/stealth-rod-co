@@ -32,7 +32,7 @@ export default class Interaction_FloatingImgSection {
 			(context) => {
 				this.createMainOverlayTimeline();
 				this.createOverlaidContentScrollTrigger();
-				this.createBgImgTimelineTrigger()
+				// this.createBgImgTimelineTrigger() 
 			}
 		);
 	}

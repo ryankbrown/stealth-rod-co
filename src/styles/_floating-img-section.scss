@@ -28,10 +28,23 @@ $debug: false;
 		}
 	}
 	
-	&-text-content,
+	// &-text-content,
+	// &-bg-img-container {
+	// 	will-change: transform;
+	// 	transform: translateZ(0); 
+	// }
+	
+	&-text-content {
+		anchor-name: --text-content-layer;
+	}
+	
 	&-bg-img-container {
-		will-change: transform;
-		transform: translateZ(0); 
+		position: absolute;
+		position-anchor: --text-content-anchor;
+		top: anchor(--text-content-anchor top);
+		left: anchor(--text-content-anchor left);
+		width: anchor-size(--text-content-anchor width);
+		height: anchor-size(--text-content-anchor height);
 	}
 
 	&-heading {
