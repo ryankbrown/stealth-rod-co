@@ -3,7 +3,8 @@
 
 import Interaction_UpdateLoop_GSAP from './interaction_update-loop-gsap.js';
 import Interaction_NavController from './interaction_nav-controller.js';
-import Interaction_SmoothScroll from './interaction_smooth-scroll.js';
+import Interaction_SiteSmoothScroll from './interaction_smooth-scroll.js';
+
 import Interaction_ViewportObserver from './interaction_viewport-observer.js'
 import Interaction_FixedContentStyler from './interaction_fixed-content-styler.js'
 import Interaction_PointerTracker from './interaction_pointer-tracker.js'
@@ -30,7 +31,7 @@ export default class SRC_App {
 	init() {
 		console.log("SRC - Initializing SRC App");
 		// Global Interactions
-		this.smooth_scroll = new Interaction_SmoothScroll(this);
+		this.smooth_scroll = new Interaction_SiteSmoothScroll(this);
 		this.nav_controller = new Interaction_NavController(this);
 		this.pointer_tracker = new Interaction_PointerTracker(this);
 		
@@ -69,7 +70,21 @@ export default class SRC_App {
 	setupViewportObserver() {
 		const target_els = document.querySelectorAll('[data-detect-in-view]');
 		if (!target_els.length) return null;
-		return new Interaction_ViewportObserver(this, target_els);
+		
+		
+		// - - - Determine Root Element - - - 
+		// If there are errors, may need to check and see waht the smooth scroll smoothTouch value is.
+		let root_el = null
+		if (this.smooth_scroll.opts.smoothTouch !== undefined) {
+			root_el = document.querySelector('#smooth-wrapper');
+		}
+		
+		// - - - More Explicit Touch Detection Nullifier - - - 
+		// const is_touch = window.matchMedia("(hover: none)").matches;
+		// const root_el = is_touch ? document.querySelector('#smooth-wrapper') : null;
+		
+		// create interaction
+		return new Interaction_ViewportObserver(this, target_els, root_el );
 	}
 	setupFixedContentStyler() {
 		const target_els = document.querySelectorAll('[data-fixed-content-styles]');

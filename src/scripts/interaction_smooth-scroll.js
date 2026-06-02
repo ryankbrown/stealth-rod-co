@@ -5,12 +5,14 @@ export default class Interaction_SiteSmoothScroll {
 	constructor(app, opts={
 		smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
 		effects: true, // looks for data-speed and data-lag attributes on elements
-		// smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
 	}) {
 		this.app = app;
 		this.opts = opts;
 		this.app.gsap_ctx.add(()=> {
 			
+			
+			
+			// - - - About Page Smooth Tablet Patch - - - 
 			// Detect iPad Safari and add normalizeScroll only there
 			const ua = navigator.userAgent;
 			const isIPad = /iPad/.test(ua);
@@ -23,11 +25,14 @@ export default class Interaction_SiteSmoothScroll {
 					ScrollTrigger.normalizeScroll(true);
 					// ScrollTrigger.config({ ignoreMobileResize: true });
 				}
-			} 
+			}
 			
+			// - - - Create Smoother - - - 
 			this.smooth_scroller = ScrollSmoother.create(opts, gsap); 	
 		})
 	}
+
+	
 	
 	// handleSmoothAnchorScroll(e) {
 	// 	e.preventDefault();
@@ -61,7 +66,7 @@ export default class Interaction_SiteSmoothScroll {
 	
 	destroy() {
 		
-		if (!this.pg_anchor_links?.length) {
+		if (this.pg_anchor_links?.length) {
 			this.pg_anchor_links.forEach(link => {
 				link.removeEventListener('click', this.handleSmoothAnchorScroll.bind(this));
 			});

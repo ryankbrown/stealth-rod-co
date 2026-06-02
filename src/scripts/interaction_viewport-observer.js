@@ -1,10 +1,10 @@
 export default class Interaction_ViewportObserver {
-	constructor(app, observe_els) {
+	constructor(app, observe_els, root_el) {
 		this.app = app;
 		this.observed_els = Array.from(observe_els || []);
 		// this.sideNav = document.querySelector(".side-nav");
+		this.root_el = root_el;
 		this.init();
-		
 	}
 
 	init() {
@@ -25,8 +25,8 @@ export default class Interaction_ViewportObserver {
 			
 			// The second paramenter for the Intersection Observer is an options object.
 			{
-				// ScrollSmoother: wrapper = viewport, content = moving inner div. Use wrapper so we intersect against the visible area.
-				root: document.querySelector('#smooth-wrapper') ?? null,
+				// The viewport element that will be scrolled within
+				root: this.root_el,
 
 				// An inset margin around the root element that triggers intersecting
 				rootMargin: '-10px',
