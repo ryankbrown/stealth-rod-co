@@ -11,8 +11,6 @@ $debug: false;
 	
 
 	&-text-content {
-		
-		
 		@if $debug {
 			outline: 3px solid color-mix(in srgb, blue 10%, transparent);
 		}
@@ -39,68 +37,72 @@ $debug: false;
 	}
 	
 	&-text-content {
-		anchor-name: --text-content-anchor;
+		outline: 3px solid color-mix(in srgb, orange 10%, transparent);
 	}
 	
-	&-bg-img-container {
-		// Fallback — works everywhere
-		position: absolute;
-		inset: 0; // or whatever your fallback sizing is
+	// &-text-content {
+	// 	anchor-name: --text-content-anchor;
+	// }
+	
+	// &-bg-img-container {
+	// 	// Fallback — works everywhere
+	// 	position: absolute;
+	// 	inset: 0; // or whatever your fallback sizing is
 		
-		@supports (anchor-name: --a) {
-			position-anchor: --text-content-anchor;
-			inset: unset;
-			top: anchor(top);
-			left: anchor(left);
-			width: anchor-size(width);
-			height: anchor-size(height);
-		}
-	}
-
-	// &-heading {
-	// 	$heading-start-delay: .5s;
-	// 	&--40,
-	// 	&--years,
-	// 	&--lake {
-	// 		transition: 
-	// 			translate var(--duration--2x-slow) var(--ease--smooth),
-	// 			opacity var(--duration--2x-slow) var(--ease--smooth),
-	// 			scale var(--duration--2x-slow) var(--ease--smooth);
-	// 	}
-		
-	// 	&--40 {
-	// 		transition-delay: $heading-start-delay + .1s;
-	// 		.not-in-view & {
-	// 			translate: 0 10%;
-	// 			opacity: 0;
-	// 			scale: .8;
-		
-	// 		}
-	// 		.in-view & {
-	// 			translate: 0 0;
-	// 			opacity: 1;
-	// 			scale: 1;
-	// 		}
-	// 	}
-	// 	&--years,
-	// 	&--lake {
-			
-	// 		transition-delay: $heading-start-delay + .35s;
-	// 		.not-in-view & {
-	// 			translate: 0 100%;
-	// 			opacity: 0;
-	// 			scale: .8;
-	// 		}
-	// 		.in-view & {
-	// 			translate: 0 0;
-	// 			opacity: 1;
-	// 			scale: 1;
-	// 		}
-	// 	}
-	// 	&--lake {
-	// 		transition-delay: $heading-start-delay + .45s;
+	// 	@supports (anchor-name: --a) {
+	// 		position-anchor: --text-content-anchor;
+	// 		inset: unset;
+	// 		top: anchor(top);
+	// 		left: anchor(left);
+	// 		width: anchor-size(width);
+	// 		height: anchor-size(height);
 	// 	}
 	// }
+
+	&-heading {
+		$heading-start-delay: .5s;
+		&--40,
+		&--years,
+		&--lake {
+			transition: 
+				translate var(--duration--2x-slow) var(--ease--smooth),
+				opacity var(--duration--2x-slow) var(--ease--smooth),
+				scale var(--duration--2x-slow) var(--ease--smooth);
+		}
+		
+		&--40 {
+			transition-delay: $heading-start-delay + .1s;
+			.not-in-view & {
+				translate: 0 10%;
+				opacity: 0;
+				scale: .8;
+		
+			}
+			.in-view & {
+				translate: 0 0;
+				opacity: 1;
+				scale: 1;
+			}
+		}
+		&--years,
+		&--lake {
+			
+			transition-delay: $heading-start-delay + .35s;
+			.not-in-view & {
+				translate: 0 100%;
+				opacity: 0;
+				scale: .8;
+			}
+			.in-view & {
+				translate: 0 0;
+				opacity: 1;
+				scale: 1;
+			}
+		}
+		&--lake {
+			transition-delay: $heading-start-delay + .45s;
+		}
+	}
 	
 	
 	&-floating-img-container {
