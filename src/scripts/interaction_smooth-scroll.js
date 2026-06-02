@@ -1,6 +1,5 @@
 //https://gsap.com/docs/v3/Plugins/ScrollSmoother/
 
-
 export default class Interaction_SiteSmoothScroll {
 	constructor(app, opts={
 		smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
@@ -10,25 +9,17 @@ export default class Interaction_SiteSmoothScroll {
 		this.opts = opts;
 		this.app.gsap_ctx.add(()=> {
 			
-			
-			
 			// - - - About Page Smooth Tablet Patch - - - 
-			// Detect iPad Safari and add normalizeScroll only there
-			const ua = navigator.userAgent;
-			const isIPad = /iPad/.test(ua);
-			const isIPadOS = /\bMacintosh\b/.test(ua) && 'ontouchend' in document;
-			const isSafari = /^((?!chrome|android).)*safari/i.test(ua);			
 			const isAboutPage = document.body.getAttribute('data-pg') === 'about';
+			const isIPadSafari = document.documentElement.classList.contains('browser-attr--ipad-safari');
 
-			if (isAboutPage) {
-				if ((isIPad || isIPadOS) && isSafari) {
-					ScrollTrigger.normalizeScroll(true);
-					// ScrollTrigger.config({ ignoreMobileResize: true });
-				}
+			if (isAboutPage && isIPadSafari) {
+				ScrollTrigger.normalizeScroll(true);
+				// ScrollTrigger.config({ ignoreMobileResize: true });
 			}
 			
 			// - - - Create Smoother - - - 
-			this.smooth_scroller = ScrollSmoother.create(opts, gsap); 	
+			this.smooth_scroller = ScrollSmoother.create(opts); 	
 		})
 	}
 

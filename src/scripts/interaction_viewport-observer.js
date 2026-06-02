@@ -29,11 +29,11 @@ export default class Interaction_ViewportObserver {
 				root: this.root_el,
 
 				// An inset margin around the root element that triggers intersecting
-				rootMargin: '-10px',
+				rootMargin: '-1px',
 
 				// The threshold property is used to set the percentage of the element that needs to be in view to trigger the intersection observer.
 				// Use a low threshold so animations can kick in early.
-				threshold: 0.1
+				threshold: 0.01
 			});
 			
 		this.observed_els.forEach((el) => this.main_intersection_observer.observe(el));

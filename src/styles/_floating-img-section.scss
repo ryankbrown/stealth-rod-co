@@ -80,6 +80,32 @@ $debug: false;
 	}
 	
 	
+	&-floating-img-container {
+		overflow: clip;
+	}
+	
+	
+	&-floating-img {
+		@media (width <= 767px) {
+			
+			transition: 
+				opacity var(--duration--2x-slow) var(--ease--smooth),
+				scale var(--duration--2x-slow) var(--ease--smooth);
+				transition-delay: .015s;
+			
+			.not-in-view & {
+				transition: none;
+				opacity: 0;
+				scale: 1.1;
+			}
+			
+			.in-view & {
+				opacity: 1;
+				scale: 1;
+			}
+		}
+	}
+	
 	&-bg-img-container {
 		
 		transition: 
@@ -93,7 +119,9 @@ $debug: false;
 			opacity: 1;
 		}
 	}
+	
 	&-bg-img {
+		
 		@media (width >= 767px) {
 			animation-name: waterImgScale;
 			animation-duration: 10s;

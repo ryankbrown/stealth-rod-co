@@ -30,6 +30,9 @@ export default class SRC_App {
 	}
 	init() {
 		console.log("SRC - Initializing SRC App");
+		
+		this.detectBrowserAttr();
+		
 		// Global Interactions
 		this.smooth_scroll = new Interaction_SiteSmoothScroll(this);
 		this.nav_controller = new Interaction_NavController(this);
@@ -46,6 +49,22 @@ export default class SRC_App {
 		this.feature_parallax_imgs = this.setupFeatureParallaxImgs();
 		this.highlight_circles = this.setupHighlightCircle();
 		this.syncNavParallaxPauseList();	
+	}
+	
+	detectBrowserAttr() {
+		const ua = navigator.userAgent;
+		const isIPad = /iPad/.test(ua) || (/\bMacintosh\b/.test(ua) && 'ontouchend' in document);
+		const isIOS = isIPad || /iPhone|iPod/.test(ua);
+		const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+		const isTouch = 'ontouchend' in document;
+		const hoverCapable = window.matchMedia('(hover: hover)').matches;
+		
+		const root = document.documentElement;
+		
+		root.classList.toggle('browser-attr--ios', isIOS);
+		root.classList.toggle('browser-attr--ipad-safari', isIPad && isSafari);
+		root.classList.toggle('browser-attr--touch-capable', isTouch);
+		root.classList.toggle('browser-attr--hover-capable', hoverCapable);
 	}
 
 	/** Refill from current interaction fields so the nav can pause/resume in one loop. */
@@ -64,7 +83,6 @@ export default class SRC_App {
 		addMany(this.site_hero_headers_parallax);
 		addMany(this.feature_parallax_imgs);
 		addMany(this.highlight_circles);
-		
 	}
 
 	setupViewportObserver() {
