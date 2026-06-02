@@ -20,6 +20,7 @@ export default class Interaction_FloatingImgSection {
 			scrub: 1,
 			anticipatePin: true,
 			pinSpacing: false,
+			pinType: 'transform'
 			// markers: true
 		}
 		
