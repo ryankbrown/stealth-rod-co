@@ -135,7 +135,7 @@ export default class Interaction_NavController {
 			container_el: this.nav_overlay,
 			container_id: `main-nav--parallax-elements`,
 			update_loop: this.app.update_loop,
-			relative_el: this.nav_overlay.querySelector('.main-nav__overlay-wrapper')
+			relative_input: this.nav_overlay.querySelector('.main-nav__overlay-wrapper')
 		});
 		
 		this.parallax_container.pause();

@@ -15,7 +15,7 @@ export class Interaction_ParallaxLayer {
 		
 		const {
 			lerp_amt = 0.1,
-			move_rate = { x: 0.1, y: 0.1 },
+			move_rate = { x: 1, y: 1 },
 			clamp_offset = {
 				min_x: -100,
 				max_x: 100,
@@ -24,33 +24,30 @@ export class Interaction_ParallaxLayer {
 			},
 			dir_mod = { x: 1, y: 1 },
 		} = options;
-
+		
 		this.lerp_amt = lerp_amt;
 		this.move_rate = move_rate;
 		this.clamp_offset = clamp_offset;
 		this.dir_mod = dir_mod;
-
 		this.trans_pos = { x: 0, y: 0 };	
-		
 	}
 	
-	
 	updateLayer(input) {
-		
 		let x_move = input.x * this.move_rate.x * this.dir_mod.x;
 		let y_move = input.y * this.move_rate.y * this.dir_mod.y;
 		
 		// Apply max offset limits if defined
-		x_move = gsap.utils.clamp( this.clamp_offset.min_x, this.clamp_offset.max_x, x_move);
-		y_move = gsap.utils.clamp( this.clamp_offset.min_y, this.clamp_offset.max_y, y_move);
+		if (this.clamp_offset !== 'none' && this.clamp_offset !== null) {
+			x_move = gsap.utils.clamp( this.clamp_offset.min_x, this.clamp_offset.max_x, x_move);
+			y_move = gsap.utils.clamp( this.clamp_offset.min_y, this.clamp_offset.max_y, y_move);
+		}
 		
 		this.trans_pos.x = gsap.utils.interpolate(this.trans_pos.x, x_move, this.lerp_amt);
 		this.trans_pos.y = gsap.utils.interpolate(this.trans_pos.y, y_move, this.lerp_amt);
-
 		this.layer_el.style.setProperty("--tX", `${ this.trans_pos.x }px`);
 		this.layer_el.style.setProperty("--tY", `${ this.trans_pos.y }px`);
-
 	}
+	
 	/**
 	 * Reset layer to center position
 	 */
@@ -72,8 +69,11 @@ export class Interaction_ParallaxContainer {
 		container_el,
 		container_id,
 		update_loop,
-		move_input = { x: 0, y: 0 },
-		relative_el = null,
+		// Where "center" (0,0) is measured from (WHERE).
+		// Omit → 'viewport', or hover_el when hover_el is set (pass explicitly for a parent wrapper).
+		// 'viewport' | CSS selector string | Element → stored as this.relative_el
+		relative_input,
+		// Hit target for pointerenter/leave (WHEN). Also used as WHERE when relative_input is omitted.
 		hover_el = false,
 		hover_delay = 250,
 		parallax_min_width_mq = "(min-width: 768px)",
@@ -90,14 +90,28 @@ export class Interaction_ParallaxContainer {
 		this.is_in_view = false;
 		this.is_paused = false;
 		
-		// Hover Opts
+		// Hover Opts — when to run parallax (hit target)
 		this.hover_el = hover_el;
 		this.hover_mode_enabled = hover_el ? true : false;
 		this.hover_delay = hover_delay;
 		this.is_hovered = false;
 		this.hover_timeout = null; // property for hover delay setTimeout function
-		this.move_input = move_input;
-		this.relative_el = relative_el;
+		
+		// Input Opts — where move_coords are measured from (reference center)
+		this.relative_input =
+			relative_input ??
+			(hover_el ? hover_el : 'viewport');
+
+		if (this.relative_input !== 'viewport') {
+			if (typeof this.relative_input === "string") {
+				this.relative_el = document.querySelector(this.relative_input);
+			} else if (this.relative_input instanceof Element) {
+				this.relative_el = this.relative_input;
+			} else {
+				this.relative_el = null;
+			}
+		}
+		
 		this._destroyed = false;
 
 		// Exit gracefully if no layer items are provided
@@ -131,7 +145,7 @@ export class Interaction_ParallaxContainer {
 	activate() {
 		this.setupIntersectionObserver();
 
-		// Hover Target Listeners - Setup the hover listeners to detect if the container is hovered
+		// Listen on hover_el (hit target), not relative_el
 		if (this.hover_mode_enabled) { 
 			this.setupHoverListeners(); 
 		}
@@ -146,28 +160,34 @@ export class Interaction_ParallaxContainer {
 		});
 		
 		this.updateFunction = ()=> {
-			if (!this.is_in_view || this.is_paused) return;
 			
-			// Resolve the input based on if a relative element is provided
-			let resolved_input = this.move_input;
-			if (this.relative_el) {
-				resolved_input = this.app.pointer_tracker.rel_cent(this.relative_el);
-			}
-
-			let move_coords;
-			// If hover mode is enabled and not hovered, reset to center (0,0), otherwise use current input
+			if (!this.is_in_view || this.is_paused) return;
+			const tracker = this.app?.pointer_tracker;
+			if (!tracker) return;
+			
+			// --- WHEN: hover mode + not over hover_el → rest (no pointer follow)
 			if (this.hover_mode_enabled && !this.is_hovered) {
-				move_coords = { x: 0, y: 0 };
-			} 
-			// Otherwise use current input
-			else {
-				move_coords = resolved_input;
+				this.move_coords = { x: 0, y: 0 };
 			}
-
+			// --- WHERE: pointer offset from reference center (viewport or relative_el container)
+			else if (this.relative_input === 'viewport') {
+				this.move_coords = tracker.cent;
+			}
+			// relative_el = relative_input container (e.g. img_container), not hover_el (e.g. img)
+			else if (this.relative_el) {
+				this.move_coords = tracker.rel_cent(this.relative_el);
+			}
+			else {
+				this.move_coords = { x: 0, y: 0 };
+			}
+			
+			if (!this.move_coords) return;
+			
 			for (let layer of this.layer_items) {
-				layer.updateLayer(move_coords);
+				layer.updateLayer(this.move_coords);
 			}
 		};
+		
 		this.update_loop.loop_functions.push(this.updateFunction);
 	}
 	

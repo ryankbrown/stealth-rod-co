@@ -12,13 +12,8 @@ export default class Interaction_HighlightCircle {
 			layer_el: this.highlight_circle,
 			options: {
 				lerp_amt: 0.05,
-				move_rate: { x: 0.5, y: 0.5 },
-				clamp_offset: {
-					min_x: -300,
-					max_x: 300,
-					min_y: -300,
-					max_y: 300,
-				},
+				move_rate: { x: 1, y: 1 },
+				clamp_offset: 'none',
 				// Opposite-to-pointer by default, with X flipped for mirrored variant.
 				dir_mod: { x: 1, y: 1 },
 			},
@@ -34,7 +29,7 @@ export default class Interaction_HighlightCircle {
 			container_el,
 			container_id: this.id,
 			update_loop: this.app.update_loop,
-			relative_el: container_el,
+			relative_input: 'viewport',
 		});
 	}
 

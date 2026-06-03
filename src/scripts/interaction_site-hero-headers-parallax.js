@@ -28,7 +28,7 @@ export default class Interaction_SiteHeroHeaders_Parallax {
 			container_el: this.header_el,
 			container_id: `site-header--${document.body.dataset.pg}`,
 			update_loop: this.app.update_loop,
-			relative_el: this.header_el.querySelector('.global__hero-element-stack')
+			relative_input: this.header_el.querySelector('.global__hero-element-stack')
 		});
 	}
 

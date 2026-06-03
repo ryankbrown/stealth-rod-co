@@ -31,7 +31,8 @@ export default class Interaction_FeatureParallaxImgs {
 			container_el: this.img_container,
 			container_id: this.id,
 			update_loop: this.app.update_loop,
-			relative_el: this.img_container,
+			// WHERE = container center (default would be hover_el / image center)
+			relative_input: this.img_container,
 			hover_el: this.img,
 		});
 		

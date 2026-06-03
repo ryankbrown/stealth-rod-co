@@ -1,6 +1,9 @@
 @use "variables";
 
 .global__highlight-circle {
+	
+	--display-mq: "(min-width: 480px)";
+	
 	// --tX: 0;
 	// --tY: 0;
 	translate: var(--tX) var(--tY);
@@ -9,35 +12,21 @@
 
 
 .home__section-content .global__highlight-circle {
+	
 	display: none;
 	
-	@media (width > 480px) {
-		
+	@media (width >= 480px) {
 		display: block;
-		
 		transition: opacity 3s ease-in-out;
 		transition-delay: 1.25s;
 		position: relative;
 		mix-blend-mode: overlay;
 		
-		&::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: radial-gradient(circle, white 0%, transparent 60%);
-			transition: opacity 3s ease-in-out;
-			transition-delay: 1.25s;
-		}
-		.home__intro-section.not-in-view &,
-		.home__intro-section.not-in-view &::after {
+		.home__intro-section.not-in-view & {
 			transition: none;
 			opacity: 0;
 		}
-		.home__intro-section.in-view &,
-		.home__intro-section.in-view &::after {
+		.home__intro-section.in-view & {
 			opacity: 1;	
 		}
 	}
@@ -46,33 +35,21 @@
 .our-rods__features-bg-img-container .global__highlight-circle {
 	display: none;
 	
-	@media (width > 480px) {
+	@media (width >= 480px) {
+		display: block;
 		transition: opacity 3s ease-in-out;
 		transition-delay: 1.25s;
 		position: relative;
-		mix-blend-mode: overlay;
+		// background: blue;
+		// mix-blend-mode: screen;
 		
-		&::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: radial-gradient(circle, white 0%, transparent 100%);
-			transition: opacity 3s ease-in-out;
-			transition-delay: 1.25s;
-		}
-		.our-rods__features-section.not-in-view &,
-		.our-rods__features-section.not-in-view &::after {
+		.our-rods__features-section.not-in-view & {
 			transition: none;
 			opacity: 0;
 		}
-		.our-rods__features-section.in-view &,
-		.our-rods__features-section.in-view &::after {
+		.our-rods__features-section.in-view & {
 			opacity: 1;	
 		}
 	}
-	
 }
 

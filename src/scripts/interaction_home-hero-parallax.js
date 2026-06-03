@@ -41,16 +41,16 @@ export default class Interaction_HomeHero_Parallax {
 		
 
 		this.parallax_container = new Interaction_ParallaxContainer({
-				app: this.app,
-				layer_items: [ 
-					this.bg_img_layer, 
-					this.fisherman_img_layer
-				],
-				container_el: this.header_el,
-				container_id: `home-hero-header`,
-				update_loop: this.app.update_loop,
-				relative_el: this.header_el.querySelector('.home__hero-element-stack')
-			});
+			app: this.app,
+			layer_items: [ 
+				this.bg_img_layer, 
+				this.fisherman_img_layer
+			],
+			container_el: this.header_el,
+			container_id: `home-hero-header`,
+			update_loop: this.app.update_loop,
+			relative_input: this.header_el.querySelector('.home__hero-element-stack')
+		});
 	}
 
 	pause() {
