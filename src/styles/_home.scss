@@ -25,6 +25,28 @@
 		}
 	}
 	
+	// &__hero-svg {
+		
+	// }
+	// Hero Background Images
+	&__hero-scroll-move {
+		animation: homeHeroBgImgs var(--duration--4x-slow) var(--ease--smooth);
+		animation-fill-mode: both;
+	}
+	
+	&__hero-scroll-move--fisherman {
+		animation-delay: 2.75s;
+	}
+	
+	&__hero-scroll-move--sky {
+		animation-delay: 3.75s;
+	}
+	
+	@keyframes homeHeroBgImgs {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+	
 	&__intro-heading {
 		&--top,
 		&--bot {

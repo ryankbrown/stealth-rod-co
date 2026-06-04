@@ -45,7 +45,7 @@
 
 .home__header-logo {
 	
-	$start-delay: 1.25s;
+	$start-delay: 1.15s;
 
 	&--stealth,
 	&--rod-co
@@ -76,10 +76,10 @@
 	}
 	
 	&--ala {
-		--tX: 7%;
+		--tX: 3%;
 	}
 	&--usa {
-		--tX: -7%;
+		--tX: -3%;
 	}
 	
 	&-letter--s,  
