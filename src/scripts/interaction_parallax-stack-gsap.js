@@ -62,18 +62,18 @@ export class Interaction_ParallaxLayer {
 
 
 
-export class Interaction_ParallaxContainer {
+export class Interaction_ParallaxStack {
 	constructor({
 		app,
 		layer_items = [],
 		container_el,
 		container_id,
 		update_loop,
-		// Where "center" (0,0) is measured from (WHERE).
-		// Omit → 'viewport', or hover_el when hover_el is set (pass explicitly for a parent wrapper).
-		// 'viewport' | CSS selector string | Element → stored as this.relative_el
-		relative_input,
-		// Hit target for pointerenter/leave (WHEN). Also used as WHERE when relative_input is omitted.
+		// WHERE — pointer / pin reference (see resolveMoveCoords).
+		// 'viewport' | 'viewport-pin' | CSS selector | Element
+		// Omit → 'viewport', or hover_el when hover_el is set (pass parent explicitly to override).
+		relative_to,
+		// Hit target for pointerenter/leave (WHEN). Also used as WHERE when relative_to is omitted.
 		hover_el = false,
 		hover_delay = 250,
 		parallax_min_width_mq = "(min-width: 768px)",
@@ -97,16 +97,20 @@ export class Interaction_ParallaxContainer {
 		this.is_hovered = false;
 		this.hover_timeout = null; // property for hover delay setTimeout function
 		
-		// Input Opts — where move_coords are measured from (reference center)
-		this.relative_input =
-			relative_input ??
+		// If relative_to is not set, use hover_el if it is set, otherwise use 'viewport'
+		this.relative_to =
+			relative_to ??
 			(hover_el ? hover_el : 'viewport');
 
-		if (this.relative_input !== 'viewport') {
-			if (typeof this.relative_input === "string") {
-				this.relative_el = document.querySelector(this.relative_input);
-			} else if (this.relative_input instanceof Element) {
-				this.relative_el = this.relative_input;
+		// If relative_to is not 'viewport' or 'viewport-pin', set relative_el to the element specified by relative_to
+		if (
+			this.relative_to !== 'viewport' &&
+			this.relative_to !== 'viewport-pin'
+		) {
+			if (typeof this.relative_to === "string") {
+				this.relative_el = document.querySelector(this.relative_to);
+			} else if (this.relative_to instanceof Element) {
+				this.relative_el = this.relative_to;
 			} else {
 				this.relative_el = null;
 			}
@@ -162,33 +166,47 @@ export class Interaction_ParallaxContainer {
 		this.updateFunction = ()=> {
 			
 			if (!this.is_in_view || this.is_paused) return;
+			
 			const tracker = this.app?.pointer_tracker;
 			if (!tracker) return;
 			
-			// --- WHEN: hover mode + not over hover_el → rest (no pointer follow)
-			if (this.hover_mode_enabled && !this.is_hovered) {
-				this.move_coords = { x: 0, y: 0 };
-			}
-			// --- WHERE: pointer offset from reference center (viewport or relative_el container)
-			else if (this.relative_input === 'viewport') {
-				this.move_coords = tracker.cent;
-			}
-			// relative_el = relative_input container (e.g. img_container), not hover_el (e.g. img)
-			else if (this.relative_el) {
-				this.move_coords = tracker.rel_cent(this.relative_el);
-			}
-			else {
-				this.move_coords = { x: 0, y: 0 };
-			}
-			
-			if (!this.move_coords) return;
-			
 			for (let layer of this.layer_items) {
-				layer.updateLayer(this.move_coords);
+				let move_coords;
+				// --- WHEN: hover mode + not over hover_el → rest (no pointer follow)
+				if (this.hover_mode_enabled && !this.is_hovered) {
+					move_coords = { x: 0, y: 0 };
+				} else {
+					move_coords = this.resolveMoveCoords(layer, tracker);
+				}
+				if (!move_coords) continue;
+				layer.updateLayer(move_coords);
 			}
 		};
 		
 		this.update_loop.loop_functions.push(this.updateFunction);
+	}
+
+	resolveMoveCoords(layer, tracker) {
+		if (this.relative_to === 'viewport-pin') {
+			if (!layer?.layer_el) {
+				return { x: 0, y: 0 };
+			}
+			return tracker.vp_pin_translate(
+				layer.layer_el,
+				tracker.cent,
+				layer.trans_pos,
+			);
+		}
+
+		if (this.relative_to === 'viewport') {
+			return tracker.cent;
+		}
+
+		if (this.relative_el) {
+			return tracker.rel_cent(this.relative_el);
+		}
+
+		return { x: 0, y: 0 };
 	}
 	
 	setupIntersectionObserver() {
@@ -318,11 +336,11 @@ export class Interaction_ParallaxContainer {
 	}
 
 	/**
-	 * Permanently remove this container — call when the parent interaction is torn down
+	 * Permanently remove this stack — call when the parent interaction is torn down
 	 * (e.g. nav close). Unlike deactivate(), which is temporary and reversible on resize,
 	 * destroy() marks the instance as dead, reverts matchMedia so it cannot re-activate,
 	 * and clears layer references. deactivate() only stops the runtime wiring; destroy()
-	 * ends the container's lifecycle entirely.
+	 * ends the stack's lifecycle entirely.
 	 */
 	destroy() {
 		if (this._destroyed) return this;

@@ -128,6 +128,20 @@ export default class Interaction_PointerTracker {
 			y: relCent.y / rect.height
 		};
 	}
+	
+	// Returns a translate { x, y } so the element’s visual center sits at the viewport center + offset, letting in-flow elements (e.g. inside ScrollSmoother, and inside a section) behave like they’re pinned to the screen without position: fixed.
+	vp_pin_translate(el, offset = { x: 0, y: 0 }, current = { x: 0, y: 0 }) {
+		if (!(el instanceof Element)) {
+			return { x: 0, y: 0 };
+		}
+		const rect = el.getBoundingClientRect();
+		const cx = rect.left + rect.width / 2 - current.x;
+		const cy = rect.top + rect.height / 2 - current.y;
+		const tx = window.innerWidth / 2 + offset.x;
+		const ty = window.innerHeight / 2 + offset.y;
+		return { x: tx - cx, y: ty - cy };
+	}
+	
 
 	// Convenience getters for common accessors
 	get x() {

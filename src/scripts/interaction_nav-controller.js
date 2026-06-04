@@ -1,4 +1,4 @@
-import { Interaction_ParallaxLayer, Interaction_ParallaxContainer } from "./interaction_parallax-stack-gsap";
+import { Interaction_ParallaxLayer, Interaction_ParallaxStack } from "./interaction_parallax-stack-gsap";
 
 export default class Interaction_NavController {
 	constructor(app) {
@@ -59,8 +59,8 @@ export default class Interaction_NavController {
 		
 		const smoother = this.app.smooth_scroll?.smooth_scroller;
 		if (smoother) smoother.paused(true);
-		if (this.parallax_container) {
-			this.parallax_container.resume();
+		if (this.parallax_stack) {
+			this.parallax_stack.resume();
 		}
 		for (const p of this.app.parallax_for_nav_pause ?? []) {
 			p.pause();
@@ -75,8 +75,8 @@ export default class Interaction_NavController {
 		
 		const smoother = this.app.smooth_scroll?.smooth_scroller;
 		if (smoother) smoother.paused(false);
-		if (this.parallax_container) {
-			this.parallax_container.pause();
+		if (this.parallax_stack) {
+			this.parallax_stack.pause();
 		}
 		for (const p of this.app.parallax_for_nav_pause ?? []) {
 			p.resume();
@@ -129,16 +129,16 @@ export default class Interaction_NavController {
 		});
 		
 
-		this.parallax_container = new Interaction_ParallaxContainer({
+		this.parallax_stack = new Interaction_ParallaxStack({
 			app: this.app,
 			layer_items: [ this.bg_img_layer ],
 			container_el: this.nav_overlay,
 			container_id: `main-nav--parallax-elements`,
 			update_loop: this.app.update_loop,
-			relative_input: this.nav_overlay.querySelector('.main-nav__overlay-wrapper')
+			relative_to: this.nav_overlay.querySelector('.main-nav__overlay-wrapper')
 		});
 		
-		this.parallax_container.pause();
+		this.parallax_stack.pause();
 	}
 	
 	handleNavExpand() {
@@ -161,9 +161,9 @@ export default class Interaction_NavController {
 			this.menu_btn.removeEventListener("click", this.handleNavExpand);
 		}
 		document.removeEventListener("keydown", this.handleKeydown);
-		if (this.parallax_container) {
-			this.parallax_container.destroy();
-			this.parallax_container = null;
+		if (this.parallax_stack) {
+			this.parallax_stack.destroy();
+			this.parallax_stack = null;
 		}
 	}
 }

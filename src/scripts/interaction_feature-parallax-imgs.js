@@ -1,4 +1,4 @@
-import { Interaction_ParallaxLayer, Interaction_ParallaxContainer } from "./interaction_parallax-stack-gsap.js";
+import { Interaction_ParallaxLayer, Interaction_ParallaxStack } from "./interaction_parallax-stack-gsap.js";
 
 export default class Interaction_FeatureParallaxImgs {
 	constructor(app, img_container) {
@@ -25,34 +25,34 @@ export default class Interaction_FeatureParallaxImgs {
 		
 		
 
-		this.parallax_container = new Interaction_ParallaxContainer({
+		this.parallax_stack = new Interaction_ParallaxStack({
 			app: this.app,
 			layer_items: [img_layer],
 			container_el: this.img_container,
 			container_id: this.id,
 			update_loop: this.app.update_loop,
 			// WHERE = container center (default would be hover_el / image center)
-			relative_input: this.img_container,
+			relative_to: this.img_container,
 			hover_el: this.img,
 		});
 		
-		// console.log(this.parallax_container);
+		// console.log(this.parallax_stack);
 	}
 
 	pause() {
-		if (this.parallax_container) this.parallax_container.pause();
+		if (this.parallax_stack) this.parallax_stack.pause();
 		return this;
 	}
 
 	resume() {
-		if (this.parallax_container) this.parallax_container.resume();
+		if (this.parallax_stack) this.parallax_stack.resume();
 		return this;
 	}
 	
 	destroy() {
-		if (this.parallax_container) {
-			this.parallax_container.destroy();
-			this.parallax_container = null;
+		if (this.parallax_stack) {
+			this.parallax_stack.destroy();
+			this.parallax_stack = null;
 		}
 	}
 }

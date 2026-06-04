@@ -1,4 +1,4 @@
-import { Interaction_ParallaxLayer, Interaction_ParallaxContainer } from "./interaction_parallax-stack-gsap.js";
+import { Interaction_ParallaxLayer, Interaction_ParallaxStack } from "./interaction_parallax-stack-gsap.js";
 
 export default class Interaction_RodHeaders_Parallax {
 	constructor(app, header_el, header_idx) {
@@ -28,31 +28,31 @@ export default class Interaction_RodHeaders_Parallax {
 
 		
 		
-		this.parallax_container = new Interaction_ParallaxContainer({
+		this.parallax_stack = new Interaction_ParallaxStack({
 			app: this.app,
 			layer_items: [shadow_layer],
 			container_el: this.rod_header_el,
 			container_id: `rod-header-${this.header_idx}`,
 			update_loop: this.app.update_loop,
-			relative_input: this.rod_header_el,
+			relative_to: this.rod_header_el,
 			parallax_min_width_mq: false, // dont disable parallax on mobile
 		});
 	}
 
 	pause() {
-		if (this.parallax_container) this.parallax_container.pause();
+		if (this.parallax_stack) this.parallax_stack.pause();
 		return this;
 	}
 
 	resume() {
-		if (this.parallax_container) this.parallax_container.resume();
+		if (this.parallax_stack) this.parallax_stack.resume();
 		return this;
 	}
 	
 	destroy() {
-		if (this.parallax_container) {
-			this.parallax_container.destroy();
-			this.parallax_container = null;
+		if (this.parallax_stack) {
+			this.parallax_stack.destroy();
+			this.parallax_stack = null;
 		}
 	}
 }

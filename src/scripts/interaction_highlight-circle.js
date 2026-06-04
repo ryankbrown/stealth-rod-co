@@ -1,4 +1,4 @@
-import { Interaction_ParallaxLayer, Interaction_ParallaxContainer } from "./interaction_parallax-stack-gsap.js";
+import { Interaction_ParallaxLayer, Interaction_ParallaxStack } from "./interaction_parallax-stack-gsap.js";
 
 export default class Interaction_HighlightCircle {
 	constructor(app, highlight_circle, highlight_circle_container, highlight_circle_idx) {
@@ -23,30 +23,30 @@ export default class Interaction_HighlightCircle {
 		const container_el =
 			this.highlight_circle_container ?? this.highlight_circle.parentElement;
 
-		this.parallax_container = new Interaction_ParallaxContainer({
+		this.parallax_stack = new Interaction_ParallaxStack({
 			app: this.app,
 			layer_items: [circle_layer],
 			container_el,
 			container_id: this.id,
 			update_loop: this.app.update_loop,
-			relative_input: 'viewport',
+			relative_to: 'viewport-pin',
 		});
 	}
 
 	pause() {
-		if (this.parallax_container) this.parallax_container.pause();
+		if (this.parallax_stack) this.parallax_stack.pause();
 		return this;
 	}
 
 	resume() {
-		if (this.parallax_container) this.parallax_container.resume();
+		if (this.parallax_stack) this.parallax_stack.resume();
 		return this;
 	}
 	
 	destroy() {
-		if (this.parallax_container) {
-			this.parallax_container.destroy();
-			this.parallax_container = null;
+		if (this.parallax_stack) {
+			this.parallax_stack.destroy();
+			this.parallax_stack = null;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import { Interaction_ParallaxLayer, Interaction_ParallaxContainer } from "./interaction_parallax-stack-gsap.js";
+import { Interaction_ParallaxLayer, Interaction_ParallaxStack } from "./interaction_parallax-stack-gsap.js";
 
 export default class Interaction_HomeHero_Parallax {
 	constructor(app) {
@@ -40,7 +40,7 @@ export default class Interaction_HomeHero_Parallax {
 		});
 		
 
-		this.parallax_container = new Interaction_ParallaxContainer({
+		this.parallax_stack = new Interaction_ParallaxStack({
 			app: this.app,
 			layer_items: [ 
 				this.bg_img_layer, 
@@ -49,24 +49,24 @@ export default class Interaction_HomeHero_Parallax {
 			container_el: this.header_el,
 			container_id: `home-hero-header`,
 			update_loop: this.app.update_loop,
-			relative_input: this.header_el.querySelector('.home__hero-element-stack')
+			relative_to: this.header_el.querySelector('.home__hero-element-stack')
 		});
 	}
 
 	pause() {
-		if (this.parallax_container) this.parallax_container.pause();
+		if (this.parallax_stack) this.parallax_stack.pause();
 		return this;
 	}
 
 	resume() {
-		if (this.parallax_container) this.parallax_container.resume();
+		if (this.parallax_stack) this.parallax_stack.resume();
 		return this;
 	}
 	
 	destroy() {
-		if (this.parallax_container) {
-			this.parallax_container.destroy();
-			this.parallax_container = null;
+		if (this.parallax_stack) {
+			this.parallax_stack.destroy();
+			this.parallax_stack = null;
 		}
 	}
 }

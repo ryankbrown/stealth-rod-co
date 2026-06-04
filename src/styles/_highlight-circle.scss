@@ -1,11 +1,6 @@
 @use "variables";
 
 .global__highlight-circle {
-	
-	--display-mq: "(min-width: 480px)";
-	
-	// --tX: 0;
-	// --tY: 0;
 	translate: var(--tX) var(--tY);
 	display: block;
 }
@@ -19,7 +14,6 @@
 		display: block;
 		transition: opacity 3s ease-in-out;
 		transition-delay: 1.25s;
-		position: relative;
 		mix-blend-mode: overlay;
 		
 		.home__intro-section.not-in-view & {
@@ -39,8 +33,6 @@
 		display: block;
 		transition: opacity 3s ease-in-out;
 		transition-delay: 1.25s;
-		position: relative;
-		// background: blue;
 		// mix-blend-mode: screen;
 		
 		.our-rods__features-section.not-in-view & {
@@ -48,7 +40,7 @@
 			opacity: 0;
 		}
 		.our-rods__features-section.in-view & {
-			opacity: 1;	
+			opacity: .25;
 		}
 	}
 }
