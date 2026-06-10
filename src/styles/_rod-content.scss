@@ -74,8 +74,7 @@
 		}
 	}
 	
-	&__header-img,
-	&__header-img-shadow {
+	&__header-img{
 		transition: 
 			filter var(--duration--2x-slow) var(--ease--smooth);
 		.not-in-view & {
@@ -86,7 +85,6 @@
 			filter: brightness(100%);
 		}
 	}
-	
 	
 	
 	

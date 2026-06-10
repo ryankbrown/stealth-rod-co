@@ -1,6 +1,6 @@
 import { Interaction_ParallaxLayer, Interaction_ParallaxStack } from "./interaction_parallax-stack-gsap.js";
 
-export default class Interaction_RodHeaders_Parallax {
+export default class Interaction_RodHeaders_ShadowPointerMove {
 	constructor(app, header_el, header_idx) {
 		this.app = app;
 		this.rod_header_el = header_el;

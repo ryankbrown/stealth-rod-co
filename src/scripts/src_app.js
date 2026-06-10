@@ -8,11 +8,10 @@ import Interaction_SiteSmoothScroll from './interaction_smooth-scroll.js';
 import Interaction_ViewportObserver from './interaction_viewport-observer.js'
 import Interaction_FixedContentStyler from './interaction_fixed-content-styler.js'
 import Interaction_PointerTracker from './interaction_pointer-tracker.js'
-// import Interaction_RodHeaders_ScrollAnim from './interaction_rod-headers.js'
-import Interaction_RodHeaders_Parallax from './interaction_rod-headers-parallax.js'
+import Interaction_RodHeaders_ShadowScrollMove from './interaction_rod-headers-shadow-scroll-move.js'
+import Interaction_RodHeaders_ShadowPointerMove from './interaction_rod-headers-shadow-pointer-move.js'
 import Interaction_SiteHeroHeaders_Parallax from './interaction_site-hero-headers-parallax.js';
 import Interaction_HomeHero_Parallax from './interaction_home-hero-parallax.js';
-// import Interaction_TaglineScrollParallax from './interaction_tagline-scroll-parallax.js';
 import Interaction_FloatingImgSection from './interaction_floating-imgs-section.js';
 import Interaction_FeatureParallaxImgs from './interaction_feature-parallax-imgs.js';
 import Interaction_HighlightCircle from './interaction_highlight-circle.js';
@@ -43,12 +42,12 @@ export default class SRC_App {
 		this.viewport_observer = this.setupViewportObserver();
 		
 		// Component Interactions
-		this.rod_headers_parallax = this.setupRodHeadersParallax();
 		this.site_hero_headers_parallax = this.setupSiteHeroHeadersParallax();
 		this.home_hero_parallax = this.setupHomeHeroArea();
-		this.floating_img_section = this.setupFloatingImgsSection();
 		this.feature_parallax_imgs = this.setupFeatureParallaxImgs();
+		this.floating_img_section = this.setupFloatingImgsSection();
 		this.highlight_circles = this.setupHighlightCircle();
+		this.setupRodHeadersShadowInteractions();
 		this.syncNavParallaxPauseList();	
 	}
 	
@@ -83,7 +82,7 @@ export default class SRC_App {
 		// root.classList.toggle('browser-attr--hover-capable', is_hover_capable);
 	}
 
-	/** Refill from current interaction fields so the nav can pause/resume in one loop. */
+	// Refill from current interaction fields so the nav can pause/resume in one loop.
 	syncNavParallaxPauseList() {
 		if (!this.parallax_for_nav_pause) this.parallax_for_nav_pause = [];
 		
@@ -95,7 +94,7 @@ export default class SRC_App {
 			for (let i = 0; i < arr.length; i++) list.push(arr[i]);
 		};
 		if (this.home_hero_parallax) list.push(this.home_hero_parallax);
-		addMany(this.rod_headers_parallax);
+		addMany(this.rod_headers_shadow_pointer_move);
 		addMany(this.site_hero_headers_parallax);
 		addMany(this.feature_parallax_imgs);
 		addMany(this.highlight_circles);
@@ -126,12 +125,25 @@ export default class SRC_App {
 		return new Interaction_FixedContentStyler(this, target_els, this.update_loop);
 	}
 	
-	setupRodHeadersParallax() {
+	setupRodHeadersShadowInteractions() {
 		const target_els = document.querySelectorAll('.rod__header');
-		if (!target_els.length) return null;
-		return Array.from(target_els).map((el, idx)=> {
-			return new Interaction_RodHeaders_Parallax(this, el, idx);
+		if (!target_els.length) return;
+
+		const pointer_els = [];
+		const scroll_els = [];
+
+		target_els.forEach((el) => {
+			const mode = el.getAttribute('data-shadow-interaction') ?? 'scroll';
+			if (mode === 'pointer') pointer_els.push(el);
+			else if (mode === 'scroll') scroll_els.push(el);
 		});
+
+		this.rod_headers_shadow_pointer_move = pointer_els.length
+			? pointer_els.map((el, idx) => new Interaction_RodHeaders_ShadowPointerMove(this, el, idx))
+			: null;
+		this.rod_headers_shadow_scroll_move = scroll_els.length
+			? scroll_els.map((el, idx) => new Interaction_RodHeaders_ShadowScrollMove(this, el, idx))
+			: null;
 	}
 	
 	setupFeatureParallaxImgs() {
@@ -195,9 +207,13 @@ export default class SRC_App {
 
 	destroyComponentInteractions() {
 		if (this.parallax_for_nav_pause) this.parallax_for_nav_pause.length = 0;
-		if (this.rod_headers_parallax) {
-			this.rod_headers_parallax.forEach((interaction) => interaction.destroy());
-			this.rod_headers_parallax = null;
+		if (this.rod_headers_shadow_pointer_move) {
+			this.rod_headers_shadow_pointer_move.forEach((interaction) => interaction.destroy());
+			this.rod_headers_shadow_pointer_move = null;
+		}
+		if (this.rod_headers_shadow_scroll_move) {
+			this.rod_headers_shadow_scroll_move.forEach((interaction) => interaction.destroy());
+			this.rod_headers_shadow_scroll_move = null;
 		}
 		if (this.site_hero_headers_parallax) {
 			this.site_hero_headers_parallax.forEach((interaction) => interaction.destroy());
