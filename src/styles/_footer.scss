@@ -97,7 +97,7 @@
 		
 		.not-in-view & {
 			transition: none;
-			translate: 0 100%;
+			translate: 0 200%;
 			opacity: 0;
 		} 
 		.in-view & {
