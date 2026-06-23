@@ -14,7 +14,7 @@
 }
 
 
-.shopify-buy-frame:focus-visible {
+.shopify-buy-frame--toggle.is-active.is-sticky:focus-visible {
 	border-radius: 0px !important;
 	outline: none !important;
 }

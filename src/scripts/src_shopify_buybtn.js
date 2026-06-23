@@ -58,6 +58,8 @@ const SRC_SHOPIFY_TOGGLE ={
 	...SRC_SHOPIFY_BUTTON_FONT,
 	...SRC_SHOPIFY_SOLID_BTN_COLORS,
 	"border-radius": "0px",
+	"padding-top": "15px",
+	"padding-bottom": "15px",
 }
 
 const SRC_SHOPIFY_PRODUCT_BUTTON = {
@@ -75,9 +77,18 @@ const SRC_SHOPIFY_PRODUCT_BUTTON = {
 		opacity: ".5",
 		"font-size": "clamp(1.2rem, 1.1509rem + 0.2182vw, 1.5rem)",
 	},
+	":hover": {
+		"border-radius": "none",
+		"border-color": SRC_RED,
+		"background-color": SRC_RED,
+		"color": "white"
+	},
 	":focus": {
-		"border-radius": "0px",
-		"border-color": SRC_DARK_RED,
+		"border-radius": "none",
+		"border-color": SRC_RED,
+		"background-color": SRC_RED,
+		"outline" : "red",
+		"color": "white"
 	},
 };
 
